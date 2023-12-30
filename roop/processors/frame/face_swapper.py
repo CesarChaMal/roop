@@ -94,7 +94,9 @@ def process_frames(source_path: str, temp_frame_paths: List[str], update: Callab
 def process_image(source_path: str, target_path: str, output_path: str) -> None:
     # Read the source and target images
     source_face = get_one_face(cv2.imread(source_path))
+    print(f"Source Image Read: {'Success' if source_face is not None else 'Failed'}")
     target_frame = cv2.imread(target_path)
+    print(f"Target Image Read: {'Success' if target_frame is not None else 'Failed'}")
 
     # Check if processing many faces or just a specific one
     if roop.globals.many_faces:
@@ -106,6 +108,7 @@ def process_image(source_path: str, target_path: str, output_path: str) -> None:
     else:
         # Process a specific face based on the reference face position
         reference_face = get_one_face(target_frame, roop.globals.reference_face_position)
+        print(f"Faces detected in Source: {'Yes' if reference_face is not None else 'No'}")
         if reference_face:
             target_frame = swap_face(source_face, reference_face, target_frame)
 
