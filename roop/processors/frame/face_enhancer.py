@@ -94,11 +94,35 @@ def process_frames(source_path: str, temp_frame_paths: List[str], update: Callab
             update()
 
 
-def process_image(source_path: str, target_path: str, output_path: str) -> None:
-    target_frame = cv2.imread(target_path)
-    result = process_frame(None, None, target_frame)
-    cv2.imwrite(output_path, result)
+# def process_image(source_path: str, target_path: str, output_path: str) -> None:
+#     target_frame = cv2.imread(target_path)
+#     result = process_frame(None, None, target_frame)
+#     cv2.imwrite(output_path, result)
 
+
+def process_image(source_path: str, target_path: str, output_path: str) -> None:
+    # Read the source and target images
+    source_face = get_one_face(cv2.imread(source_path))
+    print(f"Source Image Read: {'Success' if source_face is not None else 'Failed'}")
+    target_frame = cv2.imread(target_path)
+    print(f"Target Image Read: {'Success' if target_frame is not None else 'Failed'}")
+
+    # Check if processing many faces or just a specific one
+    if roop.globals.many_faces:
+        # Process every face found in the target image
+        many_faces = get_many_faces(target_frame)
+        if many_faces:
+            for target_face in many_faces:
+                target_frame = swap_face(source_face, target_face, target_frame)
+    else:
+        # Process a specific face based on the reference face position
+        reference_face = get_one_face(target_frame, roop.globals.reference_face_position)
+        print(f"Faces detected in Source: {'Yes' if reference_face is not None else 'No'}")
+        if reference_face:
+            target_frame = swap_face(source_face, reference_face, target_frame)
+
+    # Save the result to the output path
+    cv2.imwrite(output_path, target_frame)
 
 def process_video(source_path: str, temp_frame_paths: List[str]) -> None:
     roop.processors.frame.core.process_video(None, temp_frame_paths, process_frames)
