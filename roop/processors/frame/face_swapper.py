@@ -115,10 +115,28 @@ def process_image(source_path: str, target_path: str, output_path: str) -> None:
     # Save the result to the output path
     cv2.imwrite(output_path, target_frame)
 
+# def process_video(source_path: str, temp_frame_paths: List[str]) -> None:
+#     if not roop.globals.many_faces and not get_face_reference():
+#         reference_frame = cv2.imread(temp_frame_paths[roop.globals.reference_frame_number])
+#         reference_face = get_one_face(reference_frame, roop.globals.reference_face_position)
+#         set_face_reference(reference_face)
+#     roop.processors.frame.core.process_video(source_path, temp_frame_paths, process_frames)
 
 def process_video(source_path: str, temp_frame_paths: List[str]) -> None:
+    print("Starting process_video")
+    print(f"Source Path: {source_path}")
+    print(f"Number of frames to process: {len(temp_frame_paths)}")
+    print(f"Many Faces Mode: {roop.globals.many_faces}")
+
     if not roop.globals.many_faces and not get_face_reference():
+        print("No face reference found, extracting from reference frame.")
         reference_frame = cv2.imread(temp_frame_paths[roop.globals.reference_frame_number])
         reference_face = get_one_face(reference_frame, roop.globals.reference_face_position)
         set_face_reference(reference_face)
+        print(f"Reference Face Set: {'Success' if reference_face is not None else 'Failed'}")
+
+    # Process each frame
+    print("Processing frames...")
     roop.processors.frame.core.process_video(source_path, temp_frame_paths, process_frames)
+    print("Finished processing frames")
+    
