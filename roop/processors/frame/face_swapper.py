@@ -139,4 +139,3 @@ def process_video(source_path: str, temp_frame_paths: List[str]) -> None:
     print("Processing frames...")
     roop.processors.frame.core.process_video(source_path, temp_frame_paths, process_frames)
     print("Finished processing frames")
-    

@@ -2,7 +2,6 @@ from typing import Any, List, Callable
 import cv2
 import threading
 from gfpgan.utils import GFPGANer
-import subprocess
 
 import roop.globals
 import roop.processors.frame.core
@@ -100,17 +99,5 @@ def process_image(source_path: str, target_path: str, output_path: str) -> None:
     result = process_frame(None, None, target_frame)
     cv2.imwrite(output_path, result)
 
-
-def compile_video_from_frames(frame_dir: str, output_video_path: str) -> None:
-    print(f"Compiling video from frames in {frame_dir} to {output_video_path}")
-    command = [
-        'ffmpeg', '-framerate', '24', '-i', f'{frame_dir}/%08d.png',
-        '-c:v', 'libx264', '-pix_fmt', 'yuv420p', output_video_path
-    ]
-    subprocess.run(command, check=True)
-    print("Video compilation complete")
-
-
 def process_video(source_path: str, temp_frame_paths: List[str]) -> None:
     roop.processors.frame.core.process_video(None, temp_frame_paths, process_frames)
-    compile_video_from_frames('/content/temp/target_video', '/content/swapped_video.mp4')
