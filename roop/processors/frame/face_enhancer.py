@@ -113,4 +113,5 @@ def compile_video_from_frames(frame_dir: str, output_video_path: str) -> None:
 
 def process_video(source_path: str, temp_frame_paths: List[str]) -> None:
     roop.processors.frame.core.process_video(None, temp_frame_paths, process_frames)
-    compile_video_from_frames('/content/temp/target_video', '/content/swapped_video.mp4')
+    # compile_video_from_frames('/content/temp/target_video', '/content/swapped_video.mp4')
+    compile_video_from_frames(roop.globals.temp_directory, roop.globals.output_path)
