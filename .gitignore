@@ -1,5 +1,8 @@
 .idea
 models
+gfpgan
 temp
 __pycache__
 content
+.venv
+gfpgan
