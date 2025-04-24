@@ -3,19 +3,40 @@ import cv2
 import threading
 from gfpgan.utils import GFPGANer
 import subprocess
+import os
+import glob
 
 import roop.globals
 import roop.processors.frame.core
-from roop.core import update_status
+from roop.status_utils import update_status
 from roop.face_analyser import get_many_faces
 from roop.typing import Frame, Face
-from roop.utilities import conditional_download, resolve_relative_path, is_image, is_video
-
+from roop.utilities import conditional_download, resolve_relative_path, is_image, is_video, get_temp_directory_path
 FACE_ENHANCER = None
 THREAD_SEMAPHORE = threading.Semaphore()
 THREAD_LOCK = threading.Lock()
 NAME = 'ROOP.FACE-ENHANCER'
 
+class FaceEnhancer:
+    @staticmethod
+    def pre_check() -> bool:
+        return pre_check()
+
+    @staticmethod
+    def pre_start() -> bool:
+        return pre_start()
+
+    @staticmethod
+    def post_process() -> None:
+        post_process()
+
+    @staticmethod
+    def process_image(source_path: str, target_path: str, output_path: str) -> None:
+        process_image(source_path, target_path, output_path)
+
+    @staticmethod
+    def process_video(source_path: str, temp_frame_paths: List[str]) -> None:
+        process_video(source_path, temp_frame_paths)
 
 def get_face_enhancer() -> Any:
     global FACE_ENHANCER
@@ -102,16 +123,44 @@ def process_image(source_path: str, target_path: str, output_path: str) -> None:
 
 
 def compile_video_from_frames(frame_dir: str, output_video_path: str) -> None:
-    print(f"Compiling video from frames in {frame_dir} to {output_video_path}")
+    print(f"[INFO] Compiling video from frames in {frame_dir} to {output_video_path}")
+
+    # Ensure directory exists
+    if not os.path.exists(frame_dir):
+        print(f"[ERROR] Frame directory does not exist: {frame_dir}")
+        return
+
+    # Check PNGs exist
+    frame_files = sorted(glob.glob(os.path.join(frame_dir, '*.png')))
+    if not frame_files:
+        print(f"[ERROR] No PNG frames found in directory: {frame_dir}")
+        return
+
+    # Format check
+    first_frame = os.path.basename(frame_files[0])
+    if not first_frame.startswith("00000000"):
+        print(f"[WARN] Frame filenames might not follow '%08d.png' format. Expected: 00000000.png ...")
+
+    # Run ffmpeg
     command = [
-        'ffmpeg', '-framerate', '24', '-i', f'{frame_dir}/%08d.png',
+        'ffmpeg', '-y', '-framerate', '24', '-i', f'{frame_dir}/%08d.png',
         '-c:v', 'libx264', '-pix_fmt', 'yuv420p', output_video_path
     ]
-    subprocess.run(command, check=True)
-    print("Video compilation complete")
+    try:
+        subprocess.run(command, check=True)
+        print("[INFO] Video compilation complete")
+    except subprocess.CalledProcessError as e:
+        print(f"[ERROR] ffmpeg failed: {e}")
 
 
 def process_video(source_path: str, temp_frame_paths: List[str]) -> None:
     roop.processors.frame.core.process_video(None, temp_frame_paths, process_frames)
+
+    # Confirm the target folder exists
+    frame_dir = get_temp_directory_path(roop.globals.target_path)
+    if not os.path.exists(frame_dir):
+        os.makedirs(frame_dir, exist_ok=True)
+
     # compile_video_from_frames('/content/temp/target_video', '/content/swapped_video.mp4')
-    compile_video_from_frames(roop.globals.temp_directory, roop.globals.output_path)
+    # compile_video_from_frames(roop.globals.temp_directory, roop.globals.output_path)
+    compile_video_from_frames(frame_dir, roop.globals.output_path)

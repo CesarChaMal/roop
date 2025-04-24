@@ -5,16 +5,37 @@ import threading
 
 import roop.globals
 import roop.processors.frame.core
-from roop.core import update_status
+from roop.status_utils import update_status
 from roop.face_analyser import get_one_face, get_many_faces, find_similar_face
 from roop.face_reference import get_face_reference, set_face_reference, clear_face_reference
 from roop.typing import Face, Frame
 from roop.utilities import conditional_download, resolve_relative_path, is_image, is_video
 
+
 FACE_SWAPPER = None
 THREAD_LOCK = threading.Lock()
 NAME = 'ROOP.FACE-SWAPPER'
 
+class FaceSwapper:
+    @staticmethod
+    def pre_check() -> bool:
+        return pre_check()
+
+    @staticmethod
+    def pre_start() -> bool:
+        return pre_start()
+
+    @staticmethod
+    def post_process() -> None:
+        post_process()
+
+    @staticmethod
+    def process_image(source_path: str, target_path: str, output_path: str) -> None:
+        process_image(source_path, target_path, output_path)
+
+    @staticmethod
+    def process_video(source_path: str, temp_frame_paths: List[str]) -> None:
+        process_video(source_path, temp_frame_paths)
 
 def get_face_swapper() -> Any:
     global FACE_SWAPPER
