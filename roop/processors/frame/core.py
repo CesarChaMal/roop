@@ -105,11 +105,6 @@ def core_process_video(source_path: str, target_path: str, frame_paths: List[str
     fps = detect_fps(source_path)
     compile_video_from_frames(directory, roop.globals.output_path, fps)
 
-    # if is_video(roop.globals.target_path) and detect_audio_stream(roop.globals.target_path):
-    #     restore_audio(roop.globals.target_path, roop.globals.output_path)
-    # else:
-    #     print("[WARN] Skipping audio restoration: no audio stream found.")
-
     if is_video(roop.globals.target_path) and detect_audio_stream(roop.globals.target_path):
         add_audio_to_video(roop.globals.output_path, roop.globals.target_path)
     else:

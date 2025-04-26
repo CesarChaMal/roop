@@ -214,20 +214,3 @@ def add_audio_to_video(output_path: str, target_video_path: str) -> None:
 
     print("[✅] Final swapped video generated with audio.")
 
-def restore_audio(target_video_path: str, output_path: str) -> None:
-    if not detect_audio_stream(target_video_path):
-        print("[WARN] Skipping audio restoration: no audio stream found.")
-        return
-
-    temp_output_path = get_temp_output_path(target_video_path)
-    run_ffmpeg([
-        '-i', temp_output_path,
-        '-i', target_video_path,
-        '-c:v', 'copy',
-        '-map', '0:v:0',
-        '-map', '1:a:0',
-        '-y', output_path
-    ])
-
-    print("[INFO] ✅ Audio restored successfully.")
-
