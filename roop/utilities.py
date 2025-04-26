@@ -4,12 +4,11 @@ import os
 import platform
 import shutil
 import ssl
-import subprocess
 import urllib
 from pathlib import Path
 from typing import List, Optional
 from tqdm import tqdm
-
+import subprocess
 import roop.globals
 
 TEMP_DIRECTORY = 'temp'
@@ -59,14 +58,6 @@ def create_video(target_path: str, fps: float = 30) -> bool:
         commands.extend(['-cq', str(output_video_quality)])
     commands.extend(['-pix_fmt', 'yuv420p', '-vf', 'colorspace=bt709:iall=bt601-6-625:fast=1', '-y', temp_output_path])
     return run_ffmpeg(commands)
-
-
-def restore_audio(target_path: str, output_path: str) -> None:
-    temp_output_path = get_temp_output_path(target_path)
-    done = run_ffmpeg(['-i', temp_output_path, '-i', target_path, '-c:v', 'copy', '-map', '0:v:0', '-map', '1:a:0', '-y', output_path])
-    if not done:
-        move_temp(target_path, output_path)
-
 
 def get_temp_frame_paths(target_path: str) -> List[str]:
     temp_directory_path = get_temp_directory_path(target_path)
@@ -147,3 +138,96 @@ def conditional_download(download_directory_path: str, urls: List[str]) -> None:
 
 def resolve_relative_path(path: str) -> str:
     return os.path.abspath(os.path.join(os.path.dirname(__file__), path))
+
+
+def rename_frames_sequentially(frame_paths: List[str]) -> List[str]:
+    """Rename all frame image files to sequential format %08d.png."""
+    if not frame_paths:
+        return frame_paths
+
+    directory = os.path.dirname(frame_paths[0])
+    new_paths = []
+    for idx, old_path in enumerate(sorted(frame_paths)):
+        new_path = os.path.join(directory, f"{idx:08d}.png")
+        if old_path != new_path:
+            os.rename(old_path, new_path)
+        new_paths.append(new_path)
+    return new_paths
+
+def compile_video_from_frames(frame_dir: str, output_video_path: str, fps: int = 30) -> None:
+    print(f"[INFO] Compiling video from frames in {frame_dir} to {output_video_path}")
+
+    # Ensure directory exists
+    if not os.path.exists(frame_dir):
+        print(f"[ERROR] Frame directory does not exist: {frame_dir}")
+        return
+
+    # Check PNGs exist
+    frame_files = sorted(glob.glob(os.path.join(frame_dir, '*.png')))
+    if not frame_files:
+        print(f"[ERROR] No PNG frames found in directory: {frame_dir}")
+        return
+
+    # Format check
+    expected_name = f"{0:08d}.png"
+    if not os.path.basename(frame_files[0]).startswith("00000000"):
+        print(f"[WARN] Frame filenames might not follow '%08d.png' format. Expected: {expected_name}")
+
+    # Run ffmpeg
+    command = [
+        'ffmpeg', '-y', '-framerate', str(fps), '-i', os.path.join(frame_dir, '%08d.png'),
+        '-c:v', 'libx264', '-pix_fmt', 'yuv420p', output_video_path
+    ]
+    try:
+        subprocess.run(command, check=True)
+        print("[INFO] Video compilation complete")
+    except subprocess.CalledProcessError as e:
+        print(f"[ERROR] ffmpeg failed: {e}")
+
+
+def detect_audio_stream(video_path: str) -> bool:
+    print(f"🔍 Audio stream check: {video_path}")
+    command = ['ffprobe', '-i', video_path, '-show_streams', '-select_streams', 'a', '-loglevel', 'error']
+    try:
+        output = subprocess.check_output(command).decode().strip()
+        return bool(output)
+    except Exception:
+        return False
+
+def add_audio_to_video(output_path: str, target_video_path: str) -> None:
+    print("[INFO] Adding original audio from target video...")
+
+    temp_output_path = output_path.replace(".mp4", "_with_audio.mp4")
+
+    subprocess.run([
+        "ffmpeg", "-y",
+        "-i", output_path,           # video (swapped frames)
+        "-i", target_video_path,     # audio (original audio)
+        "-c:v", "copy",
+        "-c:a", "copy",
+        "-map", "0:v:0",
+        "-map", "1:a:0",
+        temp_output_path
+    ], check=True)
+
+    os.replace(temp_output_path, output_path)
+
+    print("[✅] Final swapped video generated with audio.")
+
+def restore_audio(target_video_path: str, output_path: str) -> None:
+    if not detect_audio_stream(target_video_path):
+        print("[WARN] Skipping audio restoration: no audio stream found.")
+        return
+
+    temp_output_path = get_temp_output_path(target_video_path)
+    run_ffmpeg([
+        '-i', temp_output_path,
+        '-i', target_video_path,
+        '-c:v', 'copy',
+        '-map', '0:v:0',
+        '-map', '1:a:0',
+        '-y', output_path
+    ])
+
+    print("[INFO] ✅ Audio restored successfully.")
+

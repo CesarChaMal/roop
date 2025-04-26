@@ -10,7 +10,7 @@ from roop.face_analyser import get_one_face, get_many_faces, find_similar_face
 from roop.face_reference import get_face_reference, set_face_reference, clear_face_reference
 from roop.typing import Face, Frame
 from roop.utilities import conditional_download, resolve_relative_path, is_image, is_video
-
+from roop.processors.frame.core import core_process_video
 
 FACE_SWAPPER = None
 THREAD_LOCK = threading.Lock()
@@ -34,8 +34,8 @@ class FaceSwapper:
         process_image(source_path, target_path, output_path)
 
     @staticmethod
-    def process_video(source_path: str, temp_frame_paths: List[str]) -> None:
-        process_video(source_path, temp_frame_paths)
+    def process_video(source_path: str, target_path: str, frame_paths: list[str]) -> None:
+        process_video(source_path, target_path, frame_paths)
 
 def get_face_swapper() -> Any:
     global FACE_SWAPPER
@@ -95,7 +95,10 @@ def process_frame(source_face: Face, reference_face: Face, temp_frame: Frame) ->
 
 
 def process_frames(source_path: str, temp_frame_paths: List[str], update: Callable[[], None]) -> None:
-    source_face = get_one_face(cv2.imread(source_path))
+    image = cv2.imread(source_path)
+    if image is None:
+        raise ValueError(f"[ERROR] Cannot read image from source_path: {source_path}")
+    source_face = get_one_face(image)
     reference_face = None if roop.globals.many_faces else get_face_reference()
     for temp_frame_path in temp_frame_paths:
         temp_frame = cv2.imread(temp_frame_path)
@@ -143,20 +146,24 @@ def process_image(source_path: str, target_path: str, output_path: str) -> None:
 #         set_face_reference(reference_face)
 #     roop.processors.frame.core.process_video(source_path, temp_frame_paths, process_frames)
 
-def process_video(source_path: str, temp_frame_paths: List[str]) -> None:
-    print("Starting process_video")
+def process_video(source_path: str, target_path: str, temp_frame_paths: List[str]) -> None:
+    print("[FaceSwapper] Starting process_video")
     print(f"Source Path: {source_path}")
     print(f"Number of frames to process: {len(temp_frame_paths)}")
     print(f"Many Faces Mode: {roop.globals.many_faces}")
 
     if not roop.globals.many_faces and not get_face_reference():
-        print("No face reference found, extracting from reference frame.")
+        print("[FaceSwapper] No face reference found, extracting from reference frame.")
         reference_frame = cv2.imread(temp_frame_paths[roop.globals.reference_frame_number])
         reference_face = get_one_face(reference_frame, roop.globals.reference_face_position)
         set_face_reference(reference_face)
-        print(f"Reference Face Set: {'Success' if reference_face is not None else 'Failed'}")
+        print(f"[FaceSwapper] Reference Face Set: {'Success' if reference_face is not None else 'Failed'}")
 
-    # Process each frame
-    print("Processing frames...")
-    roop.processors.frame.core.process_video(source_path, temp_frame_paths, process_frames)
-    print("Finished processing frames")
+    print("[FaceSwapper] Processing frames...")
+
+    for temp_frame_path in temp_frame_paths:
+        temp_frame = cv2.imread(temp_frame_path)
+        result = process_frame(get_one_face(cv2.imread(source_path)), get_face_reference(), temp_frame)
+        cv2.imwrite(temp_frame_path, result)
+
+    print("[FaceSwapper] Finished processing frames")
