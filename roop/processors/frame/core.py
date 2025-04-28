@@ -8,7 +8,7 @@ from types import ModuleType
 from typing import Any, List, Callable
 from tqdm import tqdm
 import cv2
-from roop.utilities import detect_fps, is_video, restore_audio, detect_audio_stream
+from roop.utilities import detect_fps, is_video,  detect_audio_stream
 from roop.utilities import compile_video_from_frames
 from roop.globals import output_path
 import roop

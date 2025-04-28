@@ -42,10 +42,10 @@ fi
 # ✅ Create and activate virtual env
 python3 -m venv .venv
 source .venv/bin/activate
-pip install --upgrade pip
+#pip install --upgrade pip
 
 # ✅ Install correct onnxruntime-gpu manually
-pip install onnxruntime-gpu==1.16.3
+#pip install onnxruntime-gpu==1.16.3
 
 # ✅ Install project requirements
 pip install -r requirements.txt
@@ -66,7 +66,7 @@ else:
 
 # ✅ Install system dependencies
 if [[ "$(uname -s)" == "Linux" ]]; then
-    sudo apt update
+#    sudo apt update
     sudo apt install -y ffmpeg
 fi
 
