@@ -12,13 +12,18 @@ log() { echo "[INFO] $1"; }
 warn() { echo "[⚠️] $1"; }
 error() { echo "[❌] $1" >&2; }
 
-# ✅ 1. Environment Cleanup
+# ✅ 1. Remove conflicting CUDA packages
+remove_conflicting_CUDA_packages() {
+    sudo apt remove --purge -y nvidia-cuda-toolkit || true
+}
+
+# ✅ 2. Environment Cleanup
 cleanup_env() {
   unset PYTHONPATH CONDA_PREFIX LD_LIBRARY_PATH
   export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libstdc++.so.6
 }
 
-# ✅ 2. CUDA Setup
+# ✅ 3. CUDA Setup
 setup_cuda() {
   sudo apt remove --purge -y nvidia-cuda-toolkit || true
   export PATH="$CUDA_PATH/bin${PATH:+:${PATH}}"
@@ -33,7 +38,7 @@ setup_cuda() {
   fi
 }
 
-# ✅ 3. cuDNN Setup
+# ✅ 4. cuDNN Setup
 install_cudnn() {
   if [[ ! -f "$CUDA_PATH/lib64/libcudnn.so.8" ]]; then
     log "Installing cuDNN v8.9.7.29 for CUDA 11.8..."
@@ -50,7 +55,7 @@ install_cudnn() {
   fi
 }
 
-# ✅ 4. pyenv + venv setup
+# ✅ 5. pyenv + venv setup
 setup_python_env() {
   if [[ ! -d "$HOME/.pyenv" ]]; then
     log "Installing pyenv..."
@@ -80,7 +85,7 @@ setup_python_env() {
   pip install -r requirements.txt
 }
 
-# ✅ 5. ONNX GPU Check
+# ✅ 6. ONNX GPU Check
 check_onnx_gpu() {
   python3 -c '
 import onnxruntime as ort
@@ -94,14 +99,14 @@ else:
 ' || true
 }
 
-# ✅ 6. Install ffmpeg
+# ✅ 7. Install ffmpeg
 install_system_deps() {
   if [[ "$(uname -s)" == "Linux" ]]; then
     sudo apt install -y ffmpeg
   fi
 }
 
-# ✅ 7. Download Required Models
+# ✅ 8. Download Required Models
 download_models() {
   mkdir -p models
   [[ ! -f models/inswapper_128.onnx ]] && \
@@ -110,7 +115,7 @@ download_models() {
     curl -L https://huggingface.co/gmk123/GFPGAN/resolve/main/GFPGANv1.4.pth -o models/GFPGANv1.4.pth
 }
 
-# ✅ 8. Determine Execution Provider
+# ✅ 9. Determine Execution Provider
 detect_execution_provider() {
   if [[ "$1" == "cuda" || "$1" == "cpu" ]]; then
     EXECUTION_PROVIDER="$1"
@@ -122,13 +127,14 @@ detect_execution_provider() {
   export EXECUTION_PROVIDER
 }
 
-# ✅ 9. Main Menu
+# ✅ 10. Main Menu
 main_menu() {
   source ./run_menu.sh "$EXECUTION_PROVIDER"
 }
 
 # ✅ MAIN EXECUTION
 main() {
+  remove_conflicting_CUDA_packages
   cleanup_env
   setup_cuda
   install_cudnn
