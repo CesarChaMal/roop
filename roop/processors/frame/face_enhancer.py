@@ -131,13 +131,39 @@ def process_image(source_path: str, target_path: str, output_path: str) -> None:
     cv2.imwrite(output_path, result)
 
 
+# def process_video(source_path: str, target_path: str, temp_frame_paths: List[str]) -> None:
+#     print("[FaceEnhancer] Starting process_video")
+#     print(f"Frames to enhance: {len(temp_frame_paths)}")
+#
+#     for temp_frame_path in temp_frame_paths:
+#         temp_frame = cv2.imread(temp_frame_path)
+#         result = process_frame(None, None, temp_frame)
+#         cv2.imwrite(temp_frame_path, result)
+#
+#     print("[FaceEnhancer] Finished enhancing frames")
+
 def process_video(source_path: str, target_path: str, temp_frame_paths: List[str]) -> None:
     print("[FaceEnhancer] Starting process_video")
     print(f"Frames to enhance: {len(temp_frame_paths)}")
 
-    for temp_frame_path in temp_frame_paths:
-        temp_frame = cv2.imread(temp_frame_path)
-        result = process_frame(None, None, temp_frame)
-        cv2.imwrite(temp_frame_path, result)
+    # for idx, temp_frame_path in enumerate(temp_frame_paths):
+    #     temp_frame = cv2.imread(temp_frame_path)
+    #     if temp_frame is None:
+    #         print(f"[FaceEnhancer] ⚠️ Skipping frame {idx}: could not read image at {temp_frame_path}")
+    #         continue
+    #
+    #     try:
+    #         enhanced_frame = process_frame(None, None, temp_frame)
+    #         if enhanced_frame is not None:
+    #             cv2.imwrite(temp_frame_path, enhanced_frame)
+    #         else:
+    #             print(f"[FaceEnhancer] ⚠️ Skipping frame {idx}: enhancement returned None")
+    #     except Exception as e:
+    #         print(f"[FaceEnhancer] ❌ Error processing frame {idx}: {e}")
+
+    def enhance(source_path: str, target_path: str, frame: Frame) -> Frame:
+        return process_frame(None, None, frame)
+
+    core_process_video(source_path, target_path, temp_frame_paths, enhance, is_framewise=True)
 
     print("[FaceEnhancer] Finished enhancing frames")

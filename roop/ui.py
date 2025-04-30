@@ -140,10 +140,14 @@ def create_preview(parent: ctk.CTkToplevel) -> ctk.CTkToplevel:
     return preview
 
 
-def update_status(text: str) -> None:
-    status_label.configure(text=text)
-    ROOT.update()
+# def update_status(text: str) -> None:
+#     status_label.configure(text=text)
+#     ROOT.update()
 
+def update_status(text: str) -> None:
+    global status_label
+    if status_label:
+        status_label.configure(text=text)
 
 def select_source_path(source_path: Optional[str] = None) -> None:
     global RECENT_DIRECTORY_SOURCE

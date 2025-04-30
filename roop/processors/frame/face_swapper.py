@@ -81,28 +81,72 @@ def swap_face(source_face: Face, target_face: Face, temp_frame: Frame) -> Frame:
     return get_face_swapper().get(temp_frame, target_face, source_face, paste_back=True)
 
 
-def process_frame(source_face: Face, reference_face: Face, temp_frame: Frame) -> Frame:
+# def process_frame(source_face: Face, reference_face: Face, temp_frame: Frame) -> Frame:
+#     if roop.globals.many_faces:
+#         many_faces = get_many_faces(temp_frame)
+#         if many_faces:
+#             for target_face in many_faces:
+#                 temp_frame = swap_face(source_face, target_face, temp_frame)
+#     else:
+#         target_face = find_similar_face(temp_frame, reference_face)
+#         if target_face:
+#             temp_frame = swap_face(source_face, target_face, temp_frame)
+#     return temp_frame
+
+def process_frame(source_faces: List[Face], reference_face: Face, temp_frame: Frame) -> Frame:
     if roop.globals.many_faces:
-        many_faces = get_many_faces(temp_frame)
-        if many_faces:
-            for target_face in many_faces:
-                temp_frame = swap_face(source_face, target_face, temp_frame)
+        target_faces = get_many_faces(temp_frame)
+        for i, target_face in enumerate(target_faces):
+            if i < len(source_faces):
+                temp_frame = swap_face(source_faces[i], target_face, temp_frame)
+            else:
+                temp_frame = swap_face(source_faces[0], target_face, temp_frame)  # fallback to first
     else:
         target_face = find_similar_face(temp_frame, reference_face)
         if target_face:
-            temp_frame = swap_face(source_face, target_face, temp_frame)
+            temp_frame = swap_face(source_faces[0], target_face, temp_frame)
     return temp_frame
 
+# def process_frames(source_path: str, temp_frame_paths: List[str], update: Callable[[], None]) -> None:
+#     image = cv2.imread(source_path)
+#     if image is None:
+#         raise ValueError(f"[ERROR] Cannot read image from source_path: {source_path}")
+#     source_face = get_one_face(image)
+#     reference_face = None if roop.globals.many_faces else get_face_reference()
+#     for temp_frame_path in temp_frame_paths:
+#         temp_frame = cv2.imread(temp_frame_path)
+#         result = process_frame(source_face, reference_face, temp_frame)
+#         cv2.imwrite(temp_frame_path, result)
+#         if update:
+#             update()
 
 def process_frames(source_path: str, temp_frame_paths: List[str], update: Callable[[], None]) -> None:
-    image = cv2.imread(source_path)
-    if image is None:
-        raise ValueError(f"[ERROR] Cannot read image from source_path: {source_path}")
-    source_face = get_one_face(image)
+    source_faces = []
+
+    # 🔄 Handle multiple source paths split by ";"
+    for path in source_path.split(';'):
+        image = cv2.imread(path)
+        if image is None:
+            print(f"[WARN] Cannot read image from {path}")
+            continue
+        faces = get_many_faces(image)
+        if faces:
+            source_faces.extend(faces)
+        else:
+            print(f"[WARN] No faces found in {path}")
+
+    if not source_faces:
+        raise ValueError("[ERROR] No source faces loaded. Aborting.")
+
+    # 📌 Use reference face only if not doing many-faces mode
     reference_face = None if roop.globals.many_faces else get_face_reference()
+
     for temp_frame_path in temp_frame_paths:
         temp_frame = cv2.imread(temp_frame_path)
-        result = process_frame(source_face, reference_face, temp_frame)
+        if temp_frame is None:
+            print(f"[WARN] Could not read frame {temp_frame_path}")
+            continue
+        result = process_frame(source_faces, reference_face, temp_frame)
         cv2.imwrite(temp_frame_path, result)
         if update:
             update()
@@ -146,24 +190,83 @@ def process_image(source_path: str, target_path: str, output_path: str) -> None:
 #         set_face_reference(reference_face)
 #     roop.processors.frame.core.process_video(source_path, temp_frame_paths, process_frames)
 
+# def process_video(source_path: str, target_path: str, temp_frame_paths: List[str]) -> None:
+#     print("[FaceSwapper] Starting process_video")
+#     print(f"Source Path: {source_path}")
+#     print(f"Number of frames to process: {len(temp_frame_paths)}")
+#     print(f"Many Faces Mode: {roop.globals.many_faces}")
+#
+#     if not roop.globals.many_faces and not get_face_reference():
+#         print("[FaceSwapper] No face reference found, extracting from reference frame.")
+#         reference_frame = cv2.imread(temp_frame_paths[roop.globals.reference_frame_number])
+#         reference_face = get_one_face(reference_frame, roop.globals.reference_face_position)
+#         set_face_reference(reference_face)
+#         print(f"[FaceSwapper] Reference Face Set: {'Success' if reference_face is not None else 'Failed'}")
+#
+#     print("[FaceSwapper] Processing frames...")
+#
+#     for temp_frame_path in temp_frame_paths:
+#         temp_frame = cv2.imread(temp_frame_path)
+#         result = process_frame(get_one_face(cv2.imread(source_path)), get_face_reference(), temp_frame)
+#         cv2.imwrite(temp_frame_path, result)
+#
+#     print("[FaceSwapper] Finished processing frames")
+
 def process_video(source_path: str, target_path: str, temp_frame_paths: List[str]) -> None:
     print("[FaceSwapper] Starting process_video")
     print(f"Source Path: {source_path}")
     print(f"Number of frames to process: {len(temp_frame_paths)}")
-    print(f"Many Faces Mode: {roop.globals.many_faces}")
 
-    if not roop.globals.many_faces and not get_face_reference():
-        print("[FaceSwapper] No face reference found, extracting from reference frame.")
+    # Load source face once
+    # source_image = cv2.imread(source_path)
+    # source_face = get_one_face(source_image)
+
+    # if not source_face:
+    #     print("[FaceSwapper] No face found in source image!")
+    #     return
+
+    # Load source face Multiple
+    source_paths = source_path.split(';')  # semi-colon delimited multiple paths
+    source_faces = []
+
+    for spath in source_paths:
+        image = cv2.imread(spath)
+        faces = get_many_faces(image)
+        source_faces.extend(faces)
+
+    if not source_faces:
+        print("No source faces found!")
+        return
+
+    # Set face reference if not already set
+    if not get_face_reference():
         reference_frame = cv2.imread(temp_frame_paths[roop.globals.reference_frame_number])
         reference_face = get_one_face(reference_frame, roop.globals.reference_face_position)
-        set_face_reference(reference_face)
-        print(f"[FaceSwapper] Reference Face Set: {'Success' if reference_face is not None else 'Failed'}")
+        if reference_face is not None:
+            set_face_reference(reference_face)
+            print("[FaceSwapper] Reference Face Set: Success")
+        else:
+            print("[FaceSwapper] Reference Face Set: Failed")
+            return
+
+    # Get reference face
+    ref_face = get_face_reference()
 
     print("[FaceSwapper] Processing frames...")
 
-    for temp_frame_path in temp_frame_paths:
-        temp_frame = cv2.imread(temp_frame_path)
-        result = process_frame(get_one_face(cv2.imread(source_path)), get_face_reference(), temp_frame)
-        cv2.imwrite(temp_frame_path, result)
+    # for temp_frame_path in temp_frame_paths:
+    #     temp_frame = cv2.imread(temp_frame_path)
+    #     result = process_frame(source_face, ref_face, temp_frame)
+    #     cv2.imwrite(temp_frame_path, result)
+
+    # def face_swap(source_path: str, target_path: str, frame: Frame) -> Frame:
+    #     return process_frame(source_face, ref_face, frame)
+
+    # core_process_video(source_path, target_path, temp_frame_paths, face_swap, is_framewise=True)
+
+    def face_swap(source_path: str, target_path: str, frame: Frame) -> Frame:
+        return process_frame(source_faces, ref_face, frame)
+
+    core_process_video(source_path, target_path, temp_frame_paths, face_swap, is_framewise=True)
 
     print("[FaceSwapper] Finished processing frames")

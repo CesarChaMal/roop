@@ -22,7 +22,7 @@ import roop.ui as ui
 from roop.predictor import predict_image, predict_video
 from roop.processors.frame.core import get_frame_processors_modules
 from roop.utilities import has_image_extension, is_image, is_video, detect_fps, create_video, extract_frames, \
-    get_temp_frame_paths,  create_temp, move_temp, clean_temp, normalize_output_path, add_audio_to_video
+    get_temp_frame_paths,  create_temp, move_temp, clean_temp, normalize_output_path, add_audio_to_video, restore_audio
 
 warnings.filterwarnings('ignore', category=FutureWarning, module='insightface')
 warnings.filterwarnings('ignore', category=UserWarning, module='torchvision')
@@ -62,13 +62,17 @@ def parse_args() -> None:
                          default=suggest_execution_threads())
     program.add_argument('-v', '--version', action='version', version=f'{roop.metadata.name} {roop.metadata.version}')
 
+    program.add_argument('--framewise', action='store_true', help='Process each frame individually')
+
+    program.add_argument('--multi-source', help='Pass multiple source images, separated by ;', dest='multi_source', action='store_true')
+
     args = program.parse_args()
 
     roop.globals.source_path = args.source_path
     roop.globals.target_path = args.target_path
-    roop.globals.output_path = normalize_output_path(roop.globals.source_path, roop.globals.target_path,
-                                                     args.output_path)
-    roop.globals.headless = roop.globals.source_path is not None and roop.globals.target_path is not None and roop.globals.output_path is not None
+    roop.globals.output_path = normalize_output_path(roop.globals.source_path, roop.globals.target_path, args.output_path)
+    # roop.globals.headless = roop.globals.source_path is not None and roop.globals.target_path is not None and roop.globals.output_path is not None
+    roop.globals.headless = '--source' in sys.argv and '--target' in sys.argv and '--output' in sys.argv
     roop.globals.frame_processors = args.frame_processor
     roop.globals.keep_fps = args.keep_fps
     roop.globals.keep_frames = args.keep_frames
@@ -84,6 +88,13 @@ def parse_args() -> None:
     roop.globals.max_memory = args.max_memory
     roop.globals.execution_providers = decode_execution_providers(args.execution_provider)
     roop.globals.execution_threads = args.execution_threads
+    roop.globals.is_framewise = args.framewise
+    roop.globals.multi_source = args.multi_source
+
+    if roop.globals.multi_source:
+        roop.globals.multi_source_paths = roop.globals.source_path.split(';')
+    else:
+        roop.globals.multi_source_paths = [roop.globals.source_path]
 
 
 def encode_execution_providers(execution_providers: List[str]) -> List[str]:
@@ -148,7 +159,8 @@ def start() -> None:
     for frame_processor in get_frame_processors_modules(roop.globals.frame_processors):
         if not frame_processor.pre_start():
             return
-        # process image to image
+
+     # process image to image
     if has_image_extension(roop.globals.target_path):
         if predict_image(roop.globals.target_path):
             destroy()
@@ -164,11 +176,13 @@ def start() -> None:
         else:
             update_status('Processing to image failed!')
         return
+
     # process image to videos
     if predict_video(roop.globals.target_path):
         destroy()
     update_status('Creating temporary resources...')
     create_temp(roop.globals.target_path)
+
     # extract frames
     if roop.globals.keep_fps:
         fps = detect_fps(roop.globals.target_path)
@@ -177,6 +191,7 @@ def start() -> None:
     else:
         update_status('Extracting frames with 30 FPS...')
         extract_frames(roop.globals.target_path)
+
     # process frame
     temp_frame_paths = get_temp_frame_paths(roop.globals.target_path)
     if temp_frame_paths:
@@ -187,6 +202,7 @@ def start() -> None:
     else:
         update_status('Frames not found...')
         return
+
     # create video
     if roop.globals.keep_fps:
         fps = detect_fps(roop.globals.target_path)
@@ -195,19 +211,24 @@ def start() -> None:
     else:
         update_status('Creating video with 30 FPS...')
         create_video(roop.globals.target_path)
-    # handle audio
-    if roop.globals.skip_audio:
-        move_temp(roop.globals.target_path, roop.globals.output_path)
-        update_status('Skipping audio...')
-    else:
-        if roop.globals.keep_fps:
-            update_status('Restoring audio...')
+
+    # handle audio only for video output
+    if is_video(roop.globals.output_path):
+        if roop.globals.skip_audio:
+            move_temp(roop.globals.target_path, roop.globals.output_path)
+            update_status('Skipping audio...')
         else:
-            update_status('Restoring audio might cause issues as fps are not kept...')
-        add_audio_to_video(roop.globals.output_path, roop.globals.target_path)
+            if roop.globals.keep_fps:
+                update_status('Restoring audio...')
+                restore_audio(roop.globals.target_path, roop.globals.output_path)
+            else:
+                update_status('Restoring audio might cause issues as fps are not kept...')
+                add_audio_to_video(roop.globals.output_path, roop.globals.target_path)
+
     # clean temp
     update_status('Cleaning temporary resources...')
     clean_temp(roop.globals.target_path)
+
     # validate video
     if is_video(roop.globals.target_path):
         update_status('Processing to video succeed!')

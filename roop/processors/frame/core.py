@@ -8,11 +8,9 @@ from types import ModuleType
 from typing import Any, List, Callable
 from tqdm import tqdm
 import cv2
-from roop.utilities import detect_fps, is_video,  detect_audio_stream
-from roop.utilities import compile_video_from_frames
+from roop.utilities import detect_fps, is_video,  detect_audio_stream, compile_video_from_frames, restore_audio, add_audio_to_video
 from roop.globals import output_path
 import roop
-from roop.utilities import add_audio_to_video
 
 FRAME_PROCESSORS_MODULES: List[ModuleType] = []
 FRAME_PROCESSORS_INTERFACE = [
@@ -85,6 +83,7 @@ def pick_queue(queue: Queue[str], queue_per_future: int) -> List[str]:
 
 def core_process_video(source_path: str, target_path: str, frame_paths: List[str], process: Callable, is_framewise: bool = False):
     directory = os.path.dirname(frame_paths[0])
+
     for idx, old_path in enumerate(sorted(frame_paths)):
         new_path = os.path.join(directory, f"{idx:08d}.png")
         if old_path != new_path:
@@ -101,14 +100,8 @@ def core_process_video(source_path: str, target_path: str, frame_paths: List[str
         else:
             process(source_path, frame_paths, lambda: update_progress(progress))
 
-
     fps = detect_fps(source_path)
     compile_video_from_frames(directory, roop.globals.output_path, fps)
-
-    if is_video(roop.globals.target_path) and detect_audio_stream(roop.globals.target_path):
-        add_audio_to_video(roop.globals.output_path, roop.globals.target_path)
-    else:
-        print("[WARN] Skipping audio restoration: no audio stream found.")
 
 
 def update_progress(progress: Any = None) -> None:
