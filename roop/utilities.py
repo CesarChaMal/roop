@@ -194,10 +194,30 @@ def detect_audio_stream(video_path: str) -> bool:
     except Exception:
         return False
 
+def debug_audio_stream(path: str):
+    print(f"🔍 Audio stream check: {path}")
+    try:
+        result = subprocess.run(
+            ['ffprobe', '-v', 'error', '-select_streams', 'a:0', '-show_entries',
+             'stream=codec_name', '-of', 'default=noprint_wrappers=1:nokey=1', path],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            check=True
+        )
+        codec = result.stdout.strip()
+        if codec:
+            print(f"[✅] Audio codec detected: {codec}")
+        else:
+            print(f"[⚠️] No audio codec detected.")
+    except subprocess.CalledProcessError as e:
+        print(f"[❌] ffprobe failed or no audio stream found.\n{e}")
+
 def add_audio_to_video(output_path: str, target_video_path: str) -> None:
     print(f"[DEBUG] add_audio_to_video() called")
     print(f"[DEBUG] Output video path: {output_path}")
     print(f"[DEBUG] Target video (audio source) path: {target_video_path}")
+    debug_audio_stream(target_video_path)
 
     print("[INFO] Adding original audio from target video...")
     temp_output_path = output_path.replace(".mp4", "_with_audio.mp4")
@@ -206,14 +226,14 @@ def add_audio_to_video(output_path: str, target_video_path: str) -> None:
     try:
         subprocess.run([
             "ffmpeg", "-y",
-            "-i", output_path,           # video (swapped frames)
-            "-i", target_video_path,     # audio (original audio)
+            "-i", output_path,
+            "-i", target_video_path,
             "-c:v", "copy",
-            "-c:a", "aac",               # ✅ force re-encode audio
-            "-b:a", "192k",              # optional: set audio bitrate
+            "-c:a", "aac",
+            "-b:a", "192k",
             "-map", "0:v:0",
             "-map", "1:a:0",
-            "-shortest",                # ✅ avoid audio being longer than video
+            "-shortest",
             temp_output_path
         ], check=True)
         print("[DEBUG] ffmpeg finished successfully")
@@ -221,36 +241,45 @@ def add_audio_to_video(output_path: str, target_video_path: str) -> None:
         print(f"[ERROR] ffmpeg failed: {e}")
         raise
 
-    os.replace(temp_output_path, output_path)
-    print("[✅] Final swapped video generated with audio.")
+    if os.path.exists(temp_output_path) and os.path.getsize(temp_output_path) > 0:
+        debug_audio_stream(temp_output_path)
+        os.replace(temp_output_path, output_path)
+        print("[✅] Final swapped video generated with audio.")
+    else:
+        print("[❌] Output with audio was not created correctly.")
 
 def restore_audio(target_video_path: str, output_path: str) -> None:
     print(f"[DEBUG] restore_audio() called")
     print(f"[DEBUG] Target video path: {target_video_path}")
     print(f"[DEBUG] Output path: {output_path}")
 
+    debug_audio_stream(target_video_path)
+
     if not detect_audio_stream(target_video_path):
         print("[WARN] Skipping audio restoration: no audio stream found.")
         return
 
-    temp_output_path = get_temp_output_path(target_video_path)
-    print(f"[DEBUG] Temporary video without audio: {temp_output_path}")
-
+    temp_output_path = output_path.replace(".mp4", "_with_audio.mp4")
+    print(f"[DEBUG] Temporary output with audio: {temp_output_path}")
+    debug_audio_stream(temp_output_path)
     try:
         run_ffmpeg([
-            '-i', temp_output_path,
-            '-i', target_video_path,
+            '-i', output_path,          # ✅ video with swapped frames
+            '-i', target_video_path,    # ✅ original with audio
             '-c:v', 'copy',
-            '-c:a', 'aac',               # ✅ force re-encode audio
+            '-c:a', 'aac',
             '-b:a', '192k',
             '-map', '0:v:0',
             '-map', '1:a:0',
-            '-shortest',                # ✅ fix sync issues
-            '-y', output_path
+            '-shortest',
+            '-y', temp_output_path
         ])
+        os.replace(temp_output_path, output_path)
         print("[DEBUG] ffmpeg finished successfully for audio restoration")
     except Exception as e:
         print(f"[ERROR] ffmpeg audio restoration failed: {e}")
         raise
 
-    print("[INFO] ✅ Audio restored successfully.")
+    debug_audio_stream(output_path)
+    print("[✅] Audio restored successfully.")
+

@@ -213,6 +213,7 @@ def start() -> None:
         create_video(roop.globals.target_path)
 
     # handle audio only for video output
+    print(f"[DEBUG] skip_audio: {roop.globals.skip_audio}, keep_fps: {roop.globals.keep_fps}")
     if is_video(roop.globals.output_path):
         if roop.globals.skip_audio:
             move_temp(roop.globals.target_path, roop.globals.output_path)
