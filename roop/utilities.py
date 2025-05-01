@@ -23,11 +23,11 @@ def run_ffmpeg(args: List[str]) -> bool:
     commands = ['ffmpeg', '-hide_banner', '-loglevel', roop.globals.log_level]
     commands.extend(args)
     try:
-        subprocess.check_output(commands, stderr=subprocess.STDOUT)
+        subprocess.run(commands, check=True)
         return True
-    except Exception:
-        pass
-    return False
+    except subprocess.CalledProcessError as e:
+        print(f"[❌] ffmpeg failed with return code {e.returncode}")
+        return False
 
 
 def detect_fps(target_path: str) -> float:
@@ -213,6 +213,30 @@ def debug_audio_stream(path: str):
     except subprocess.CalledProcessError as e:
         print(f"[❌] ffprobe failed or no audio stream found.\n{e}")
 
+def get_video_duration(path: str) -> float:
+    try:
+        result = subprocess.run(
+            ["ffprobe", "-v", "error", "-show_entries", "format=duration",
+             "-of", "default=noprint_wrappers=1:nokey=1", path],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            check=True
+        )
+        return float(result.stdout.strip())
+    except Exception as e:
+        print(f"[⚠️] Failed to get duration for {path}: {e}")
+        return -1.0
+
+def warn_if_duration_mismatch(video1: str, video2: str) -> None:
+    dur1 = get_video_duration(video1)
+    dur2 = get_video_duration(video2)
+    if dur1 > 0 and dur2 > 0:
+        delta = abs(dur1 - dur2)
+        print(f"[DEBUG] Duration target: {dur1:.2f}s, output: {dur2:.2f}s (Δ {delta:.2f}s)")
+        if delta > 0.2:
+            print("[⚠️] WARNING: Output video duration differs from target! Audio sync issues may occur.")
+
 def add_audio_to_video(output_path: str, target_video_path: str) -> None:
     print(f"[DEBUG] add_audio_to_video() called")
     print(f"[DEBUG] Output video path: {output_path}")
@@ -223,36 +247,40 @@ def add_audio_to_video(output_path: str, target_video_path: str) -> None:
     temp_output_path = output_path.replace(".mp4", "_with_audio.mp4")
     print(f"[DEBUG] Temporary output path: {temp_output_path}")
 
-    try:
-        subprocess.run([
-            "ffmpeg", "-y",
-            "-i", output_path,
-            "-i", target_video_path,
-            "-c:v", "copy",
-            "-c:a", "aac",
-            "-b:a", "192k",
-            "-map", "0:v:0",
-            "-map", "1:a:0",
-            "-shortest",
-            temp_output_path
-        ], check=True)
-        print("[DEBUG] ffmpeg finished successfully")
-    except subprocess.CalledProcessError as e:
-        print(f"[ERROR] ffmpeg failed: {e}")
-        raise
+    ffmpeg_cmd = [
+        '-y',
+        '-i', output_path,
+        '-i', target_video_path,
+        '-c:v', 'copy',
+        '-c:a', 'aac',
+        '-b:a', '192k',
+        '-map', '0:v:0',
+        '-map', '1:a:0',
+        '-shortest',
+        temp_output_path
+    ]
+
+    if not run_ffmpeg(ffmpeg_cmd):
+        if getattr(roop.globals, "framewise", False):
+            print("[INFO] Retrying with async audio resample to fix desync...")
+            ffmpeg_cmd.insert(-2, '-af')
+            ffmpeg_cmd.insert(-2, 'aresample=async=1')
+            run_ffmpeg(ffmpeg_cmd)
 
     if os.path.exists(temp_output_path) and os.path.getsize(temp_output_path) > 0:
         debug_audio_stream(temp_output_path)
         os.replace(temp_output_path, output_path)
         print("[✅] Final swapped video generated with audio.")
+        if getattr(roop.globals, "framewise", False):
+            warn_if_duration_mismatch(target_video_path, output_path)
     else:
         print("[❌] Output with audio was not created correctly.")
+
 
 def restore_audio(target_video_path: str, output_path: str) -> None:
     print(f"[DEBUG] restore_audio() called")
     print(f"[DEBUG] Target video path: {target_video_path}")
     print(f"[DEBUG] Output path: {output_path}")
-
     debug_audio_stream(target_video_path)
 
     if not detect_audio_stream(target_video_path):
@@ -261,25 +289,31 @@ def restore_audio(target_video_path: str, output_path: str) -> None:
 
     temp_output_path = output_path.replace(".mp4", "_with_audio.mp4")
     print(f"[DEBUG] Temporary output with audio: {temp_output_path}")
-    debug_audio_stream(temp_output_path)
-    try:
-        run_ffmpeg([
-            '-i', output_path,          # ✅ video with swapped frames
-            '-i', target_video_path,    # ✅ original with audio
-            '-c:v', 'copy',
-            '-c:a', 'aac',
-            '-b:a', '192k',
-            '-map', '0:v:0',
-            '-map', '1:a:0',
-            '-shortest',
-            '-y', temp_output_path
-        ])
+
+    ffmpeg_cmd = [
+        '-i', output_path,
+        '-i', target_video_path,
+        '-c:v', 'copy',
+        '-c:a', 'aac',
+        '-b:a', '192k',
+        '-map', '0:v:0',
+        '-map', '1:a:0',
+        '-shortest',
+        '-y', temp_output_path
+    ]
+
+    if not run_ffmpeg(ffmpeg_cmd):
+        if getattr(roop.globals, "framewise", False):
+            print("[INFO] Retrying with async audio resample to fix desync...")
+            ffmpeg_cmd.insert(-2, '-af')
+            ffmpeg_cmd.insert(-2, 'aresample=async=1')
+            run_ffmpeg(ffmpeg_cmd)
+
+    if os.path.exists(temp_output_path):
         os.replace(temp_output_path, output_path)
-        print("[DEBUG] ffmpeg finished successfully for audio restoration")
-    except Exception as e:
-        print(f"[ERROR] ffmpeg audio restoration failed: {e}")
-        raise
-
-    debug_audio_stream(output_path)
-    print("[✅] Audio restored successfully.")
-
+        debug_audio_stream(output_path)
+        if getattr(roop.globals, "framewise", False):
+            warn_if_duration_mismatch(target_video_path, output_path)
+        print("[✅] Audio restored successfully.")
+    else:
+        print("[❌] Failed to create audio output.")
