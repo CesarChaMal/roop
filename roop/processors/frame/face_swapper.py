@@ -82,9 +82,12 @@ def swap_face(source_face: Face, target_face: Face, temp_frame: Frame) -> Frame:
     return get_face_swapper().get(temp_frame, target_face, source_face, paste_back=True)
 
 def swap_face_with_expression(source_face: Face, target_face: Face, temp_frame: Frame) -> Frame:
+    print("[DEBUG] Applying face swap...")
     swapped = swap_face(source_face, target_face, temp_frame)
-    swapped = warp_expression(swapped, temp_frame)
-    return swapped
+    print("[DEBUG] Applying expression warp...")
+    result = warp_expression(swapped, temp_frame)  # temp_frame has the original expression
+    print("[DEBUG] Expression warp complete.")
+    return result
 
 # def process_frame(source_face: Face, reference_face: Face, temp_frame: Frame) -> Frame:
 #     if roop.globals.many_faces:
@@ -189,21 +192,24 @@ def process_image(source_path: str, target_path: str, output_path: str) -> None:
     target_frame = cv2.imread(target_path)
     print(f"Target Image Read: {'Success' if target_frame is not None else 'Failed'}")
 
-    # Check if processing many faces or just a specific one
     if roop.globals.many_faces:
-        # Process every face found in the target image
         many_faces = get_many_faces(target_frame)
         if many_faces:
             for target_face in many_faces:
-                target_frame = swap_face(source_face, target_face, target_frame)
+                if roop.globals.preserve_expressions:
+                    target_frame = swap_face_with_expression(source_face, target_face, target_frame)
+                else:
+                    target_frame = swap_face(source_face, target_face, target_frame)
     else:
-        # Process a specific face based on the reference face position
         reference_face = get_one_face(target_frame, roop.globals.reference_face_position)
-        print(f"Faces detected in Source: {'Yes' if reference_face is not None else 'No'}")
+        print(f"Faces detected in Target: {'Yes' if reference_face is not None else 'No'}")
         if reference_face:
-            target_frame = swap_face(source_face, reference_face, target_frame)
+            if roop.globals.preserve_expressions:
+                target_frame = swap_face_with_expression(source_face, reference_face, target_frame)
+            else:
+                target_frame = swap_face(source_face, reference_face, target_frame)
 
-    # Save the result to the output path
+    # Save the result
     cv2.imwrite(output_path, target_frame)
 
 # def process_video(source_path: str, temp_frame_paths: List[str]) -> None:
