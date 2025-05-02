@@ -98,6 +98,7 @@ install_cmake() {
   which cmake
   cmake --version
   ldd $(which cmake) | grep libc
+  rm -f cmake-3.24.4-linux-x86_64.sh
   success "CMake installed and validated."
 }
 
