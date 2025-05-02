@@ -36,7 +36,6 @@ onnxruntime==1.15.1; sys_platform == "darwin" and python_version != "3.9" and pl
 onnxruntime-silicon==1.13.1; sys_platform == "darwin" and platform_machine == "arm64"
 
 
-# Python 3.12+ fix
 setuptools==68.0.0
 
 # For facial landmark detection and warping
