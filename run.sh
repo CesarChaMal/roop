@@ -88,6 +88,17 @@ install_cudnn() {
   success "install_cudnn completed"
 }
 
+# ✅ Install system dependencies
+install_system_deps() {
+  log "Installing system dependencies..."
+
+  if [[ "$(uname -s)" == "Linux" ]]; then
+    sudo apt update
+    sudo apt install -y ffmpeg build-essential libopenblas-dev liblapack-dev libx11-dev libgtk-3-dev libboost-all-dev
+  fi
+  success "System dependencies installed (ffmpeg, cmake, etc.)"
+}
+
 install_cmake() {
   log "Installing compatible CMake 3.24.4..."
   sudo apt remove -y cmake || true
@@ -135,10 +146,21 @@ setup_python_env() {
 
   pip install --upgrade pip
 #  pip install -r requirements.txt
-  pip install --use-pep517 -r requirements.txt || {
-    warn "Initial install failed. Trying dlib fallback install via binary..."
-    pip install dlib==19.24.0 --prefer-binary || pip install dlib==19.24.0 --no-binary dlib
-  }
+  pip install --use-pep517 -r requirements.txt || warn "Initial install failed, continuing..."
+
+  # ✅ Try wheel first
+  if ! python -c "import dlib" 2>/dev/null; then
+    warn "Trying to install precompiled dlib wheel..."
+    pip install dlib --prefer-binary || {
+      warn "Precompiled wheel failed, trying to build from source with CXXFLAGS..."
+      CXXFLAGS="-std=c++14" pip install dlib --no-binary dlib || {
+        error "❌ Failed to install dlib even with fallback."
+        exit 1
+      }
+    }
+  fi
+
+  python -c "import dlib; print('dlib version:', dlib.__version__)"
   success "Python environment set up successfully."
 }
 
@@ -156,17 +178,6 @@ else:
     print("[⚠️] CUDAExecutionProvider not found. Running on CPU.")
 ' || true
   success "Finish of check_onnx_gpu()"
-}
-
-# ✅ Install ffmpeg
-install_system_deps() {
-  log "Installing system dependencies..."
-
-  if [[ "$(uname -s)" == "Linux" ]]; then
-    sudo apt update
-    sudo apt install -y ffmpeg build-essential libopenblas-dev liblapack-dev libx11-dev libgtk-3-dev libboost-all-dev
-  fi
-  success "System dependencies installed (ffmpeg, cmake, etc.)"
 }
 
 # ✅ Download Required Models
@@ -196,17 +207,14 @@ download_models() {
 
   # ✅ shape_predictor_68_face_landmarks.dat
   debug "[DEBUG] Test: ! -f models/shape_predictor_68_face_landmarks.dat → $([[ ! -f models/shape_predictor_68_face_landmarks.dat ]] && echo true || echo false)"
-  if [[ ! -f models/shape_predictor_68_face_landmarks.dat ]]; then
-    log "Downloading shape_predictor_68_face_landmarks.dat..."
-    curl -L https://huggingface.co/hfmaster/models/resolve/024c864d99559fea47eb99503fc39027741a7a99/photo-restoration/facedetection/shape_predictor_68_face_landmarks.dat -o models/shape_predictor_68_face_landmarks.dat
-    if [[ ! -s models/shape_predictor_68_face_landmarks.dat ]]; then
-      error "shape_predictor_68_face_landmarks.dat failed to download correctly."
-      rm -f models/shape_predictor_68_face_landmarks.dat
-      exit 1
-    fi
-    success "shape_predictor_68_face_landmarks.dat downloaded successfully."
+  # ✅ Download from the official Dlib mirror if missing or corrupted
+  if [[ ! -f models/shape_predictor_68_face_landmarks.dat ]] || ! file models/shape_predictor_68_face_landmarks.dat | grep -q "data"; then
+    log "Downloading valid shape_predictor_68_face_landmarks.dat from official source..."
+    curl -L http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2 -o models/shape_predictor_68_face_landmarks.dat.bz2
+    bunzip2 -f models/shape_predictor_68_face_landmarks.dat.bz2
+    success "Downloaded and extracted valid shape_predictor_68_face_landmarks.dat"
   else
-    debug "Model shape_predictor_68_face_landmarks.dat already exists."
+    debug "Model shape_predictor_68_face_landmarks.dat already exists and seems valid."
   fi
 
   success "Model downloads complete."
@@ -489,7 +497,7 @@ main_menu() {
 
 # ✅ MAIN EXECUTION
 main() {
-  remove_conflicting_CUDA_packages
+#  remove_conflicting_CUDA_packages
   cleanup_env
   setup_cuda
   install_cudnn
