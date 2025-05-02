@@ -66,6 +66,9 @@ def parse_args() -> None:
 
     program.add_argument('--multi-source', help='Pass multiple source images, separated by ;', dest='multi_source', action='store_true')
 
+    program.add_argument('--preserve-expressions', help='preserve expressions and facial gestures from target',
+                     dest='preserve_expressions', action='store_true')
+
     args = program.parse_args()
 
     roop.globals.source_path = args.source_path
@@ -96,6 +99,7 @@ def parse_args() -> None:
     else:
         roop.globals.multi_source_paths = [roop.globals.source_path]
 
+    roop.globals.preserve_expressions = args.preserve_expressions
 
 def encode_execution_providers(execution_providers: List[str]) -> List[str]:
     return [execution_provider.replace('ExecutionProvider', '').lower() for execution_provider in execution_providers]

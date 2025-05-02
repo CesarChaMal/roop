@@ -23,7 +23,7 @@ error()   { echo -e "${RED}[❌ ERROR]${RESET}   $*" >&2; }
 success() { echo -e "${GREEN}[✅ SUCCESS]${RESET} $*"; }
 debug()   { echo -e "${CYAN}[DEBUG]${RESET}   $*"; }
 
-# ✅ 1. Remove conflicting CUDA packages
+# ✅ Remove conflicting CUDA packages
 remove_conflicting_CUDA_packages() {
     log "Removing potentially conflicting CUDA packages..."
     sudo apt remove --purge -y nvidia-cuda-toolkit || warn "nvidia-cuda-toolkit not found or already removed."
@@ -31,7 +31,7 @@ remove_conflicting_CUDA_packages() {
     success "Conflicting CUDA packages removed (if present)."
 }
 
-# ✅ 2. Environment Cleanup
+# ✅ Environment Cleanup
 cleanup_env() {
     log "Cleaning up environment variables..."
     unset PYTHONPATH CONDA_PREFIX LD_LIBRARY_PATH
@@ -40,7 +40,7 @@ cleanup_env() {
     success "Environment cleaned."
 }
 
-# ✅ 3. CUDA Setup
+# ✅ CUDA Setup
 setup_cuda() {
   log "Setting up CUDA environment..."
   sudo apt remove --purge -y nvidia-cuda-toolkit || true
@@ -63,7 +63,7 @@ setup_cuda() {
   success "Setup CUDA completed."
 }
 
-# ✅ 4. cuDNN Setup
+# ✅ cuDNN Setup
 install_cudnn() {
   log "Checking for cuDNN installation..."
   debug "[DEBUG] Test: ! -f $CUDA_PATH/lib64/libcudnn.so.8 → $([[ ! -f "$CUDA_PATH/lib64/libcudnn.so.8" ]] && echo true || echo false)"
@@ -88,7 +88,20 @@ install_cudnn() {
   success "install_cudnn completed"
 }
 
-# ✅ 5. pyenv + venv setup
+install_cmake() {
+  log "Installing compatible CMake 3.24.4..."
+  sudo apt remove -y cmake || true
+  wget https://github.com/Kitware/CMake/releases/download/v3.24.4/cmake-3.24.4-linux-x86_64.sh
+  chmod +x cmake-3.24.4-linux-x86_64.sh
+  sudo ./cmake-3.24.4-linux-x86_64.sh --prefix=/usr/local --skip-license
+  export PATH="/usr/local/bin:$PATH"
+  which cmake
+  cmake --version
+  ldd $(which cmake) | grep libc
+  success "CMake installed and validated."
+}
+
+# ✅ pyenv + venv setup
 setup_python_env() {
   log "Setting up Python environment using pyenv and venv..."
   debug "Checking for pyenv at $HOME/.pyenv"
@@ -118,12 +131,17 @@ setup_python_env() {
   fi
 
   source "$VENV/bin/activate"
+
   pip install --upgrade pip
-  pip install -r requirements.txt
+#  pip install -r requirements.txt
+  pip install --use-pep517 -r requirements.txt || {
+    warn "Initial install failed. Trying dlib fallback install via binary..."
+    pip install dlib==19.24.0 --prefer-binary || pip install dlib==19.24.0 --no-binary dlib
+  }
   success "Python environment set up successfully."
 }
 
-# ✅ 6. ONNX GPU Check
+# ✅ ONNX GPU Check
 check_onnx_gpu() {
   log "[DEBUG] Beginning of check_onnx_gpu()"
   python -c '
@@ -139,18 +157,18 @@ else:
   success "Finish of check_onnx_gpu()"
 }
 
-# ✅ 7. Install ffmpeg
+# ✅ Install ffmpeg
 install_system_deps() {
   log "Installing system dependencies..."
-  debug "[DEBUG] Test: \$(uname -s) == \"Linux\" → $([[ $(uname -s) == "Linux" ]] && echo true || echo false)"
 
   if [[ "$(uname -s)" == "Linux" ]]; then
-    sudo apt install -y ffmpeg
+    sudo apt update
+    sudo apt install -y ffmpeg build-essential libopenblas-dev liblapack-dev libx11-dev libgtk-3-dev libboost-all-dev
   fi
-  success "System dependencies installed (ffmpeg)."
+  success "System dependencies installed (ffmpeg, cmake, etc.)"
 }
 
-# ✅ 8. Download Required Models
+# ✅ Download Required Models
 download_models() {
   log "Checking for required models..."
   mkdir -p models
@@ -174,10 +192,26 @@ download_models() {
   else
     debug "Model GFPGANv1.4.pth already exists."
   fi
+
+  # ✅ shape_predictor_68_face_landmarks.dat
+  debug "[DEBUG] Test: ! -f models/shape_predictor_68_face_landmarks.dat → $([[ ! -f models/shape_predictor_68_face_landmarks.dat ]] && echo true || echo false)"
+  if [[ ! -f models/shape_predictor_68_face_landmarks.dat ]]; then
+    log "Downloading shape_predictor_68_face_landmarks.dat..."
+    curl -L https://huggingface.co/hfmaster/models/resolve/024c864d99559fea47eb99503fc39027741a7a99/photo-restoration/facedetection/shape_predictor_68_face_landmarks.dat -o models/shape_predictor_68_face_landmarks.dat
+    if [[ ! -s models/shape_predictor_68_face_landmarks.dat ]]; then
+      error "shape_predictor_68_face_landmarks.dat failed to download correctly."
+      rm -f models/shape_predictor_68_face_landmarks.dat
+      exit 1
+    fi
+    success "shape_predictor_68_face_landmarks.dat downloaded successfully."
+  else
+    debug "Model shape_predictor_68_face_landmarks.dat already exists."
+  fi
+
   success "Model downloads complete."
 }
 
-# ✅ 9. Determine Execution Provider
+# ✅ Determine Execution Provider
 detect_execution_provider() {
   debug "User-supplied execution provider: $1"
   debug "[DEBUG] \"$1\" == \"cuda\" || \"$1\" == \"cpu\" → $([[ "$1" == "cuda" || "$1" == "cpu" ]] && echo true || echo false)"
@@ -218,7 +252,7 @@ run_face_swap() {
   } | tee "$log_file"
 }
 
-# ✅ 10. Main Menu
+# ✅ Main Menu
 main_menu() {
   log "Starting full setup pipeline..."
   debug "[DEBUG] EXECUTION_PROVIDER in main_menu: $EXECUTION_PROVIDER"
@@ -242,7 +276,7 @@ main_menu() {
       echo "3) Face Swap - Video (HQ)"
       echo "4) Face Swap - Video (HQ) with --keep-fps"
       echo "5) Face Swap - Video (HQ) with --framewise"
-      echo "6) Face Swap - Video (HQ)with --keep-fps and --framewise"
+      echo "6) Face Swap - Video (HQ) with --keep-fps and --framewise"
       echo "7) Face Swap - Multi-face Video (custom reference)"
       echo "8) Face Swap - Compressed Video (HEVC, lower quality)"
       echo "9) Face Swap - NVENC Video (fast encoding)"
@@ -254,6 +288,8 @@ main_menu() {
       echo "15) Face Swap - Video (2 source faces onto 3 target faces, ref by position 1)"
       echo "16) Face Swap - Video (3 source faces onto 3 target faces, ref by position 0)"
       echo "17) Face Swap - Video (3 source faces onto 3 target faces, ref by position 1)"
+      echo "18) Face Swap - Image (HQ with Enhancer) with --preserve-expressions"
+      echo "19) Face Swap - Video (HQ) with --preserve-expressions"
       echo "0) ❌ Exit"
 
       read -p "👉 Enter number [0-14]: " choice
@@ -424,6 +460,21 @@ main_menu() {
             --multi-source \
             --reference-face-position 1 \
             --reference-frame-number 0 ;;
+        18) run_face_swap "Image (HQ with Enhancer) with --preserve-expressions" \
+            --target content/target_image.png \
+            --source content/source_image.png \
+            --output content/output_image_with_preserve_expressions.png \
+            --execution-provider "$EXECUTION_PROVIDER" \
+            --frame-processor face_swapper face_enhancer \
+            --preserve-expressions ;;
+        19) run_face_swap "Video (HQ) with --preserve-expressions" \
+            --target content/target_video.mp4 \
+            --source content/source_image.png \
+            --output content/output_video_with_preserve_expressions.mp4 \
+            --execution-provider "$EXECUTION_PROVIDER" \
+            --frame-processor face_swapper face_enhancer \
+            --execution-threads 8 \
+            --preserve-expressions ;;
         0) log "[👋] Exiting. Have a nice day!"; break ;;
         *) error "[❌] Invalid option. Please enter a number between 0 and 14." ;;
       esac
@@ -441,10 +492,11 @@ main() {
   cleanup_env
   setup_cuda
   install_cudnn
+  install_system_deps
+  install_cmake
   setup_python_env
   check_onnx_gpu
   detect_execution_provider "$1"
-  install_system_deps
   download_models
 
   log "Execution provider set to: $EXECUTION_PROVIDER"

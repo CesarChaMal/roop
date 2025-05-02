@@ -38,3 +38,9 @@ onnxruntime-silicon==1.13.1; sys_platform == "darwin" and platform_machine == "a
 
 # Python 3.12+ fix
 setuptools==68.0.0
+
+# For facial landmark detection and warping
+pybind11==2.10.4  # pin to avoid dlib build errors
+imutils==0.5.4
+scipy==1.11.4
+#dlib==19.24.0 --prefer-binary

@@ -11,6 +11,7 @@ from roop.face_reference import get_face_reference, set_face_reference, clear_fa
 from roop.typing import Face, Frame
 from roop.utilities import conditional_download, resolve_relative_path, is_image, is_video
 from roop.processors.frame.core import core_process_video
+from roop.landmark_utils import warp_expression
 
 FACE_SWAPPER = None
 THREAD_LOCK = threading.Lock()
@@ -80,6 +81,10 @@ def post_process() -> None:
 def swap_face(source_face: Face, target_face: Face, temp_frame: Frame) -> Frame:
     return get_face_swapper().get(temp_frame, target_face, source_face, paste_back=True)
 
+def swap_face_with_expression(source_face: Face, target_face: Face, temp_frame: Frame) -> Frame:
+    swapped = swap_face(source_face, target_face, temp_frame)
+    swapped = warp_expression(swapped, temp_frame)
+    return swapped
 
 # def process_frame(source_face: Face, reference_face: Face, temp_frame: Frame) -> Frame:
 #     if roop.globals.many_faces:
@@ -93,18 +98,36 @@ def swap_face(source_face: Face, target_face: Face, temp_frame: Frame) -> Frame:
 #             temp_frame = swap_face(source_face, target_face, temp_frame)
 #     return temp_frame
 
+# def process_frame(source_faces: List[Face], reference_face: Face, temp_frame: Frame) -> Frame:
+#     if roop.globals.many_faces:
+#         target_faces = get_many_faces(temp_frame)
+#         for i, target_face in enumerate(target_faces):
+#             if i < len(source_faces):
+#                 temp_frame = swap_face(source_faces[i], target_face, temp_frame)
+#             else:
+#                 temp_frame = swap_face(source_faces[0], target_face, temp_frame)  # fallback to first
+#     else:
+#         target_face = find_similar_face(temp_frame, reference_face)
+#         if target_face:
+#             temp_frame = swap_face(source_faces[0], target_face, temp_frame)
+#     return temp_frame
+
+
 def process_frame(source_faces: List[Face], reference_face: Face, temp_frame: Frame) -> Frame:
     if roop.globals.many_faces:
         target_faces = get_many_faces(temp_frame)
         for i, target_face in enumerate(target_faces):
             if i < len(source_faces):
-                temp_frame = swap_face(source_faces[i], target_face, temp_frame)
+                temp_frame = swap_face_with_expression(source_faces[i], target_face, temp_frame) \
+                    if roop.globals.keep_expression else swap_face(source_faces[i], target_face, temp_frame)
             else:
-                temp_frame = swap_face(source_faces[0], target_face, temp_frame)  # fallback to first
+                temp_frame = swap_face_with_expression(source_faces[0], target_face, temp_frame) \
+                    if roop.globals.keep_expression else swap_face(source_faces[0], target_face, temp_frame)
     else:
         target_face = find_similar_face(temp_frame, reference_face)
         if target_face:
-            temp_frame = swap_face(source_faces[0], target_face, temp_frame)
+            temp_frame = swap_face_with_expression(source_faces[0], target_face, temp_frame) \
+                if roop.globals.keep_expression else swap_face(source_faces[0], target_face, temp_frame)
     return temp_frame
 
 # def process_frames(source_path: str, temp_frame_paths: List[str], update: Callable[[], None]) -> None:
