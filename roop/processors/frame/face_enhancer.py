@@ -74,12 +74,33 @@ def pre_check() -> bool:
     return True
 
 
+# def pre_start() -> bool:
+#     if not is_image(roop.globals.target_path) and not is_video(roop.globals.target_path):
+#         update_status('Select an image or video for target path.', NAME)
+#         return False
+#     return True
+
 def pre_start() -> bool:
+    # Multi-source support
+    source_paths = roop.globals.source_path.split(";") if ";" in roop.globals.source_path else [roop.globals.source_path]
+
+    all_exist = True
+    for path in source_paths:
+        if not is_image(path):
+            update_status(f'Invalid source image: {path}', NAME)
+            all_exist = False
+        elif not get_one_face(cv2.imread(path)):
+            update_status(f'No face in source image: {path}', NAME)
+            all_exist = False
+
+    if not all_exist:
+        return False
+
     if not is_image(roop.globals.target_path) and not is_video(roop.globals.target_path):
         update_status('Select an image or video for target path.', NAME)
         return False
-    return True
 
+    return True
 
 def post_process() -> None:
     clear_face_enhancer()
