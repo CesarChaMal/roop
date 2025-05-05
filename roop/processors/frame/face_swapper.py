@@ -105,44 +105,42 @@ def swap_face_with_expression(source_face: Face, target_face: Face, original_fra
     os.makedirs("debug_output", exist_ok=True)
 
     try:
-        if not hasattr(warped_source_face, 'landmarks') or warped_source_face.landmarks is None:
-            raise ValueError("Missing landmarks on warped_source_face for bounding box.")
+        # Immediately after face swapping, re-extract accurate landmarks from the swapped face
+        swapped_face_obj = Face(target_face)
+        swapped_face_obj.image = swapped
+        swapped_landmarks = extract_landmarks(swapped_face_obj, fallback_image=swapped)
 
-        landmarks = np.array(warped_source_face.landmarks, dtype=np.int32)
+        if swapped_landmarks is not None:
+            mask = create_face_hull_mask(swapped, swapped_landmarks)
+            mask = cv2.dilate(mask, np.ones((15, 15), np.uint8))
+            cv2.imwrite(f"debug_output/{prefix}_{index:04d}_mask_debug.png", mask)
 
-        # Create convex hull mask (single-channel)
-        mask = create_face_hull_mask(swapped, landmarks)
-        mask = cv2.dilate(mask, np.ones((15, 15), np.uint8))  # keep single channel
-        cv2.imwrite(f"debug_output/{prefix}_{index:04d}_mask_debug.png", mask)
+            matched_swapped = match_histogram_colors(swapped, temp_frame, mask)
 
-        # Ensure mask is single channel when passed to match_histogram_colors
-        matched_swapped = match_histogram_colors(swapped, temp_frame, mask)
+            matched_swapped = np.array(matched_swapped, dtype=np.uint8)
+            temp_frame = np.array(temp_frame, dtype=np.uint8)
+            mask = np.array(mask, dtype=np.uint8)
 
-        # Confirm array formats explicitly
-        matched_swapped = np.array(matched_swapped, dtype=np.uint8)
-        temp_frame = np.array(temp_frame, dtype=np.uint8)
-        mask = np.array(mask, dtype=np.uint8)  # 1-channel mask explicitly set
+            print(f"[DEBUG] matched_swapped shape: {matched_swapped.shape}")
+            print(f"[DEBUG] temp_frame shape: {temp_frame.shape}")
+            print(f"[DEBUG] mask shape: {mask.shape}")
 
-        # Verify shapes explicitly
-        print(f"[DEBUG] matched_swapped shape: {matched_swapped.shape}")
-        print(f"[DEBUG] temp_frame shape: {temp_frame.shape}")
-        print(f"[DEBUG] mask shape: {mask.shape}")
+            center = tuple(np.mean(swapped_landmarks, axis=0).astype(np.int32))
 
-        # Compute robust center for seamlessClone
-        x, y, w, h = cv2.boundingRect(mask)
-        center = (x + w // 2, y + h // 2)
+            result = cv2.seamlessClone(matched_swapped, temp_frame, mask, center, cv2.MIXED_CLONE)
 
-        # Perform seamless clone
-        result = cv2.seamlessClone(matched_swapped, temp_frame, mask, center, cv2.MIXED_CLONE)
+            cv2.imwrite(f"debug_output/{prefix}_{index:04d}_swapped_face.png", matched_swapped)
+            cv2.imwrite(f"debug_output/{prefix}_{index:04d}_clone.png", result)
 
-        cv2.imwrite(f"debug_output/{prefix}_{index:04d}_swapped_face.png", matched_swapped)
-        cv2.imwrite(f"debug_output/{prefix}_{index:04d}_clone.png", result)
-
-        if is_clone_successful(matched_swapped, result, mask):
-            print("[DEBUG] Seamless cloning successful with convex hull mask.")
+            if is_clone_successful(matched_swapped, result, mask):
+                print("[DEBUG] Seamless cloning successful with convex hull mask.")
+            else:
+                print("[WARN] SeamlessClone produced minimal or invalid result, using matched_swapped.")
+                result = matched_swapped
         else:
-            print("[WARN] SeamlessClone produced minimal or invalid result, using swapped.")
-            result = matched_swapped
+            print("[ERROR] Couldn't extract landmarks from swapped face!")
+            result = swapped
+
     except Exception as e:
         print(f"[WARN] SeamlessClone failed ({e}), returning direct swap result.")
         result = swapped

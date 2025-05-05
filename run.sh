@@ -282,23 +282,31 @@ main_menu() {
       echo "🟢 Choose a face swap mode to run:"
       echo "1) Face Swap - Image (HQ with Enhancer)"
       echo "2) Face Swap - Image (Fast, no Enhancer)"
-      echo "3) Face Swap - Video (HQ)"
-      echo "4) Face Swap - Video (HQ) with --keep-fps"
-      echo "5) Face Swap - Video (HQ) with --framewise"
-      echo "6) Face Swap - Video (HQ) with --keep-fps and --framewise"
-      echo "7) Face Swap - Multi-face Video (custom reference)"
-      echo "8) Face Swap - Compressed Video (HEVC, lower quality)"
-      echo "9) Face Swap - NVENC Video (fast encoding)"
-      echo "10) Face Swap - Debug (keep temp frames, no audio)"
-      echo "11) Face Swap - Minimal Example (manual testing)"
-      echo "12) Face Swap - Image (2 source faces)"
-      echo "13) Face Swap - Video (2 source faces)"
-      echo "14) Face Swap - Video (2 source faces onto 3 target faces, ref by position 0)"
-      echo "15) Face Swap - Video (2 source faces onto 3 target faces, ref by position 1)"
-      echo "16) Face Swap - Video (3 source faces onto 3 target faces, ref by position 0)"
-      echo "17) Face Swap - Video (3 source faces onto 3 target faces, ref by position 1)"
-      echo "18) Face Swap - Image (HQ with Enhancer) with --preserve-expressions"
-      echo "19) Face Swap - Video (HQ) with --preserve-expressions"
+      echo "3) Face Swap - Image (1 source faces onto 2 target faces, ref by position 0)"
+      echo "4) Face Swap - Image (1 source faces onto 2 target faces, ref by position 1)"
+      echo "5) Face Swap - Video (HQ)"
+      echo "6) Face Swap - Video (HQ) (1 source faces onto 2 target faces, ref by position 0)"
+      echo "7) Face Swap - Video (HQ) (1 source faces onto 2 target faces, ref by position 1)"
+      echo "8) Face Swap - Video (HQ) with --keep-fps"
+      echo "9) Face Swap - Video (HQ) with --framewise"
+      echo "10) Face Swap - Video (HQ) with --keep-fps and --framewise"
+      echo "11) Face Swap - Multi-face Video (custom reference)"
+      echo "12) Face Swap - Compressed Video (HEVC, lower quality)"
+      echo "13) Face Swap - NVENC Video (fast encoding)"
+      echo "14) Face Swap - Debug (keep temp frames, no audio)"
+      echo "15) Face Swap - Minimal Example (manual testing)"
+      echo "16) Face Swap - Image (2 source faces onto 2 target faces)"
+      echo "17) Face Swap - Video (2 source faces)"
+      echo "18) Face Swap - Video (2 source faces onto 3 target faces, ref by position 0)"
+      echo "19) Face Swap - Video (2 source faces onto 3 target faces, ref by position 1)"
+      echo "20) Face Swap - Video (3 source faces onto 3 target faces, ref by position 0)"
+      echo "21) Face Swap - Video (3 source faces onto 3 target faces, ref by position 1)"
+      echo "22) Face Swap - Image (HQ with Enhancer) with --preserve-expressions"
+      echo "23) Face Swap - Image (HQ with Enhancer) with --preserve-expressions (1 source faces onto 2 target faces, ref by position 0)"
+      echo "24) Face Swap - Image (HQ with Enhancer) with --preserve-expressions (1 source faces onto 2 target faces, ref by position 1)"
+      echo "25) Face Swap - Video (HQ) with --preserve-expressions"
+      echo "26) Face Swap - Video (HQ) with --preserve-expressions (1 source faces onto 2 target faces, ref by position 0)"
+      echo "27) Face Swap - Video (HQ) with --preserve-expressions (1 source faces onto 2 target faces, ref by position 1)"
       echo "0) ❌ Exit"
 
       read -p "👉 Enter number [0-19]: " choice
@@ -316,14 +324,44 @@ main_menu() {
             --output content/output_image_fast.png \
             --execution-provider "$EXECUTION_PROVIDER" \
             --frame-processor face_swapper ;;
-        3) run_face_swap "Video (HQ)" \
+        3) run_face_swap "Image (1 source faces onto 2 target faces, ref by position 0)" \
+            --target content/target_image.png \
+            --source content/source_image.png \
+            --output content/output_image_1sources_2targets_byPosition0.png \
+            --execution-provider "$EXECUTION_PROVIDER" \
+            --frame-processor face_swapper face_enhancer \
+            --reference-face-position 0 ;;
+        4) run_face_swap "Image (1 source faces onto 2 target faces, ref by position 1)" \
+            --target content/target_image.png \
+            --source content/source_image.png \
+            --output content/output_image_1sources_2targets_byPosition1.png \
+            --execution-provider "$EXECUTION_PROVIDER" \
+            --frame-processor face_swapper face_enhancer \
+            --reference-face-position 1 ;;
+        5) run_face_swap "Video (HQ)" \
             --target content/target_video.mp4 \
             --source content/source_image.png \
             --output content/output_video.mp4 \
             --execution-provider "$EXECUTION_PROVIDER" \
             --frame-processor face_swapper face_enhancer \
             --execution-threads 8 ;;
-        4) run_face_swap "Video (HQ) with --keep-fps" \
+        6) run_face_swap "Video (HQ) (1 source faces onto 2 target faces, ref by position 0)" \
+            --target content/target_video.mp4 \
+            --source content/source_image.png \
+            --output content/output_video.mp4 \
+            --execution-provider "$EXECUTION_PROVIDER" \
+            --frame-processor face_swapper face_enhancer \
+            --execution-threads 8 \
+            --reference-face-position 0 ;;
+        7) run_face_swap "Video (HQ) (1 source faces onto 2 target faces, ref by position 1)" \
+            --target content/target_video.mp4 \
+            --source content/source_image.png \
+            --output content/output_video.mp4 \
+            --execution-provider "$EXECUTION_PROVIDER" \
+            --frame-processor face_swapper face_enhancer \
+            --execution-threads 8 \
+            --reference-face-position 1 ;;
+        8) run_face_swap "Video (HQ) with --keep-fps" \
             --target content/target_video.mp4 \
             --source content/source_image.png \
             --output content/output_video_with_keep_fps.mp4 \
@@ -331,7 +369,7 @@ main_menu() {
             --frame-processor face_swapper face_enhancer \
             --execution-threads 8 \
             --keep-fps ;;
-        5) run_face_swap "Video (HQ) with --framewise" \
+        9) run_face_swap "Video (HQ) with --framewise" \
             --target content/target_video.mp4 \
             --source content/source_image.png \
             --output content/output_video_with_framewise.mp4 \
@@ -339,7 +377,7 @@ main_menu() {
             --frame-processor face_swapper face_enhancer \
             --execution-threads 8 \
             --framewise ;;
-        6) run_face_swap "Video (HQ) with --keep-fps --framewise" \
+        10) run_face_swap "Video (HQ) with --keep-fps --framewise" \
             --target content/target_video.mp4 \
             --source content/source_image.png \
             --output content/output_video_with_keep_fps_and_framewise.mp4 \
@@ -348,7 +386,7 @@ main_menu() {
             --execution-threads 8 \
             --keep-fps \
             --framewise ;;
-        7) run_face_swap "Multi-face Video (custom reference)" \
+        11) run_face_swap "Multi-face Video (custom reference)" \
             --target content/target_multiface_video.mp4 \
             --source content/source_image.png \
             --output content/output_video_multiface.mp4 \
@@ -360,7 +398,7 @@ main_menu() {
             --many-faces \
             --reference-face-position 0 \
             --reference-frame-number 10 ;;
-        8) run_face_swap "Compressed Video (HEVC)" \
+        12) run_face_swap "Compressed Video (HEVC)" \
             --target content/target_video.mp4 \
             --source content/source_image.png \
             --output content/output_video_compressed.mp4 \
@@ -370,7 +408,7 @@ main_menu() {
             --output-video-quality 40 \
             --keep-fps \
             --framewise ;;
-        9) run_face_swap "NVENC Video" \
+        13) run_face_swap "NVENC Video" \
             --target content/target_video.mp4 \
             --source content/source_image.png \
             --output content/output_video_nvenc.mp4 \
@@ -380,7 +418,7 @@ main_menu() {
             --output-video-quality 30 \
             --keep-fps \
             --framewise ;;
-        10) run_face_swap "Debug Video (keep frames, skip audio)" \
+        14) run_face_swap "Debug Video (keep frames, skip audio)" \
             --target content/target_video.mp4 \
             --source content/source_image.png \
             --output content/output_video_debug.mp4 \
@@ -390,7 +428,7 @@ main_menu() {
             --framewise \
             --keep-frames \
             --skip-audio ;;
-        11) run_face_swap "Minimal Example (manual testing)" \
+        15) run_face_swap "Minimal Example (manual testing)" \
             --target content/target_video.mp4 \
             --source content/source_image.png \
             --output content/output_video_test.mp4 \
@@ -398,7 +436,7 @@ main_menu() {
             --frame-processor face_swapper \
             --keep-fps \
             --framewise ;;
-        12) run_face_swap "Image (2 source faces)" \
+        16) run_face_swap "Image (2 source faces onto 2 target faces)" \
             --target content/target_multiface_image.png \
             --source "content/source_image1.png;content/source_image1.png" \
             --output content/output_image_multiface.png \
@@ -406,7 +444,7 @@ main_menu() {
             --frame-processor face_swapper face_enhancer \
             --many-faces \
             --multi-source ;;
-        13) run_face_swap "Video (2 source faces)" \
+        17) run_face_swap "Video (2 source faces onto 2 target faces" \
             --target content/target_multiface_video.mp4 \
             --source "content/source_image1.png;content/source_image1.png" \
             --output content/output_video_multifaces.mp4 \
@@ -417,7 +455,7 @@ main_menu() {
             --framewise \
             --many-faces \
             --multi-source ;;
-        14) run_face_swap "Video (2→3 targets, ref=0)" \
+        18) run_face_swap "Video (2 source faces onto 3 target faces, ref by position 0)" \
             --target content/target_3faces_video.mp4 \
             --source "content/source_image1.png;content/source_image2.png" \
             --output content/output_video_multifaces_2sources_3targets_byPosition0.mp4 \
@@ -430,7 +468,7 @@ main_menu() {
             --multi-source \
             --reference-face-position 0 \
             --reference-frame-number 0 ;;
-        15) run_face_swap "Video (2→3 targets, ref=1)" \
+        19) run_face_swap "Video (2 source faces onto 3 target faces, ref by position 1)" \
             --target content/target_3faces_video.mp4 \
             --source "content/source_image1.png;content/source_image2.png" \
             --output content/output_video_multifaces_2sources_3targets_byPosition1.mp4 \
@@ -443,7 +481,7 @@ main_menu() {
             --multi-source \
             --reference-face-position 1 \
             --reference-frame-number 0 ;;
-        16) run_face_swap "Video (3→3 targets, ref=0)" \
+        20) run_face_swap "Video (3 source faces onto 3 target faces, ref by position 0)" \
             --target content/target_3faces_video.mp4 \
             --source "content/source_image1.png;content/source_image2.png;content/source_image3.png" \
             --output content/output_video_multifaces_3sources_3targets_byPosition0.mp4 \
@@ -456,7 +494,7 @@ main_menu() {
             --multi-source \
             --reference-face-position 0 \
             --reference-frame-number 0 ;;
-        17) run_face_swap "Video (3→3 targets, ref=1)" \
+        21) run_face_swap "Video (3 source faces onto 3 target faces, ref by position 1)" \
             --target content/target_3faces_video.mp4 \
             --source "content/source_image1.png;content/source_image2.png;content/source_image3.png" \
             --output content/output_video_multifaces_3sources_3targets_byPosition1.mp4 \
@@ -469,14 +507,30 @@ main_menu() {
             --multi-source \
             --reference-face-position 1 \
             --reference-frame-number 0 ;;
-        18) run_face_swap "Image (HQ with Enhancer) with --preserve-expressions" \
+        22) run_face_swap "Image (HQ with Enhancer) with --preserve-expressions" \
             --target content/target_image.png \
             --source content/source_image.png \
             --output content/output_image_with_preserve_expressions.png \
             --execution-provider "$EXECUTION_PROVIDER" \
             --frame-processor face_swapper face_enhancer \
             --preserve-expressions ;;
-        19) run_face_swap "Video (HQ) with --preserve-expressions" \
+        23) run_face_swap "Image (HQ with Enhancer) with --preserve-expressions (1 source faces onto 2 target faces, ref by position 0)" \
+            --target content/target_image.png \
+            --source content/source_image.png \
+            --output content/output_image_with_preserve_expressions.png \
+            --execution-provider "$EXECUTION_PROVIDER" \
+            --frame-processor face_swapper face_enhancer \
+            --preserve-expressions \
+            --reference-face-position 0 ;;
+        24) run_face_swap "Image (HQ with Enhancer) with --preserve-expressions (1 source faces onto 2 target faces, ref by position 1)" \
+            --target content/target_image.png \
+            --source content/source_image.png \
+            --output content/output_image_with_preserve_expressions.png \
+            --execution-provider "$EXECUTION_PROVIDER" \
+            --frame-processor face_swapper face_enhancer \
+            --preserve-expressions \
+            --reference-face-position 1 ;;
+        25) run_face_swap "Video (HQ) with --preserve-expressions" \
             --target content/target_video.mp4 \
             --source content/source_image.png \
             --output content/output_video_with_preserve_expressions.mp4 \
@@ -484,6 +538,24 @@ main_menu() {
             --frame-processor face_swapper face_enhancer \
             --execution-threads 8 \
             --preserve-expressions ;;
+        26) run_face_swap "Video (HQ) with --preserve-expressions (1 source faces onto 2 target faces, ref by position 0)" \
+            --target content/target_video.mp4 \
+            --source content/source_image.png \
+            --output content/output_video_with_preserve_expressions.mp4 \
+            --execution-provider "$EXECUTION_PROVIDER" \
+            --frame-processor face_swapper face_enhancer \
+            --execution-threads 8 \
+            --preserve-expressions \
+            --reference-face-position 0 ;;
+        27) run_face_swap "Video (HQ) with --preserve-expressions (1 source faces onto 2 target faces, ref by position 1)" \
+            --target content/target_video.mp4 \
+            --source content/source_image.png \
+            --output content/output_video_with_preserve_expressions.mp4 \
+            --execution-provider "$EXECUTION_PROVIDER" \
+            --frame-processor face_swapper face_enhancer \
+            --execution-threads 8 \
+            --preserve-expressions \
+            --reference-face-position 1 ;;
         0) log "[👋] Exiting. Have a nice day!"; break ;;
         *) error "[❌] Invalid option. Please enter a number between 0 and 14." ;;
       esac
