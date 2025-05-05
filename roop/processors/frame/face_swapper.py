@@ -106,7 +106,11 @@ def swap_face_with_expression(source_face: Face, target_face: Face, original_fra
 
     try:
         # Immediately after face swapping, re-extract accurate landmarks from the swapped face
-        swapped_face_obj = Face(target_face)
+        # swapped_face_obj = Face(target_face)
+        # swapped_face_obj.image = swapped
+        # swapped_landmarks = extract_landmarks(swapped_face_obj, fallback_image=swapped)
+
+        swapped_face_obj = Face()
         swapped_face_obj.image = swapped
         swapped_landmarks = extract_landmarks(swapped_face_obj, fallback_image=swapped)
 
@@ -115,8 +119,15 @@ def swap_face_with_expression(source_face: Face, target_face: Face, original_fra
             mask = cv2.dilate(mask, np.ones((15, 15), np.uint8))
             cv2.imwrite(f"debug_output/{prefix}_{index:04d}_mask_debug.png", mask)
 
+            # Debug: Draw landmarks directly to verify visually
+            debug_landmarks_img = swapped.copy()
+            for (x, y) in swapped_landmarks:
+                cv2.circle(debug_landmarks_img, (int(x), int(y)), 2, (0,255,0), -1)
+            cv2.imwrite(f"debug_output/{prefix}_{index:04d}_landmarks_debug.png", debug_landmarks_img)
+
             matched_swapped = match_histogram_colors(swapped, temp_frame, mask)
 
+            # Verify and ensure data types and shapes explicitly
             matched_swapped = np.array(matched_swapped, dtype=np.uint8)
             temp_frame = np.array(temp_frame, dtype=np.uint8)
             mask = np.array(mask, dtype=np.uint8)
@@ -125,7 +136,10 @@ def swap_face_with_expression(source_face: Face, target_face: Face, original_fra
             print(f"[DEBUG] temp_frame shape: {temp_frame.shape}")
             print(f"[DEBUG] mask shape: {mask.shape}")
 
-            center = tuple(np.mean(swapped_landmarks, axis=0).astype(np.int32))
+            # Use robust bounding rectangle method to find center
+            x, y, w, h = cv2.boundingRect(mask)
+            center = (x + w // 2, y + h // 2)
+            # center = tuple(np.mean(swapped_landmarks, axis=0).astype(np.int32))
 
             result = cv2.seamlessClone(matched_swapped, temp_frame, mask, center, cv2.MIXED_CLONE)
 
