@@ -1,17 +1,21 @@
-import os
-import cv2
 import dlib
 import numpy as np
-from roop.typing import Frame
+from roop.typing import Frame, Face
 from roop.face_analyser import get_many_faces
+import datetime
+import os
+import cv2
+
 # Resolve absolute path
-PREDICTOR_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'models', 'shape_predictor_68_face_landmarks.dat'))
+PREDICTOR_PATH = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '..', 'models', 'shape_predictor_68_face_landmarks.dat'))
 
 if not os.path.exists(PREDICTOR_PATH):
     raise FileNotFoundError(f"Missing landmark model at {PREDICTOR_PATH}")
 
 predictor = dlib.shape_predictor(PREDICTOR_PATH)
 detector = dlib.get_frontal_face_detector()
+
 
 def get_landmarks(image):
     gray = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
@@ -21,90 +25,121 @@ def get_landmarks(image):
     shape = predictor(gray, rects[0])
     return np.array([[p.x, p.y] for p in shape.parts()])
 
-def extract_landmarks(face):
+def extract_landmarks(face, fallback_image: Frame = None):
     if hasattr(face, 'landmarks_2d') and face.landmarks_2d is not None:
         return np.array(face.landmarks_2d, dtype=np.float32)
     if hasattr(face, 'landmark_3d_68') and face.landmark_3d_68 is not None:
         return np.array(face.landmark_3d_68[:, :2], dtype=np.float32)
+    if fallback_image is not None:
+        return get_landmarks(fallback_image)
     return None
 
-def warp_expression(frame: Frame, original: Frame) -> Frame:
-    target_faces = get_many_faces(frame)
-    source_faces = get_many_faces(original)
+def create_face_hull_mask(target_image, landmarks):
+    mask = np.zeros(target_image.shape[:2], dtype=np.uint8)
+    hull = cv2.convexHull(np.array(landmarks, dtype=np.int32))
+    cv2.fillConvexPoly(mask, hull, 255)
+    return mask
 
-    if not target_faces or not source_faces:
-        print("[WARN] warp_expression: No faces found in frame or original.")
-        return frame
+def match_histogram_colors(source, reference, mask=None):
+    matched = source.copy()
+    for i in range(3):
+        src = source[:, :, i]
+        ref = reference[:, :, i]
+        if mask is not None:
+            src = src[mask > 0]  # mask is single-channel, directly use mask > 0
+            ref = ref[mask > 0]
+        src_mean, src_std = np.mean(src), np.std(src)
+        ref_mean, ref_std = np.mean(ref), np.std(ref)
+        if src_std == 0:
+            src_std = 1
+        matched[:, :, i] = np.clip((source[:, :, i] - src_mean) * (ref_std / src_std) + ref_mean, 0, 255)
+    return matched.astype(np.uint8)
 
-    target = target_faces[0]
-    source = source_faces[0]
+def is_clone_successful(original: np.ndarray, cloned: np.ndarray, mask: np.ndarray, threshold: float = 15.0) -> bool:
+    """
+    Check if seamless cloning had a meaningful impact by comparing only the masked area.
+    Improved: uses mean of all 3 channels and logs more details.
+    """
+    if original.shape != cloned.shape or original.shape[:2] != mask.shape[:2]:
+        print("[WARN] Shape mismatch in clone success check.")
+        return False
 
-    target_landmarks = extract_landmarks(target)
-    source_landmarks = extract_landmarks(source)
+    if len(mask.shape) == 3:
+        mask = cv2.cvtColor(mask, cv2.COLOR_BGR2GRAY)
 
-    if target_landmarks is None or source_landmarks is None:
-        print("[WARN] warp_expression: No valid landmarks found.")
-        return frame
+    # Absolute difference across channels
+    diff = cv2.absdiff(original, cloned)
+    mean_vals = cv2.mean(diff, mask=mask)
+    masked_diff = np.mean(mean_vals[:3])  # average over B, G, R
 
-    if target_landmarks.ndim != 2 or source_landmarks.ndim != 2:
-        print(f"[WARN] warp_expression: Landmarks are not 2D. Shapes: {target_landmarks.shape}, {source_landmarks.shape}")
-        return frame
-    if target_landmarks.shape[1] != 2 or source_landmarks.shape[1] != 2:
-        print(f"[WARN] warp_expression: Landmark points are not (x,y) format.")
-        return frame
-    if target_landmarks.shape != source_landmarks.shape or target_landmarks.shape[0] < 3:
-        print(f"[WARN] warp_expression: Invalid shape {target_landmarks.shape} vs {source_landmarks.shape}")
-        return frame
+    # Optional: check standard deviation for more insight
+    std_vals = [np.std(cv2.mean(cv2.absdiff(original[:, :, i], cloned[:, :, i]), mask=mask)) for i in range(3)]
+    std_avg = np.mean(std_vals)
 
-    print("[DEBUG] Source landmarks:", source_landmarks[:5])
-    print("[DEBUG] Target landmarks:", target_landmarks[:5])
+    print(f"[DEBUG] Mean pixel diff over mask (RGB avg): {masked_diff:.2f}, Std Dev: {std_avg:.2f}")
 
-    # Get convex hull indices
-    hull_indices = cv2.convexHull(source_landmarks, returnPoints=False).flatten()
-    src_points = source_landmarks[hull_indices]
-    tgt_points = target_landmarks[hull_indices]
+    return masked_diff < threshold
 
-    # Compute affine transformation
-    matrix, _ = cv2.estimateAffinePartial2D(tgt_points, src_points)
-    if matrix is None:
-        print("[WARN] warp_expression: Failed to compute affine transform.")
-        return frame
+def warp_expression(source_face: Face, target_face: Face, debug_name: str = "") -> np.ndarray:
+    source_img = source_face.image
+    target_img = target_face.image
 
-    # Warp the frame
-    warped = cv2.warpAffine(frame, matrix, (frame.shape[1], frame.shape[0]))
+    src_landmarks = extract_landmarks(source_face, fallback_image=source_img)
+    tgt_landmarks = extract_landmarks(target_face, fallback_image=target_img)
 
-    # Create a mask
-    mask = np.zeros_like(frame[:, :, 0])
-    cv2.fillConvexPoly(mask, np.int32(target_landmarks), 255)
-    mask = cv2.merge([mask] * 3)
+    if src_landmarks is None or tgt_landmarks is None:
+        print("[WARN] warp_expression_face_only: Failed to extract landmarks.")
+        return target_img.copy()
 
+    warped = np.copy(target_img)
 
-    # Blend the warped face
-    if hasattr(target, 'bbox') and isinstance(target.bbox, (list, tuple, np.ndarray)) and len(target.bbox) >= 2:
-        center_x, center_y = map(int, target.bbox[:2])
-    else:
-        center_x, center_y = frame.shape[1] // 2, frame.shape[0] // 2
+    def apply_affine_transform(src, src_tri, dst_tri, size):
+        warp_mat = cv2.getAffineTransform(np.float32(src_tri), np.float32(dst_tri))
+        return cv2.warpAffine(src, warp_mat, size, flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT_101)
 
-    result = cv2.seamlessClone(warped, frame, mask, (center_x, center_y), cv2.NORMAL_CLONE)
+    def delaunay_triangulation(landmarks, size):
+        subdiv = cv2.Subdiv2D((0, 0, size[1], size[0]))
+        for p in landmarks:
+            subdiv.insert((int(p[0]), int(p[1])))
+        triangle_list = subdiv.getTriangleList()
+        delaunay_tri = []
+        for t in triangle_list:
+            pts = [(t[0], t[1]), (t[2], t[3]), (t[4], t[5])]
+            indices = []
+            for pt in pts:
+                distances = np.linalg.norm(landmarks - np.array(pt), axis=1)
+                idx = np.argmin(distances)
+                if distances[idx] < 5.0:
+                    indices.append(idx)
+            if len(indices) == 3:
+                delaunay_tri.append(tuple(indices))
+        return delaunay_tri
 
-    # Debug images
-    try:
-        def draw_landmarks(image, landmarks, color=(0, 255, 0)):
-            for (x, y) in landmarks.astype(int):
-                cv2.circle(image, (x, y), 2, color, -1)
+    triangles = delaunay_triangulation(tgt_landmarks, target_img.shape)
 
-        debug_original = original.copy()
-        debug_frame = frame.copy()
-        debug_result = result.copy()
+    for tri in triangles:
+        t1 = [src_landmarks[i] for i in tri]
+        t2 = [tgt_landmarks[i] for i in tri]
+        r1 = cv2.boundingRect(np.float32([t1]))
+        r2 = cv2.boundingRect(np.float32([t2]))
 
-        draw_landmarks(debug_original, source_landmarks, color=(255, 0, 0))
-        draw_landmarks(debug_frame, target_landmarks, color=(0, 255, 0))
-        draw_landmarks(debug_result, target_landmarks, color=(0, 0, 255))
+        t1_rect = [(p[0] - r1[0], p[1] - r1[1]) for p in t1]
+        t2_rect = [(p[0] - r2[0], p[1] - r2[1]) for p in t2]
 
-        cv2.imwrite("debug_original_source.png", debug_original)
-        cv2.imwrite("debug_before_expression.png", debug_frame)
-        cv2.imwrite("debug_after_expression.png", debug_result)
-    except Exception as e:
-        print(f"[WARN] Debug drawing failed: {e}")
+        mask = np.zeros((r2[3], r2[2], 3), dtype=np.float32)
+        cv2.fillConvexPoly(mask, np.int32(t2_rect), (1.0, 1.0, 1.0), 16, 0)
 
-    return result
+        src_crop = source_img[r1[1]:r1[1]+r1[3], r1[0]:r1[0]+r1[2]]
+        warped_patch = apply_affine_transform(src_crop, t1_rect, t2_rect, (r2[2], r2[3]))
+
+        warped_area = warped[r2[1]:r2[1]+r2[3], r2[0]:r2[0]+r2[2]].astype(np.float32)
+        blended = warped_area * (1 - mask) + warped_patch.astype(np.float32) * mask
+        warped[r2[1]:r2[1]+r2[3], r2[0]:r2[0]+r2[2]] = np.clip(blended, 0, 255).astype(np.uint8)
+
+    if debug_name:
+        os.makedirs("debug_output", exist_ok=True)
+        cv2.imwrite(f"debug_output/{debug_name}_source_face.png", source_img)
+        cv2.imwrite(f"debug_output/{debug_name}_target_face.png", target_img)
+        cv2.imwrite(f"debug_output/{debug_name}_warped_face_only.png", warped)
+
+    return warped

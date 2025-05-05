@@ -5,7 +5,7 @@ import subprocess
 import threading
 from gfpgan.utils import GFPGANer
 from typing import Any, List, Callable
-
+import numpy as np
 import roop.globals
 import roop.processors.frame.core
 from roop.face_analyser import get_many_faces
@@ -83,6 +83,48 @@ def pre_start() -> bool:
 
 def post_process() -> None:
     clear_face_enhancer()
+
+
+def enhance_face_for(face: Face, frame: Frame, crop: np.ndarray = None) -> Frame:
+    if crop is None:
+        start_x, start_y, end_x, end_y = map(int, face['bbox'])
+        padding_x = int((end_x - start_x) * 0.5)
+        padding_y = int((end_y - start_y) * 0.5)
+
+        start_x = max(0, start_x - padding_x)
+        start_y = max(0, start_y - padding_y)
+        end_x = min(frame.shape[1], end_x + padding_x)
+        end_y = min(frame.shape[0], end_y + padding_y)
+
+        crop = frame[start_y:end_y, start_x:end_x]
+
+    if crop is None or crop.size == 0:
+        print("[WARN] Crop is None or empty.")
+        return frame
+
+    if crop.shape[0] < 16 or crop.shape[1] < 16:
+        print(f"[WARN] Crop too small: shape={crop.shape}")
+        return frame
+
+    with THREAD_SEMAPHORE:
+        try:
+            enhancer = get_face_enhancer()
+            print(f"[DEBUG] enhancer={enhancer}, type={type(enhancer)}")
+            print(f"[DEBUG] crop.shape={crop.shape}, crop.dtype={crop.dtype}")
+            _, _, restored = enhancer.enhance(crop, paste_back=False)
+        except Exception as e:
+            print(f"[ERROR] Face enhancer threw exception: {e}")
+            return frame
+
+    if restored is not None:
+        start_x, start_y = face['bbox'][:2]
+        end_x = start_x + restored.shape[1]
+        end_y = start_y + restored.shape[0]
+        frame[start_y:end_y, start_x:end_x] = restored
+        return frame
+    else:
+        print(f"[WARN] Face enhancer returned None for crop shape={crop.shape}")
+        return frame
 
 
 def enhance_face(target_face: Face, temp_frame: Frame) -> Frame:

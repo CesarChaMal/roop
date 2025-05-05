@@ -301,7 +301,7 @@ main_menu() {
       echo "19) Face Swap - Video (HQ) with --preserve-expressions"
       echo "0) ❌ Exit"
 
-      read -p "👉 Enter number [0-14]: " choice
+      read -p "👉 Enter number [0-19]: " choice
 
       case $choice in
         1) run_face_swap "Image (HQ with Enhancer)" \
@@ -498,15 +498,15 @@ main_menu() {
 # ✅ MAIN EXECUTION
 main() {
 #  remove_conflicting_CUDA_packages
-  cleanup_env
-  setup_cuda
-  install_cudnn
-  install_system_deps
-  install_cmake
+#  cleanup_env
+#  setup_cuda
+#  install_cudnn
+#  install_system_deps
+#  install_cmake
   setup_python_env
-  check_onnx_gpu
+#  check_onnx_gpu
+#  download_models
   detect_execution_provider "$1"
-  download_models
 
   log "Execution provider set to: $EXECUTION_PROVIDER"
   main_menu "$EXECUTION_PROVIDER"

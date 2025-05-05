@@ -20,5 +20,7 @@ max_memory: Optional[int] = None
 execution_providers: List[str] = []
 execution_threads: Optional[int] = None
 is_framewise: Optional[bool] = True
+multi_source: Optional[bool] = None
+multi_source_paths: List[str] = []
 preserve_expressions: Optional[bool] = None
 log_level: str = 'error'
