@@ -100,7 +100,16 @@ def normalize_output_path(source_path: str, target_path: str, output_path: str) 
 
 def create_temp(target_path: str) -> None:
     temp_directory_path = get_temp_directory_path(target_path)
-    Path(temp_directory_path).mkdir(parents=True, exist_ok=True)
+
+    # Workaround: if path exists but is broken (e.g. WSL phantom), remove it
+    if os.path.exists(temp_directory_path) and not os.path.isdir(temp_directory_path):
+        print(f"[WARN] Temp path exists but is not a directory. Removing: {temp_directory_path}")
+        os.remove(temp_directory_path)
+
+    try:
+        Path(temp_directory_path).mkdir(parents=True, exist_ok=True)
+    except FileExistsError:
+        print(f"[WARN] Temp directory already exists (FileExistsError). Skipping creation: {temp_directory_path}")
 
 
 def move_temp(target_path: str, output_path: str) -> None:
