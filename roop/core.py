@@ -29,6 +29,7 @@ warnings.filterwarnings('ignore', category=UserWarning, module='torchvision')
 
 
 def parse_args() -> None:
+    print("[DEBUG] sys.argv =", sys.argv)
     signal.signal(signal.SIGINT, lambda signal_number, frame: destroy())
     program = argparse.ArgumentParser(formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=100))
     program.add_argument('-s', '--source', help='select an source image', dest='source_path')
@@ -102,6 +103,9 @@ def parse_args() -> None:
 
     roop.globals.preserve_expressions = args.preserve_expressions
 
+    print("[DEBUG] roop.globals.source_path =", roop.globals.source_path)
+    print("[DEBUG] roop.globals.multi_source_paths =", roop.globals.multi_source_paths)
+
 def encode_execution_providers(execution_providers: List[str]) -> List[str]:
     return [execution_provider.replace('ExecutionProvider', '').lower() for execution_provider in execution_providers]
 
@@ -161,6 +165,11 @@ def update_status(message: str, scope: str = 'ROOP.CORE') -> None:
 
 
 def start() -> None:
+    print("[DEBUG] start source_path =", roop.globals.source_path)
+    print("[DEBUG] multi_source_paths =", roop.globals.multi_source_paths)
+    print("[DEBUG] target_path =", roop.globals.target_path)
+    print("[DEBUG] output_path =", roop.globals.output_path)
+
     for frame_processor in get_frame_processors_modules(roop.globals.frame_processors):
         if not frame_processor.pre_start():
             return
@@ -171,10 +180,22 @@ def start() -> None:
             destroy()
         shutil.copy2(roop.globals.target_path, roop.globals.output_path)
         # process frame
-        for frame_processor in get_frame_processors_modules(roop.globals.frame_processors):
+        sources = roop.globals.multi_source_paths if roop.globals.multi_source else [roop.globals.source_path]
+
+        temp_output_path = os.path.join("debug_output", "temp_swap_result.png")
+        current_target = roop.globals.target_path
+
+        processor_modules = get_frame_processors_modules(roop.globals.frame_processors)
+        for i, frame_processor in enumerate(processor_modules):
             update_status('Progressing...', frame_processor.NAME)
-            frame_processor.process_image(roop.globals.source_path, roop.globals.output_path, roop.globals.output_path)
+
+            is_last = (i == len(processor_modules) - 1)
+            output_path = roop.globals.output_path if is_last else temp_output_path
+
+            frame_processor.process_image(sources, current_target, output_path)
             frame_processor.post_process()
+
+            current_target = output_path  # next processor uses previous output
         # validate image
         if is_image(roop.globals.target_path):
             update_status('Processing to image succeed!')
@@ -202,7 +223,9 @@ def start() -> None:
     if temp_frame_paths:
         for frame_processor in get_frame_processors_modules(roop.globals.frame_processors):
             update_status('Progressing...', frame_processor.NAME)
-            frame_processor.process_video(roop.globals.source_path, roop.globals.target_path, temp_frame_paths)
+            sources = roop.globals.multi_source_paths if roop.globals.multi_source else [roop.globals.source_path]
+            frame_processor.process_video(sources, roop.globals.target_path, temp_frame_paths)
+            # frame_processor.process_video(roop.globals.source_path, roop.globals.target_path, temp_frame_paths)
             frame_processor.post_process()
     else:
         update_status('Frames not found...')
@@ -250,6 +273,7 @@ def destroy() -> None:
 
 def run() -> None:
     parse_args()
+
     if not pre_check():
         return
     for frame_processor in get_frame_processors_modules(roop.globals.frame_processors):

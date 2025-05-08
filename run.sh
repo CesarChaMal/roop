@@ -327,14 +327,14 @@ main_menu() {
             --execution-provider "$EXECUTION_PROVIDER" \
             --frame-processor face_swapper ;;
         3) run_face_swap "Image (1 source faces onto 2 target faces, ref by position 0)" \
-            --target content/target_image.png \
+            --target content/target_multiface_image.png \
             --source content/source_image.png \
             --output content/output_image_1sources_2targets_byPosition0.png \
             --execution-provider "$EXECUTION_PROVIDER" \
             --frame-processor face_swapper face_enhancer \
             --reference-face-position 0 ;;
         4) run_face_swap "Image (1 source faces onto 2 target faces, ref by position 1)" \
-            --target content/target_image.png \
+            --target content/target_multiface_image.png \
             --source content/source_image.png \
             --output content/output_image_1sources_2targets_byPosition1.png \
             --execution-provider "$EXECUTION_PROVIDER" \
@@ -348,7 +348,7 @@ main_menu() {
             --frame-processor face_swapper face_enhancer \
             --execution-threads 8 ;;
         6) run_face_swap "Video (HQ) (1 source faces onto 2 target faces, ref by position 0)" \
-            --target content/target_video.mp4 \
+            --target content/target_multiface_video.mp4 \
             --source content/source_image.png \
             --output content/output_video_1sources_2targets_byPosition0.mp4 \
             --execution-provider "$EXECUTION_PROVIDER" \
@@ -356,7 +356,7 @@ main_menu() {
             --execution-threads 8 \
             --reference-face-position 0 ;;
         7) run_face_swap "Video (HQ) (1 source faces onto 2 target faces, ref by position 1)" \
-            --target content/target_video.mp4 \
+            --target content/target_multiface_video.mp4 \
             --source content/source_image.png \
             --output content/output_video_1sources_2targets_byPosition1.mp4 \
             --execution-provider "$EXECUTION_PROVIDER" \
@@ -440,7 +440,7 @@ main_menu() {
             --framewise ;;
         16) run_face_swap "Image (2 source faces onto 2 target faces)" \
             --target content/target_multiface_image.png \
-            --source "content/source_image1.png;content/source_image1.png" \
+            --source "content/source_image1.png;content/source_image2.png" \
             --output content/output_image_multiface.png \
             --execution-provider "$EXECUTION_PROVIDER" \
             --frame-processor face_swapper face_enhancer \
@@ -448,7 +448,7 @@ main_menu() {
             --multi-source ;;
         17) run_face_swap "Image (2 source faces onto 3 target faces, ref by position 0)" \
             --target content/target_multiface_image.png \
-            --source "content/source_image1.png;content/source_image1.png" \
+            --source "content/source_image1.png;content/source_image2.png" \
             --output content/output_image_multifaces_2sources_3targets_byPosition0.png \
             --execution-provider "$EXECUTION_PROVIDER" \
             --frame-processor face_swapper face_enhancer \
@@ -457,7 +457,7 @@ main_menu() {
             --reference-frame-number 0 ;;
         18) run_face_swap "Image (2 source faces onto 3 target faces, ref by position 1)" \
             --target content/target_multiface_image.png \
-            --source "content/source_image1.png;content/source_image1.png" \
+            --source "content/source_image1.png;content/source_image2.png" \
             --output content/output_image_multifaces_2sources_3targets_byPosition1.png \
             --execution-provider "$EXECUTION_PROVIDER" \
             --frame-processor face_swapper face_enhancer \
@@ -466,7 +466,7 @@ main_menu() {
             --reference-frame-number 1 ;;
         19) run_face_swap "Video (2 source faces onto 2 target faces" \
             --target content/target_multiface_video.mp4 \
-            --source "content/source_image1.png;content/source_image1.png" \
+            --source "content/source_image1.png;content/source_image2.png" \
             --output content/output_video_multifaces.mp4 \
             --execution-provider "$EXECUTION_PROVIDER" \
             --frame-processor face_swapper face_enhancer \
@@ -476,7 +476,7 @@ main_menu() {
             --many-faces \
             --multi-source ;;
         20) run_face_swap "Video (2 source faces onto 3 target faces, ref by position 0)" \
-            --target content/target_3faces_video.mp4 \
+            --target content/target_multiface_video.mp4 \
             --source "content/source_image1.png;content/source_image2.png" \
             --output content/output_video_multifaces_2sources_3targets_byPosition0.mp4 \
             --execution-provider "$EXECUTION_PROVIDER" \
@@ -489,7 +489,7 @@ main_menu() {
             --reference-face-position 0 \
             --reference-frame-number 0 ;;
         21) run_face_swap "Video (2 source faces onto 3 target faces, ref by position 1)" \
-            --target content/target_3faces_video.mp4 \
+            --target content/target_multiface_video.mp4 \
             --source "content/source_image1.png;content/source_image2.png" \
             --output content/output_video_multifaces_2sources_3targets_byPosition1.mp4 \
             --execution-provider "$EXECUTION_PROVIDER" \
@@ -502,7 +502,7 @@ main_menu() {
             --reference-face-position 1 \
             --reference-frame-number 0 ;;
         22) run_face_swap "Video (3 source faces onto 3 target faces, ref by position 0)" \
-            --target content/target_3faces_video.mp4 \
+            --target content/target_multiface_video.mp4 \
             --source "content/source_image1.png;content/source_image2.png;content/source_image3.png" \
             --output content/output_video_multifaces_3sources_3targets_byPosition0.mp4 \
             --execution-provider "$EXECUTION_PROVIDER" \
@@ -515,7 +515,7 @@ main_menu() {
             --reference-face-position 0 \
             --reference-frame-number 0 ;;
         23) run_face_swap "Video (3 source faces onto 3 target faces, ref by position 1)" \
-            --target content/target_3faces_video.mp4 \
+            --target content/target_multiface_video.mp4 \
             --source "content/source_image1.png;content/source_image2.png;content/source_image3.png" \
             --output content/output_video_multifaces_3sources_3targets_byPosition1.mp4 \
             --execution-provider "$EXECUTION_PROVIDER" \
@@ -535,7 +535,7 @@ main_menu() {
             --frame-processor face_swapper face_enhancer \
             --preserve-expressions ;;
         25) run_face_swap "Image (HQ with Enhancer) with --preserve-expressions (1 source faces onto 2 target faces, ref by position 0)" \
-            --target content/target_image.png \
+            --target content/target_multiface_image.png \
             --source content/source_image.png \
             --output content/output_image_with_preserve_expressions_1sources_2targets_byPosition0.png \
             --execution-provider "$EXECUTION_PROVIDER" \
@@ -543,7 +543,7 @@ main_menu() {
             --preserve-expressions \
             --reference-face-position 0 ;;
         26) run_face_swap "Image (HQ with Enhancer) with --preserve-expressions (1 source faces onto 2 target faces, ref by position 1)" \
-            --target content/target_image.png \
+            --target content/target_multiface_image.png \
             --source content/source_image.png \
             --output content/output_image_with_preserve_expressions_1sources_2targets_byPosition1.png \
             --execution-provider "$EXECUTION_PROVIDER" \
@@ -559,7 +559,7 @@ main_menu() {
             --execution-threads 8 \
             --preserve-expressions ;;
         28) run_face_swap "Video (HQ) with --preserve-expressions (1 source faces onto 2 target faces, ref by position 0)" \
-            --target content/target_video.mp4 \
+            --target content/target_multiface_video.mp4 \
             --source content/source_image.png \
             --output content/output_video_with_preserve_expressions_1sources_2targets_byPosition0.mp4 \
             --execution-provider "$EXECUTION_PROVIDER" \
@@ -568,7 +568,7 @@ main_menu() {
             --preserve-expressions \
             --reference-face-position 0 ;;
         29) run_face_swap "Video (HQ) with --preserve-expressions (1 source faces onto 2 target faces, ref by position 1)" \
-            --target content/target_video.mp4 \
+            --target content/target_multiface_video.mp4 \
             --source content/source_image.png \
             --output content/output_video_with_preserve_expressions_1sources_2targets_byPosition1.mp4 \
             --execution-provider "$EXECUTION_PROVIDER" \

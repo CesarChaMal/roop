@@ -8,7 +8,7 @@ from typing import Any, List, Callable
 import numpy as np
 import roop.globals
 import roop.processors.frame.core
-from roop.face_analyser import get_many_faces
+from roop.face_analyser import get_many_faces, get_one_face
 from roop.processors.frame.core import core_process_video
 from roop.status_utils import update_status
 from roop.typing import Frame, Face
@@ -81,21 +81,29 @@ def pre_check() -> bool:
 #     return True
 
 def pre_start() -> bool:
-    # Multi-source support
-    source_paths = roop.globals.source_path.split(";") if ";" in roop.globals.source_path else [roop.globals.source_path]
+    print("[DEBUG] pre_start face_enhancer source_path =", roop.globals.source_path)
+    print("[DEBUG] pre_start face_enhancer multi_source_paths =", roop.globals.multi_source_paths)
+    source_paths = roop.globals.multi_source_paths if roop.globals.multi_source else [roop.globals.source_path]
 
-    all_exist = True
+    valid_sources = []
     for path in source_paths:
         if not is_image(path):
-            update_status(f'Invalid source image: {path}', NAME)
-            all_exist = False
-        elif not get_one_face(cv2.imread(path)):
-            update_status(f'No face in source image: {path}', NAME)
-            all_exist = False
+            update_status(f'Invalid image path: {path}', NAME)
+            continue
+        image = cv2.imread(path)
+        if image is None:
+            update_status(f'Could not load image: {path}', NAME)
+            continue
+        if not get_one_face(image):
+            update_status(f'No face found in source image: {path}', NAME)
+            continue
+        valid_sources.append(path)
 
-    if not all_exist:
+    if not valid_sources:
+        update_status('Select at least one valid source image with a detectable face.', NAME)
         return False
 
+    # Check target path validity
     if not is_image(roop.globals.target_path) and not is_video(roop.globals.target_path):
         update_status('Select an image or video for target path.', NAME)
         return False
@@ -188,45 +196,43 @@ def process_frames(source_path: str, temp_frame_paths: List[str], update: Callab
     rename_frames_sequentially(temp_frame_paths)
 
 
-def process_image(source_path: str, target_path: str, output_path: str) -> None:
-    target_frame = cv2.imread(target_path)
-    result = process_frame(None, None, target_frame)
+def process_image(source_paths: List[str], target_path: str, output_path: str) -> None:
+    print("[FaceEnhancer] Starting process_image")
+    print(f"[DEBUG] source_paths = {source_paths}")  # not used, just for consistency
+    print(f"[DEBUG] target_path = {target_path}")
+
+    image = cv2.imread(target_path)
+    if image is None:
+        update_status(f"Could not read target image: {target_path}", NAME)
+        return
+
+    # Enhance all faces in the image
+    faces = get_many_faces(image)
+    print(f"[DEBUG] Detected {len(faces)} face(s) to enhance")
+
+    result = process_frame(None, None, image)
+
+    # Save enhanced image
     cv2.imwrite(output_path, result)
+    print(f"[FaceEnhancer] Saved enhanced image to {output_path}")
 
-
-# def process_video(source_path: str, target_path: str, temp_frame_paths: List[str]) -> None:
-#     print("[FaceEnhancer] Starting process_video")
-#     print(f"Frames to enhance: {len(temp_frame_paths)}")
-#
-#     for temp_frame_path in temp_frame_paths:
-#         temp_frame = cv2.imread(temp_frame_path)
-#         result = process_frame(None, None, temp_frame)
-#         cv2.imwrite(temp_frame_path, result)
-#
-#     print("[FaceEnhancer] Finished enhancing frames")
-
-def process_video(source_path: str, target_path: str, temp_frame_paths: List[str]) -> None:
+def process_video(source_paths: List[str], target_path: str, temp_frame_paths: List[str]) -> None:
     print("[FaceEnhancer] Starting process_video")
-    print(f"Frames to enhance: {len(temp_frame_paths)}")
+    print(f"[DEBUG] source_paths = {source_paths}")
+    print(f"[DEBUG] number of frames = {len(temp_frame_paths)}")
 
-    # for idx, temp_frame_path in enumerate(temp_frame_paths):
-    #     temp_frame = cv2.imread(temp_frame_path)
-    #     if temp_frame is None:
-    #         print(f"[FaceEnhancer] ⚠️ Skipping frame {idx}: could not read image at {temp_frame_path}")
-    #         continue
-    #
-    #     try:
-    #         enhanced_frame = process_frame(None, None, temp_frame)
-    #         if enhanced_frame is not None:
-    #             cv2.imwrite(temp_frame_path, enhanced_frame)
-    #         else:
-    #             print(f"[FaceEnhancer] ⚠️ Skipping frame {idx}: enhancement returned None")
-    #     except Exception as e:
-    #         print(f"[FaceEnhancer] ❌ Error processing frame {idx}: {e}")
-
-    def enhance(source_path: str, target_path: str, frame: Frame) -> Frame:
+    def enhance(_: str, __: str, frame: Frame) -> Frame:
+        # Detect and enhance all faces in the frame
+        target_faces = get_many_faces(frame)
+        print(f"[DEBUG] Enhancing {len(target_faces)} faces in frame")
         return process_frame(None, None, frame)
 
-    core_process_video(source_path, target_path, temp_frame_paths, enhance, is_framewise=True)
+    core_process_video(
+        source_paths[0],  # not used by `enhance`, still required by signature
+        target_path,
+        temp_frame_paths,
+        enhance,
+        is_framewise=True
+    )
 
-    print("[FaceEnhancer] Finished enhancing frames")
+    print("[FaceEnhancer] Finished enhancing video frames")
