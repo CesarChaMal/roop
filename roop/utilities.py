@@ -40,6 +40,20 @@ def detect_fps(target_path: str) -> float:
         pass
     return 30
 
+def extract_frames(target_path: str, fps: float = 30) -> bool:
+    temp_directory_path = get_temp_directory_path(target_path)
+    temp_frame_quality = roop.globals.temp_frame_quality * 31 // 100
+    hwaccel = ['-hwaccel', 'auto'] if is_hwaccel_cuda_available() else ['-hwaccel', 'none']
+
+    return run_ffmpeg(
+        hwaccel + [
+            '-i', target_path,
+            '-q:v', str(temp_frame_quality),
+            '-pix_fmt', 'rgb24',
+            '-vf', f'fps={fps}',
+            os.path.join(temp_directory_path, f'%04d.{roop.globals.temp_frame_format}')
+        ]
+    )
 
 def extract_frames(target_path: str, fps: float = 30) -> bool:
     temp_directory_path = get_temp_directory_path(target_path)
