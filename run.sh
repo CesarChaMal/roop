@@ -589,15 +589,15 @@ main_menu() {
 
 # ✅ MAIN EXECUTION
 main() {
-#  remove_conflicting_CUDA_packages
-#  cleanup_env
-#  setup_cuda
-#  install_cudnn
-#  install_system_deps
-#  install_cmake
+  remove_conflicting_CUDA_packages
+  cleanup_env
+  setup_cuda
+  install_cudnn
+  install_system_deps
+  install_cmake
   setup_python_env
-#  check_onnx_gpu
-#  download_models
+  check_onnx_gpu
+  download_models
   detect_execution_provider "$1"
 
   log "Execution provider set to: $EXECUTION_PROVIDER"
