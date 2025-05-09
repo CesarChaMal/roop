@@ -50,31 +50,40 @@ def is_hwaccel_cuda_available() -> bool:
     except Exception:
         return False
 
+def can_use_cuda_hwaccel(target_path: str) -> bool:
+    """Check if CUDA hwaccel is supported and usable for the given video."""
+    if not is_hwaccel_cuda_available():
+        return False
+    try:
+        subprocess.check_output(
+            ['ffmpeg', '-hide_banner', '-loglevel', 'error',
+             '-hwaccel', 'cuda', '-i', target_path, '-f', 'null', '-'],
+            stderr=subprocess.STDOUT
+        )
+        return True
+    except subprocess.CalledProcessError as e:
+        print(f"[WARN] CUDA hwaccel test failed: {e.output.decode(errors='ignore')}")
+        return False
+
 def extract_frames(target_path: str, fps: float = 30) -> bool:
     temp_directory_path = get_temp_directory_path(target_path)
     temp_frame_quality = roop.globals.temp_frame_quality * 31 // 100
     output_pattern = os.path.join(temp_directory_path, f'%04d.{roop.globals.temp_frame_format}')
 
-    ffmpeg_args = ['-i', target_path, '-q:v', str(temp_frame_quality), '-pix_fmt', 'rgb24', '-vf', f'fps={fps}', output_pattern]
+    ffmpeg_args = ['-i', target_path,
+                   '-q:v', str(temp_frame_quality),
+                   '-pix_fmt', 'rgb24',
+                   '-vf', f'fps={fps}',
+                   output_pattern]
 
-    use_cuda = any(provider.lower().startswith('cuda') for provider in roop.globals.execution_providers)
-    if use_cuda and is_hwaccel_cuda_available():
-        # Attempt test command to verify CUDA decode works
-        try:
-            subprocess.check_output(
-                ['ffmpeg', '-hide_banner', '-loglevel', 'error', '-hwaccel', 'cuda', '-i', target_path, '-f', 'null', '-'],
-                stderr=subprocess.STDOUT
-            )
-            ffmpeg_args.insert(0, 'cuda')
-            ffmpeg_args.insert(0, '-hwaccel')
-            print("[INFO] Using CUDA hardware decode")
-        except subprocess.CalledProcessError as e:
-            print(f"[WARN] CUDA decode not usable (fallback to CPU): {e.output.decode(errors='ignore')}")
+    use_cuda = any(p.lower().startswith('cuda') for p in roop.globals.execution_providers)
+    if use_cuda and can_use_cuda_hwaccel(target_path):
+        print("[INFO] Using CUDA hardware decode")
+        ffmpeg_args = ['-hwaccel', 'cuda'] + ffmpeg_args
     else:
-        print("[INFO] CUDA not requested or not available. Using CPU decode.")
+        print("[INFO] Using CPU decode")
 
     return run_ffmpeg(ffmpeg_args)
-
 
 def create_video(target_path: str, fps: float = 30) -> bool:
     temp_output_path = get_temp_output_path(target_path)
