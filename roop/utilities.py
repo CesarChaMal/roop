@@ -40,25 +40,31 @@ def detect_fps(target_path: str) -> float:
         pass
     return 30
 
-def extract_frames(target_path: str, fps: float = 30) -> bool:
-    temp_directory_path = get_temp_directory_path(target_path)
-    temp_frame_quality = roop.globals.temp_frame_quality * 31 // 100
-    hwaccel = ['-hwaccel', 'auto'] if is_hwaccel_cuda_available() else ['-hwaccel', 'none']
-
-    return run_ffmpeg(
-        hwaccel + [
-            '-i', target_path,
-            '-q:v', str(temp_frame_quality),
-            '-pix_fmt', 'rgb24',
-            '-vf', f'fps={fps}',
-            os.path.join(temp_directory_path, f'%04d.{roop.globals.temp_frame_format}')
-        ]
-    )
+def is_hwaccel_cuda_available() -> bool:
+    try:
+        output = subprocess.check_output(
+            ['ffmpeg', '-hide_banner', '-hwaccels'],
+            stderr=subprocess.STDOUT
+        ).decode()
+        return 'cuda' in output or 'cuvid' in output
+    except Exception:
+        return False
 
 def extract_frames(target_path: str, fps: float = 30) -> bool:
     temp_directory_path = get_temp_directory_path(target_path)
     temp_frame_quality = roop.globals.temp_frame_quality * 31 // 100
-    return run_ffmpeg(['-hwaccel', 'auto', '-i', target_path, '-q:v', str(temp_frame_quality), '-pix_fmt', 'rgb24', '-vf', 'fps=' + str(fps), os.path.join(temp_directory_path, '%04d.' + roop.globals.temp_frame_format)])
+    output_pattern = os.path.join(temp_directory_path, f'%04d.{roop.globals.temp_frame_format}')
+
+    # Only use hwaccel if CUDA or similar is available
+    ffmpeg_args = ['-i', target_path, '-q:v', str(temp_frame_quality), '-pix_fmt', 'rgb24', '-vf', f'fps={fps}', output_pattern]
+
+    if any(provider.lower().startswith('cuda') for provider in roop.globals.execution_providers) and is_hwaccel_cuda_available():
+        ffmpeg_args.insert(0, 'cuda')
+        ffmpeg_args.insert(0, '-hwaccel')
+    else:
+        print("[INFO] CUDA hwaccel not available or not requested; using software decode.")
+
+    return run_ffmpeg(ffmpeg_args)
 
 
 def create_video(target_path: str, fps: float = 30) -> bool:
