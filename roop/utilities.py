@@ -55,14 +55,23 @@ def extract_frames(target_path: str, fps: float = 30) -> bool:
     temp_frame_quality = roop.globals.temp_frame_quality * 31 // 100
     output_pattern = os.path.join(temp_directory_path, f'%04d.{roop.globals.temp_frame_format}')
 
-    # Only use hwaccel if CUDA or similar is available
     ffmpeg_args = ['-i', target_path, '-q:v', str(temp_frame_quality), '-pix_fmt', 'rgb24', '-vf', f'fps={fps}', output_pattern]
 
-    if any(provider.lower().startswith('cuda') for provider in roop.globals.execution_providers) and is_hwaccel_cuda_available():
-        ffmpeg_args.insert(0, 'cuda')
-        ffmpeg_args.insert(0, '-hwaccel')
+    use_cuda = any(provider.lower().startswith('cuda') for provider in roop.globals.execution_providers)
+    if use_cuda and is_hwaccel_cuda_available():
+        # Attempt test command to verify CUDA decode works
+        try:
+            subprocess.check_output(
+                ['ffmpeg', '-hide_banner', '-loglevel', 'error', '-hwaccel', 'cuda', '-i', target_path, '-f', 'null', '-'],
+                stderr=subprocess.STDOUT
+            )
+            ffmpeg_args.insert(0, 'cuda')
+            ffmpeg_args.insert(0, '-hwaccel')
+            print("[INFO] Using CUDA hardware decode")
+        except subprocess.CalledProcessError as e:
+            print(f"[WARN] CUDA decode not usable (fallback to CPU): {e.output.decode(errors='ignore')}")
     else:
-        print("[INFO] CUDA hwaccel not available or not requested; using software decode.")
+        print("[INFO] CUDA not requested or not available. Using CPU decode.")
 
     return run_ffmpeg(ffmpeg_args)
 
@@ -107,22 +116,21 @@ def normalize_output_path(source_path: str, target_path: str, output_path: str) 
 def create_temp(target_path: str) -> None:
     temp_directory_path = get_temp_directory_path(target_path)
 
-    # If it's not a directory, remove it (broken symlink or file)
+    # Handle broken symlink or file at temp dir path
     if os.path.exists(temp_directory_path) and not os.path.isdir(temp_directory_path):
         print(f"[WARN] Temp path exists but is not a directory. Removing: {temp_directory_path}")
         os.remove(temp_directory_path)
 
-    # If it is a directory but broken (e.g., missing write permission), recreate it
+    # Try to clean and recreate the directory
     try:
-        Path(temp_directory_path).mkdir(parents=True, exist_ok=True)
-    except FileExistsError:
-        # Try cleaning up if it exists but is invalid
-        try:
-            print(f"[WARN] Temp directory already exists. Removing: {temp_directory_path}")
+        if os.path.isdir(temp_directory_path):
+            print(f"[INFO] Removing stale temp directory: {temp_directory_path}")
             shutil.rmtree(temp_directory_path)
-            Path(temp_directory_path).mkdir(parents=True, exist_ok=True)
-        except Exception as e:
-            print(f"[ERROR] Could not reset temp directory: {e}")
+
+        Path(temp_directory_path).mkdir(parents=True, exist_ok=True)
+        print(f"[INFO] Created temp directory: {temp_directory_path}")
+    except Exception as e:
+        print(f"[ERROR] Could not create/reset temp directory: {e}")
 
 
 def move_temp(target_path: str, output_path: str) -> None:

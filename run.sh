@@ -47,44 +47,84 @@ setup_cuda() {
   export PATH="$CUDA_PATH/bin${PATH:+:${PATH}}"
   export LD_LIBRARY_PATH="$CUDA_PATH/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
   debug "Exporting CUDA PATH and LD_LIBRARY_PATH"
-  debug "[DEBUG] Test: ! -d "$CUDA_PATH" → $([[ ! -d "$CUDA_PATH" ]] && echo true || echo false)"
+  debug "[DEBUG] Test: ! -d \"$CUDA_PATH\" → $([[ ! -d \"$CUDA_PATH\" ]] && echo true || echo false)"
 
   if [[ ! -d "$CUDA_PATH" ]]; then
     warn "CUDA directory not found at $CUDA_PATH"
-    wget https://developer.download.nvidia.com/compute/cuda/11.8.0/local_installers/cuda_11.8.0_520.61.05_linux.run -O cuda_11.8.run
-    log "Downloading and installing CUDA 11.8..."
-    chmod +x cuda_11.8.run
-    sudo ./cuda_11.8.run --toolkit --silent --override
-    rm -f cuda_11.8.run
+    local installer="cuda_11.8.run"
+    local url="https://developer.download.nvidia.com/compute/cuda/11.8.0/local_installers/cuda_11.8.0_520.61.05_linux.run"
+
+    wget "$url" -O "$installer"
+    chmod +x "$installer"
+
+    # Detect if running on a network or non-native filesystem
+    local mount_type
+    mount_type=$(df -T . | awk 'NR==2 {print $2}')
+    debug "[DEBUG] Current filesystem type: $mount_type"
+
+    if [[ "$mount_type" != "ext4" && "$mount_type" != "xfs" ]]; then
+      warn "Non-native filesystem detected ($mount_type). Copying installer to /tmp to avoid stale file handle issues."
+      cp "$installer" /tmp/
+      chmod +x /tmp/"$installer"
+      sudo /tmp/"$installer" --toolkit --silent --override
+      rm -f /tmp/"$installer"
+    else
+      sudo ./"$installer" --toolkit --silent --override
+    fi
+
+    rm -f "$installer"
     success "CUDA 11.8 installed successfully."
   else
     success "CUDA already installed."
   fi
+
   success "Setup CUDA completed."
 }
 
 # ✅ cuDNN Setup
 install_cudnn() {
   log "Checking for cuDNN installation..."
-  debug "[DEBUG] Test: ! -f $CUDA_PATH/lib64/libcudnn.so.8 → $([[ ! -f "$CUDA_PATH/lib64/libcudnn.so.8" ]] && echo true || echo false)"
+  debug "[DEBUG] Test: ! -f $CUDA_PATH/lib64/libcudnn.so.8 → $([[ ! -f \"$CUDA_PATH/lib64/libcudnn.so.8\" ]] && echo true || echo false)"
 
   if [[ ! -f "$CUDA_PATH/lib64/libcudnn.so.8" ]]; then
     warn "cuDNN not found. Installing now..."
-    log "Installing cuDNN v8.9.7.29 for CUDA 11.8..."
+    log "Installing cuDNN v8.9.5.29 for CUDA 11.8..."
+
     local TARBALL="cudnn-linux-x86_64-8.9.5.29_cuda11-archive.tar.xz"
     local URL="https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-x86_64/$TARBALL"
-    wget "$URL" -O "$TARBALL"
-    tar -xf "$TARBALL"
-    local DIR=$(find . -type d -name "cudnn-linux-x86_64*" | head -n 1)
+
+    # Check current filesystem type
+    local mount_type
+    mount_type=$(df -T . | awk 'NR==2 {print $2}')
+    debug "[DEBUG] Current filesystem type: $mount_type"
+
+    local extract_dir
+
+    if [[ "$mount_type" != "ext4" && "$mount_type" != "xfs" ]]; then
+      warn "Non-native filesystem detected ($mount_type). Downloading and extracting in /tmp..."
+      extract_dir="/tmp/cudnn_temp"
+      mkdir -p "$extract_dir"
+      cd "$extract_dir"
+    else
+      extract_dir="$(pwd)"
+    fi
+
+    wget "$URL" -O "$extract_dir/$TARBALL"
+    tar -xf "$extract_dir/$TARBALL" -C "$extract_dir"
+
+    local DIR
+    DIR=$(find "$extract_dir" -type d -name "cudnn-linux-x86_64*" | head -n 1)
+
     sudo cp -P "$DIR/include/"* "$CUDA_PATH/include/"
     sudo cp -P "$DIR/lib/"* "$CUDA_PATH/lib64/"
     sudo ldconfig
-    rm -rf "$TARBALL" "$DIR"
-    log "cuDNN installed."
+
+    rm -rf "$extract_dir/$TARBALL" "$DIR"
     success "cuDNN installed successfully."
   else
     success "cuDNN already present."
   fi
+
   success "install_cudnn completed"
 }
 
@@ -111,6 +151,22 @@ install_cmake() {
   ldd $(which cmake) | grep libc
   rm -f cmake-3.24.4-linux-x86_64.sh
   success "CMake installed and validated."
+}
+
+install_system_deps() {
+  log "Installing system dependencies..."
+
+  if [[ "$(uname -s)" == "Linux" ]]; then
+    sudo apt update
+    sudo apt install -y \
+      ffmpeg build-essential cmake \
+      libopenblas-dev liblapack-dev libx11-dev libgtk-3-dev libboost-all-dev \
+      libbz2-dev libreadline-dev libssl-dev libsqlite3-dev \
+      libncursesw5-dev libffi-dev zlib1g-dev liblzma-dev \
+      tk-dev libgdbm-dev uuid-dev libnss3-dev libgdbm-compat-dev
+  fi
+
+  success "System dependencies installed (ffmpeg, Python build libs, C++ toolchain, etc.)"
 }
 
 # ✅ pyenv + venv setup
@@ -223,16 +279,23 @@ download_models() {
 # ✅ Determine Execution Provider
 detect_execution_provider() {
   debug "User-supplied execution provider: $1"
-  debug "[DEBUG] \"$1\" == \"cuda\" || \"$1\" == \"cpu\" → $([[ "$1" == "cuda" || "$1" == "cpu" ]] && echo true || echo false)"
+  debug "[DEBUG] \"$1\" == \"cuda\" || \"$1\" == \"cpu\" → $([[ \"$1\" == \"cuda\" || \"$1\" == \"cpu\" ]] && echo true || echo false)"
 
   if [[ "$1" == "cuda" || "$1" == "cpu" ]]; then
     EXECUTION_PROVIDER="$1"
     log "Execution provider manually set to: $EXECUTION_PROVIDER"
   else
-    EXECUTION_PROVIDER=$(python -c 'import onnxruntime as ort; print("cuda" if "CUDAExecutionProvider" in ort.get_available_providers() else "cpu")')
-    [[ "$EXECUTION_PROVIDER" == "cpu" ]] && warn "CUDA not detected. Defaulting to CPU execution." || log "CUDA detected."
-    log "Execution provider set to: $EXECUTION_PROVIDER"
+    # Check if NVIDIA driver is loaded
+    if ! nvidia-smi &>/dev/null; then
+      warn "nvidia-smi failed: NVIDIA driver not loaded or no compatible GPU. Forcing CPU execution."
+      EXECUTION_PROVIDER="cpu"
+    else
+      # Let ONNXRuntime decide
+      EXECUTION_PROVIDER=$(python -c 'import onnxruntime as ort; print("cuda" if "CUDAExecutionProvider" in ort.get_available_providers() else "cpu")')
+      [[ "$EXECUTION_PROVIDER" == "cpu" ]] && warn "CUDAExecutionProvider not available in ONNXRuntime. Using CPU." || log "CUDA detected."
+    fi
   fi
+
   export EXECUTION_PROVIDER
   success "Execution provider set to: $EXECUTION_PROVIDER"
 }
@@ -595,6 +658,7 @@ main() {
   install_cudnn
   install_system_deps
   install_cmake
+  install_system_deps
   setup_python_env
   check_onnx_gpu
   download_models
