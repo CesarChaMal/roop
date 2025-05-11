@@ -98,8 +98,19 @@ def unwrap_array(obj):
         obj = obj[0]
     return obj
 
-def swap_face(source_face: Face, target_face: Face, temp_frame: Frame) -> Frame:
-    return get_face_swapper().get(temp_frame, target_face, source_face, paste_back=True)
+def swap_face(source_face: Face, target_face: Face, temp_frame: Frame, index: int = 0, prefix: str = "") -> Frame:
+    swapped = get_face_swapper().get(temp_frame, target_face, source_face, paste_back=True)
+
+    # ✅ Debug output
+    os.makedirs("debug_output", exist_ok=True)
+    try:
+        debug_filename = f"debug_output/{prefix}_{index:04d}_swapped_face_basic.png"
+        cv2.imwrite(debug_filename, swapped)
+        print(f"[DEBUG] Saved basic swapped face image: {debug_filename}")
+    except Exception as e:
+        print(f"[WARN] Could not save debug swapped face image: {e}")
+
+    return swapped
 
 def swap_face_with_expression(source_face: Face, target_face: Face, original_frame: Frame, temp_frame: Frame, index: int = 0, prefix: str = "") -> Frame:
     print("[DEBUG] Warping expression from source to match target...")

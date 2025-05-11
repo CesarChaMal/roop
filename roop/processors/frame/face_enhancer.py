@@ -224,7 +224,7 @@ def process_video(source_paths: List[str], target_path: str, temp_frame_paths: L
     def enhance(_: str, __: str, frame: Frame) -> Frame:
         # Detect and enhance all faces in the frame
         target_faces = get_many_faces(frame)
-        print(f"[DEBUG] Enhancing {len(target_faces)} faces in frame")
+        # print(f"[DEBUG] Enhancing {len(target_faces)} faces in frame")
         return process_frame(None, None, frame)
 
     core_process_video(

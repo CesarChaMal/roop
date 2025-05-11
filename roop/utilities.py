@@ -320,6 +320,7 @@ def add_audio_to_video(output_path: str, target_video_path: str) -> None:
         '-c:v', 'copy',
         '-c:a', 'aac',
         '-b:a', '192k',
+        '-af', 'aresample=async=1',
         '-map', '0:v:0',
         '-map', '1:a:0',
         '-shortest',
@@ -337,8 +338,9 @@ def add_audio_to_video(output_path: str, target_video_path: str) -> None:
         debug_audio_stream(temp_output_path)
         os.replace(temp_output_path, output_path)
         print("[✅] Final swapped video generated with audio.")
-        if getattr(roop.globals, "framewise", False):
-            warn_if_duration_mismatch(target_video_path, output_path)
+        # if getattr(roop.globals, "framewise", False):
+        #     warn_if_duration_mismatch(target_video_path, output_path)
+        warn_if_duration_mismatch(target_video_path, output_path)
     else:
         print("[❌] Output with audio was not created correctly.")
 
@@ -357,15 +359,17 @@ def restore_audio(target_video_path: str, output_path: str) -> None:
     print(f"[DEBUG] Temporary output with audio: {temp_output_path}")
 
     ffmpeg_cmd = [
+        '-y',
         '-i', output_path,
         '-i', target_video_path,
         '-c:v', 'copy',
         '-c:a', 'aac',
         '-b:a', '192k',
+        '-af', 'aresample=async=1',
         '-map', '0:v:0',
         '-map', '1:a:0',
         '-shortest',
-        '-y', temp_output_path
+        temp_output_path
     ]
 
     if not run_ffmpeg(ffmpeg_cmd):
@@ -378,8 +382,9 @@ def restore_audio(target_video_path: str, output_path: str) -> None:
     if os.path.exists(temp_output_path):
         os.replace(temp_output_path, output_path)
         debug_audio_stream(output_path)
-        if getattr(roop.globals, "framewise", False):
-            warn_if_duration_mismatch(target_video_path, output_path)
+        # if getattr(roop.globals, "framewise", False):
+        #     warn_if_duration_mismatch(target_video_path, output_path)
+        warn_if_duration_mismatch(target_video_path, output_path)
         print("[✅] Audio restored successfully.")
     else:
         print("[❌] Failed to create audio output.")
