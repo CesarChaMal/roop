@@ -22,7 +22,8 @@ import roop.ui as ui
 from roop.predictor import predict_image, predict_video
 from roop.processors.frame.core import get_frame_processors_modules
 from roop.utilities import has_image_extension, is_image, is_video, detect_fps, create_video, extract_frames, \
-    get_temp_frame_paths,  create_temp, move_temp, clean_temp, normalize_output_path, add_audio_to_video, restore_audio
+    get_temp_frame_paths,  create_temp, move_temp, clean_temp, normalize_output_path, add_audio_to_video, restore_audio , \
+    compile_video_from_frames, rename_frames_sequentially, get_temp_directory_path
 
 warnings.filterwarnings('ignore', category=FutureWarning, module='insightface')
 warnings.filterwarnings('ignore', category=UserWarning, module='torchvision')
@@ -105,6 +106,8 @@ def parse_args() -> None:
 
     print("[DEBUG] roop.globals.source_path =", roop.globals.source_path)
     print("[DEBUG] roop.globals.multi_source_paths =", roop.globals.multi_source_paths)
+    print("[DEBUG] frame_processors =", roop.globals.frame_processors)
+
 
 def encode_execution_providers(execution_providers: List[str]) -> List[str]:
     return [execution_provider.replace('ExecutionProvider', '').lower() for execution_provider in execution_providers]
@@ -235,10 +238,16 @@ def start() -> None:
     if roop.globals.keep_fps:
         fps = detect_fps(roop.globals.target_path)
         update_status(f'Creating video with {fps} FPS...')
-        create_video(roop.globals.target_path, fps)
+        # create_video(roop.globals.target_path, fps)
+        frame_dir = get_temp_directory_path(roop.globals.target_path)
+        rename_frames_sequentially(get_temp_frame_paths(roop.globals.target_path))
+        compile_video_from_frames(frame_dir, roop.globals.output_path, int(fps))
     else:
         update_status('Creating video with 30 FPS...')
-        create_video(roop.globals.target_path)
+        # create_video(roop.globals.target_path)
+        frame_dir = get_temp_directory_path(roop.globals.target_path)
+        rename_frames_sequentially(get_temp_frame_paths(roop.globals.target_path))
+        compile_video_from_frames(frame_dir, roop.globals.output_path, fps=30)
 
     # handle audio only for video output
     print(f"[DEBUG] skip_audio: {roop.globals.skip_audio}, keep_fps: {roop.globals.keep_fps}")
@@ -247,12 +256,14 @@ def start() -> None:
             move_temp(roop.globals.target_path, roop.globals.output_path)
             update_status('Skipping audio...')
         else:
-            if roop.globals.keep_fps:
-                update_status('Restoring audio...')
-                restore_audio(roop.globals.target_path, roop.globals.output_path)
-            else:
-                update_status('Restoring audio might cause issues as fps are not kept...')
-                add_audio_to_video(roop.globals.output_path, roop.globals.target_path)
+            update_status('Adding original audio...')
+            add_audio_to_video(roop.globals.output_path, roop.globals.target_path)
+            # if roop.globals.keep_fps:
+            #     update_status('Restoring audio...')
+            #     restore_audio(roop.globals.target_path, roop.globals.output_path)
+            # else:
+            #     update_status('Restoring audio might cause issues as fps are not kept...')
+            #     add_audio_to_video(roop.globals.output_path, roop.globals.target_path)
 
     # clean temp
     update_status('Cleaning temporary resources...')

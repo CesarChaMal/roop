@@ -92,9 +92,9 @@ def core_process_video(source_path: str, target_path: str, frame_paths: List[str
 
     with tqdm(total=len(frame_paths), desc='Processing', unit='frame') as progress:
         if is_framewise:
-            for path in frame_paths:
+            for idx, path in enumerate(frame_paths):
                 frame = cv2.imread(path)
-                result = process(source_path, target_path, frame)
+                result = process(source_path, target_path, frame, idx)
                 cv2.imwrite(path, result)
                 progress.update(1)
         else:

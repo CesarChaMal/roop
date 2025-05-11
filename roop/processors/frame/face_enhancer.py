@@ -221,11 +221,10 @@ def process_video(source_paths: List[str], target_path: str, temp_frame_paths: L
     print(f"[DEBUG] source_paths = {source_paths}")
     print(f"[DEBUG] number of frames = {len(temp_frame_paths)}")
 
-    def enhance(_: str, __: str, frame: Frame) -> Frame:
-        # Detect and enhance all faces in the frame
+    def enhance(_: str, __: str, frame: Frame, index: int) -> Frame:
         target_faces = get_many_faces(frame)
-        # print(f"[DEBUG] Enhancing {len(target_faces)} faces in frame")
-        return process_frame(None, None, frame)
+        print(f"[DEBUG] Enhancing {len(target_faces)} faces in frame")
+        return process_frame(None, None, frame)  # You can pass index if needed for debug
 
     core_process_video(
         source_paths[0],  # not used by `enhance`, still required by signature
