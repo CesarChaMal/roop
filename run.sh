@@ -6,6 +6,7 @@ export PYTHONUTF8=1
 VENV=".venv"
 PYTHON_VERSION="3.10.13"
 CUDA_PATH="/usr/local/cuda-11.8"
+ROOT_DIR=$(pwd)
 
 # ✅ Color Codes
 BOLD="\033[1m"
@@ -128,17 +129,6 @@ install_cudnn() {
   success "install_cudnn completed"
 }
 
-# ✅ Install system dependencies
-install_system_deps() {
-  log "Installing system dependencies..."
-
-  if [[ "$(uname -s)" == "Linux" ]]; then
-    sudo apt update
-    sudo apt install -y ffmpeg build-essential libopenblas-dev liblapack-dev libx11-dev libgtk-3-dev libboost-all-dev
-  fi
-  success "System dependencies installed (ffmpeg, cmake, etc.)"
-}
-
 install_cmake() {
   log "Installing compatible CMake 3.24.4..."
   sudo apt remove -y cmake || true
@@ -200,6 +190,7 @@ setup_python_env() {
 
   source "$VENV/bin/activate"
 
+  cd "$ROOT_DIR"
   pip install --upgrade pip
 #  pip install -r requirements.txt
   pip install --use-pep517 -r requirements.txt || warn "Initial install failed, continuing..."
@@ -656,7 +647,6 @@ main() {
   cleanup_env
   setup_cuda
   install_cudnn
-  install_system_deps
   install_cmake
   install_system_deps
   setup_python_env
