@@ -407,7 +407,7 @@ main_menu() {
             --output content/output_video_1sources_2targets_byPosition0.mp4 \
             --execution-provider "$EXECUTION_PROVIDER" \
             --frame-processor face_swapper face_enhancer \
-            --execution-threads 2 \
+            --execution-threads 8 \
             --reference-face-position 0 ;;
         7) run_face_swap "Video (HQ) (1 source faces onto 2 target faces, ref by position 1)" \
             --target content/target_multiface_video.mp4 \
