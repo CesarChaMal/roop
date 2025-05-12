@@ -320,6 +320,18 @@ def process_video(source_paths: List[str], target_path: str, temp_frame_paths: L
     print(f"[DEBUG] source_paths = {source_paths}")
     print(f"[DEBUG] number of frames = {len(temp_frame_paths)}")
 
+    # Step 1: Lock reference target face from one frame
+    ref_frame_idx = roop.globals.reference_frame_number
+    reference_frame = cv2.imread(temp_frame_paths[min(ref_frame_idx, len(temp_frame_paths) - 1)])
+    reference_target_face = None
+    all_faces = get_many_faces(reference_frame)
+    if len(all_faces) > roop.globals.reference_face_position:
+        reference_target_face = all_faces[roop.globals.reference_face_position]
+        print("[DEBUG] Locked reference target face for matching.")
+    else:
+        print("[ERROR] Reference face position out of range.")
+        return
+
     # Load all source faces
     source_faces = []
     for path in source_paths:
@@ -380,38 +392,47 @@ def process_video(source_paths: List[str], target_path: str, temp_frame_paths: L
         return face
 
     def swap_func(_: str, __: str, frame: Frame, index: int) -> Frame:
-        target_faces = get_many_faces(frame)
-        print(f"[DEBUG] Detected {len(target_faces)} faces in frame")
+        if roop.globals.many_faces:
+            target_faces = get_many_faces(frame)
+            print(f"[DEBUG] Detected {len(target_faces)} faces in frame {index}")
 
-        for i, target_face in enumerate(target_faces):
-            source_face = resolve_source_face(i, source_faces, ref_face)
+            for i, target_face in enumerate(target_faces):
+                source_face = resolve_source_face(i, source_faces, ref_face)
+                if source_face.image is None:
+                    print(f"[ERROR] Source face {i} has no image, skipping...")
+                    continue
 
-            # 🧪 Debug: ensure image is not None or corrupted
+                if roop.globals.preserve_expressions:
+                    frame = swap_face_with_expression(
+                        source_face, target_face,
+                        original_frame=source_face.image,
+                        temp_frame=frame,
+                        index=index * 100 + i,
+                        prefix="video"
+                    )
+                else:
+                    frame = swap_face(source_face, target_face, frame,
+                                      index=index * 100 + i, prefix="video")
+        else:
+            target_face = find_similar_face(frame, reference_target_face)
+            if not target_face:
+                print(f"[WARN] No matching face found in frame {index}, skipping.")
+                return frame
+
+            source_face = resolve_source_face(0, source_faces, ref_face)
             if source_face.image is None:
-                print(f"[ERROR] source_face.image is None at index {i}")
-            else:
-                print(f"[DEBUG] source_face.image.shape = {source_face.image.shape}")
-
-            # ✅ Optional reassign from original just in case
-            # Helps when get_many_faces returned an empty Face() with no image
-            source_image_path = (
-                roop.globals.multi_source_paths[i]
-                if roop.globals.multi_source and i < len(roop.globals.multi_source_paths)
-                else roop.globals.source_path
-            )
-            if source_face.image is None:
-                source_face.image = cv2.imread(source_image_path)
-                print(f"[DEBUG] Re-loaded source_face.image from: {source_image_path}")
+                print(f"[ERROR] Source face image is missing, trying reload...")
+                source_face.image = cv2.imread(roop.globals.source_path)
 
             if roop.globals.preserve_expressions:
                 frame = swap_face_with_expression(
                     source_face, target_face,
                     original_frame=source_face.image,
                     temp_frame=frame,
-                    index=index, prefix='video'  # ✅ Use global index here
+                    index=index, prefix="video"
                 )
             else:
-                frame = swap_face(source_face, target_face, frame, index=index, prefix='video')
+                frame = swap_face(source_face, target_face, frame, index=index, prefix="video")
         return frame
 
     core_process_video(
