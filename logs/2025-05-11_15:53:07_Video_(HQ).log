@@ -1,0 +1,73 @@
+2025-05-11 15:53:08.173894: E tensorflow/compiler/xla/stream_executor/cuda/cuda_dnn.cc:9342] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2025-05-11 15:53:08.173922: E tensorflow/compiler/xla/stream_executor/cuda/cuda_fft.cc:609] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2025-05-11 15:53:08.173937: E tensorflow/compiler/xla/stream_executor/cuda/cuda_blas.cc:1518] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+/f/IdeaProjects/roop/.venv/lib/python3.10/site-packages/torchvision/transforms/functional_tensor.py:5: UserWarning: The torchvision.transforms.functional_tensor module is deprecated in 0.15 and will be **removed in 0.17**. Please don't rely on it. You probably just need to use APIs in torchvision.transforms.functional or in torchvision.transforms.v2.functional.
+  warnings.warn(
+[DEBUG] sys.argv = ['run.py', '--target', 'content/target_video.mp4', '--source', 'content/source_image.png', '--output', 'content/output_video.mp4', '--execution-provider', 'cuda', '--frame-processor', 'face_swapper', 'face_enhancer', '--execution-threads', '8']
+[DEBUG] roop.globals.source_path = content/source_image.png
+[DEBUG] roop.globals.multi_source_paths = ['content/source_image.png']
+[DEBUG] frame_processors = ['face_swapper', 'face_enhancer']
+[DEBUG] start source_path = content/source_image.png
+[DEBUG] multi_source_paths = ['content/source_image.png']
+[DEBUG] target_path = content/target_video.mp4
+[DEBUG] output_path = content/output_video.mp4
+[DEBUG] pre_start face_swapper source_path = content/source_image.png
+[DEBUG] pre_start face_swapper multi_source_paths = ['content/source_image.png']
+Applied providers: ['CUDAExecutionProvider', 'CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}, 'CUDAExecutionProvider': {'tunable_op_max_tuning_duration_ms': '0', 'enable_skip_layer_norm_strict_mode': '0', 'tunable_op_tuning_enable': '0', 'device_id': '0', 'has_user_compute_stream': '0', 'gpu_mem_limit': '18446744073709551615', 'gpu_external_alloc': '0', 'gpu_external_free': '0', 'gpu_external_empty_cache': '0', 'cudnn_conv_algo_search': 'EXHAUSTIVE', 'cudnn_conv1d_pad_to_nc1d': '0', 'arena_extend_strategy': 'kNextPowerOfTwo', 'do_copy_in_default_stream': '1', 'enable_cuda_graph': '0', 'cudnn_conv_use_max_workspace': '1', 'tunable_op_enable': '0'}}
+find model: /home/cesarchamal/.insightface/models/buffalo_l/1k3d68.onnx landmark_3d_68 ['None', 3, 192, 192] 0.0 1.0
+Applied providers: ['CUDAExecutionProvider', 'CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}, 'CUDAExecutionProvider': {'tunable_op_max_tuning_duration_ms': '0', 'enable_skip_layer_norm_strict_mode': '0', 'tunable_op_tuning_enable': '0', 'device_id': '0', 'has_user_compute_stream': '0', 'gpu_mem_limit': '18446744073709551615', 'gpu_external_alloc': '0', 'gpu_external_free': '0', 'gpu_external_empty_cache': '0', 'cudnn_conv_algo_search': 'EXHAUSTIVE', 'cudnn_conv1d_pad_to_nc1d': '0', 'arena_extend_strategy': 'kNextPowerOfTwo', 'do_copy_in_default_stream': '1', 'enable_cuda_graph': '0', 'cudnn_conv_use_max_workspace': '1', 'tunable_op_enable': '0'}}
+find model: /home/cesarchamal/.insightface/models/buffalo_l/2d106det.onnx landmark_2d_106 ['None', 3, 192, 192] 0.0 1.0
+Applied providers: ['CUDAExecutionProvider', 'CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}, 'CUDAExecutionProvider': {'tunable_op_max_tuning_duration_ms': '0', 'enable_skip_layer_norm_strict_mode': '0', 'tunable_op_tuning_enable': '0', 'device_id': '0', 'has_user_compute_stream': '0', 'gpu_mem_limit': '18446744073709551615', 'gpu_external_alloc': '0', 'gpu_external_free': '0', 'gpu_external_empty_cache': '0', 'cudnn_conv_algo_search': 'EXHAUSTIVE', 'cudnn_conv1d_pad_to_nc1d': '0', 'arena_extend_strategy': 'kNextPowerOfTwo', 'do_copy_in_default_stream': '1', 'enable_cuda_graph': '0', 'cudnn_conv_use_max_workspace': '1', 'tunable_op_enable': '0'}}
+find model: /home/cesarchamal/.insightface/models/buffalo_l/det_10g.onnx detection [1, 3, '?', '?'] 127.5 128.0
+Applied providers: ['CUDAExecutionProvider', 'CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}, 'CUDAExecutionProvider': {'tunable_op_max_tuning_duration_ms': '0', 'enable_skip_layer_norm_strict_mode': '0', 'tunable_op_tuning_enable': '0', 'device_id': '0', 'has_user_compute_stream': '0', 'gpu_mem_limit': '18446744073709551615', 'gpu_external_alloc': '0', 'gpu_external_free': '0', 'gpu_external_empty_cache': '0', 'cudnn_conv_algo_search': 'EXHAUSTIVE', 'cudnn_conv1d_pad_to_nc1d': '0', 'arena_extend_strategy': 'kNextPowerOfTwo', 'do_copy_in_default_stream': '1', 'enable_cuda_graph': '0', 'cudnn_conv_use_max_workspace': '1', 'tunable_op_enable': '0'}}
+find model: /home/cesarchamal/.insightface/models/buffalo_l/genderage.onnx genderage ['None', 3, 96, 96] 0.0 1.0
+Applied providers: ['CUDAExecutionProvider', 'CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}, 'CUDAExecutionProvider': {'tunable_op_max_tuning_duration_ms': '0', 'enable_skip_layer_norm_strict_mode': '0', 'tunable_op_tuning_enable': '0', 'device_id': '0', 'has_user_compute_stream': '0', 'gpu_mem_limit': '18446744073709551615', 'gpu_external_alloc': '0', 'gpu_external_free': '0', 'gpu_external_empty_cache': '0', 'cudnn_conv_algo_search': 'EXHAUSTIVE', 'cudnn_conv1d_pad_to_nc1d': '0', 'arena_extend_strategy': 'kNextPowerOfTwo', 'do_copy_in_default_stream': '1', 'enable_cuda_graph': '0', 'cudnn_conv_use_max_workspace': '1', 'tunable_op_enable': '0'}}
+find model: /home/cesarchamal/.insightface/models/buffalo_l/w600k_r50.onnx recognition ['None', 3, 112, 112] 127.5 127.5
+set det-size: (640, 640)
+[DEBUG] pre_start face_enhancer source_path = content/source_image.png
+[DEBUG] pre_start face_enhancer multi_source_paths = ['content/source_image.png']
+  0%|          | 0/511 [00:00<?, ?it/s]  0%|          | 2/511 [00:01<05:26,  1.56it/s] 17%|█▋        | 85/511 [00:01<00:05, 84.44it/s] 31%|███       | 156/511 [00:01<00:02, 162.51it/s] 45%|████▌     | 230/511 [00:01<00:01, 249.90it/s] 60%|██████    | 309/511 [00:01<00:00, 345.64it/s] 78%|███████▊  | 400/511 [00:01<00:00, 451.26it/s] 95%|█████████▍| 485/511 [00:01<00:00, 538.85it/s]100%|██████████| 511/511 [00:01<00:00, 262.61it/s]
+[ROOP.CORE] Creating temporary resources...
+[INFO] Removing stale temp directory: content/temp/target_video
+[INFO] Created temp directory: content/temp/target_video
+[ROOP.CORE] Extracting frames with 30 FPS...
+[INFO] Using CUDA hardware decode
+[ROOP.FACE-SWAPPER] Progressing...
+[FaceSwapper] Starting process_video
+[DEBUG] source_paths = ['content/source_image.png']
+[DEBUG] number of frames = 511
+[DEBUG] Loaded total source faces: 1
+[DEBUG] Reference face bbox: [328.21472 616.82294 415.50342 734.87976]
+[DEBUG] Reference face set successfully
+[DEBUG] ref_face.image is None: False
+[DEBUG] ref_face.image.shape = (711, 304, 3)
+[DEBUG] ref_face.landmarks: [[331.90838623046875, 645.0283813476562], [333.0401916503906, 658.731689453125], [334.2135009765625, 673.0906372070312], [335.3810729980469, 687.1705322265625], [336.8223876953125, 700.8638916015625]]
+Processing:   0%|          | 0/511 [00:00<?, ?frame/s]2025-05-11 15:53:28.593102644 [E:onnxruntime:, sequential_executor.cc:514 ExecuteKernel] Non-zero status code returned while running Conv node. Name:'Conv_62' Status Message: /onnxruntime_src/onnxruntime/core/providers/cuda/cuda_call.cc:121 std::conditional_t<THRW, void, onnxruntime::common::Status> onnxruntime::CudaCall(ERRTYPE, const char*, const char*, ERRTYPE, const char*, const char*, int) [with ERRTYPE = cudaError; bool THRW = true; std::conditional_t<THRW, void, onnxruntime::common::Status> = void] /onnxruntime_src/onnxruntime/core/providers/cuda/cuda_call.cc:114 std::conditional_t<THRW, void, onnxruntime::common::Status> onnxruntime::CudaCall(ERRTYPE, const char*, const char*, ERRTYPE, const char*, const char*, int) [with ERRTYPE = cudaError; bool THRW = true; std::conditional_t<THRW, void, onnxruntime::common::Status> = void] CUDA failure 2: out of memory ; GPU=0 ; hostname=pop-os ; file=/onnxruntime_src/onnxruntime/core/providers/cuda/cuda_allocator.cc ; line=47 ; expr=cudaMalloc((void**)&p, size); 
+
+
+Processing:   0%|          | 0/511 [00:01<?, ?frame/s]
+[DEBUG] Detected 1 faces in frame
+Applied providers: ['CUDAExecutionProvider', 'CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}, 'CUDAExecutionProvider': {'tunable_op_max_tuning_duration_ms': '0', 'enable_skip_layer_norm_strict_mode': '0', 'tunable_op_tuning_enable': '0', 'device_id': '0', 'has_user_compute_stream': '0', 'gpu_mem_limit': '18446744073709551615', 'gpu_external_alloc': '0', 'gpu_external_free': '0', 'gpu_external_empty_cache': '0', 'cudnn_conv_algo_search': 'EXHAUSTIVE', 'cudnn_conv1d_pad_to_nc1d': '0', 'arena_extend_strategy': 'kNextPowerOfTwo', 'do_copy_in_default_stream': '1', 'enable_cuda_graph': '0', 'cudnn_conv_use_max_workspace': '1', 'tunable_op_enable': '0'}}
+inswapper-shape: [1, 3, 128, 128]
+Traceback (most recent call last):
+  File "/f/IdeaProjects/roop/run.py", line 6, in <module>
+    core.run()
+  File "/f/IdeaProjects/roop/roop/core.py", line 286, in run
+    start()
+  File "/f/IdeaProjects/roop/roop/core.py", line 229, in start
+    frame_processor.process_video(sources, roop.globals.target_path, temp_frame_paths)
+  File "/f/IdeaProjects/roop/roop/processors/frame/face_swapper.py", line 403, in process_video
+    core_process_video(
+  File "/f/IdeaProjects/roop/roop/processors/frame/core.py", line 97, in core_process_video
+    result = process(source_path, target_path, frame, idx)
+  File "/f/IdeaProjects/roop/roop/processors/frame/face_swapper.py", line 400, in swap_func
+    frame = swap_face(source_face, target_face, frame, index=index, prefix='video')
+  File "/f/IdeaProjects/roop/roop/processors/frame/face_swapper.py", line 102, in swap_face
+    swapped = get_face_swapper().get(temp_frame, target_face, source_face, paste_back=True)
+  File "/f/IdeaProjects/roop/.venv/lib/python3.10/site-packages/insightface/model_zoo/inswapper.py", line 53, in get
+    pred = self.session.run(self.output_names, {self.input_names[0]: blob, self.input_names[1]: latent})[0]
+  File "/f/IdeaProjects/roop/.venv/lib/python3.10/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 220, in run
+    return self._sess.run(output_names, input_feed, run_options)
+onnxruntime.capi.onnxruntime_pybind11_state.RuntimeException: [ONNXRuntimeError] : 6 : RUNTIME_EXCEPTION : Non-zero status code returned while running Conv node. Name:'Conv_62' Status Message: /onnxruntime_src/onnxruntime/core/providers/cuda/cuda_call.cc:121 std::conditional_t<THRW, void, onnxruntime::common::Status> onnxruntime::CudaCall(ERRTYPE, const char*, const char*, ERRTYPE, const char*, const char*, int) [with ERRTYPE = cudaError; bool THRW = true; std::conditional_t<THRW, void, onnxruntime::common::Status> = void] /onnxruntime_src/onnxruntime/core/providers/cuda/cuda_call.cc:114 std::conditional_t<THRW, void, onnxruntime::common::Status> onnxruntime::CudaCall(ERRTYPE, const char*, const char*, ERRTYPE, const char*, const char*, int) [with ERRTYPE = cudaError; bool THRW = true; std::conditional_t<THRW, void, onnxruntime::common::Status> = void] CUDA failure 2: out of memory ; GPU=0 ; hostname=pop-os ; file=/onnxruntime_src/onnxruntime/core/providers/cuda/cuda_allocator.cc ; line=47 ; expr=cudaMalloc((void**)&p, size); 
+
+
