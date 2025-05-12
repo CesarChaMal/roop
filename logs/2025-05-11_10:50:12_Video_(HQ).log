@@ -1,1705 +1,0 @@
-2025-05-11 10:50:13.289185: E tensorflow/compiler/xla/stream_executor/cuda/cuda_dnn.cc:9342] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
-2025-05-11 10:50:13.289217: E tensorflow/compiler/xla/stream_executor/cuda/cuda_fft.cc:609] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
-2025-05-11 10:50:13.289243: E tensorflow/compiler/xla/stream_executor/cuda/cuda_blas.cc:1518] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
-/f/IdeaProjects/roop/.venv/lib/python3.10/site-packages/torchvision/transforms/functional_tensor.py:5: UserWarning: The torchvision.transforms.functional_tensor module is deprecated in 0.15 and will be **removed in 0.17**. Please don't rely on it. You probably just need to use APIs in torchvision.transforms.functional or in torchvision.transforms.v2.functional.
-  warnings.warn(
-[DEBUG] sys.argv = ['run.py', '--target', 'content/target_video.mp4', '--source', 'content/source_image.png', '--output', 'content/output_video.mp4', '--execution-provider', 'cuda', '--frame-processor', 'face_swapper', 'face_enhancer', '--execution-threads', '8']
-[DEBUG] roop.globals.source_path = content/source_image.png
-[DEBUG] roop.globals.multi_source_paths = ['content/source_image.png']
-[DEBUG] frame_processors = ['face_swapper', 'face_enhancer']
-[DEBUG] start source_path = content/source_image.png
-[DEBUG] multi_source_paths = ['content/source_image.png']
-[DEBUG] target_path = content/target_video.mp4
-[DEBUG] output_path = content/output_video.mp4
-[DEBUG] pre_start face_swapper source_path = content/source_image.png
-[DEBUG] pre_start face_swapper multi_source_paths = ['content/source_image.png']
-Applied providers: ['CUDAExecutionProvider', 'CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}, 'CUDAExecutionProvider': {'tunable_op_max_tuning_duration_ms': '0', 'enable_skip_layer_norm_strict_mode': '0', 'tunable_op_tuning_enable': '0', 'device_id': '0', 'has_user_compute_stream': '0', 'gpu_mem_limit': '18446744073709551615', 'gpu_external_alloc': '0', 'gpu_external_free': '0', 'gpu_external_empty_cache': '0', 'cudnn_conv_algo_search': 'EXHAUSTIVE', 'cudnn_conv1d_pad_to_nc1d': '0', 'arena_extend_strategy': 'kNextPowerOfTwo', 'do_copy_in_default_stream': '1', 'enable_cuda_graph': '0', 'cudnn_conv_use_max_workspace': '1', 'tunable_op_enable': '0'}}
-find model: /home/cesarchamal/.insightface/models/buffalo_l/1k3d68.onnx landmark_3d_68 ['None', 3, 192, 192] 0.0 1.0
-Applied providers: ['CUDAExecutionProvider', 'CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}, 'CUDAExecutionProvider': {'tunable_op_max_tuning_duration_ms': '0', 'enable_skip_layer_norm_strict_mode': '0', 'tunable_op_tuning_enable': '0', 'device_id': '0', 'has_user_compute_stream': '0', 'gpu_mem_limit': '18446744073709551615', 'gpu_external_alloc': '0', 'gpu_external_free': '0', 'gpu_external_empty_cache': '0', 'cudnn_conv_algo_search': 'EXHAUSTIVE', 'cudnn_conv1d_pad_to_nc1d': '0', 'arena_extend_strategy': 'kNextPowerOfTwo', 'do_copy_in_default_stream': '1', 'enable_cuda_graph': '0', 'cudnn_conv_use_max_workspace': '1', 'tunable_op_enable': '0'}}
-find model: /home/cesarchamal/.insightface/models/buffalo_l/2d106det.onnx landmark_2d_106 ['None', 3, 192, 192] 0.0 1.0
-Applied providers: ['CUDAExecutionProvider', 'CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}, 'CUDAExecutionProvider': {'tunable_op_max_tuning_duration_ms': '0', 'enable_skip_layer_norm_strict_mode': '0', 'tunable_op_tuning_enable': '0', 'device_id': '0', 'has_user_compute_stream': '0', 'gpu_mem_limit': '18446744073709551615', 'gpu_external_alloc': '0', 'gpu_external_free': '0', 'gpu_external_empty_cache': '0', 'cudnn_conv_algo_search': 'EXHAUSTIVE', 'cudnn_conv1d_pad_to_nc1d': '0', 'arena_extend_strategy': 'kNextPowerOfTwo', 'do_copy_in_default_stream': '1', 'enable_cuda_graph': '0', 'cudnn_conv_use_max_workspace': '1', 'tunable_op_enable': '0'}}
-find model: /home/cesarchamal/.insightface/models/buffalo_l/det_10g.onnx detection [1, 3, '?', '?'] 127.5 128.0
-Applied providers: ['CUDAExecutionProvider', 'CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}, 'CUDAExecutionProvider': {'tunable_op_max_tuning_duration_ms': '0', 'enable_skip_layer_norm_strict_mode': '0', 'tunable_op_tuning_enable': '0', 'device_id': '0', 'has_user_compute_stream': '0', 'gpu_mem_limit': '18446744073709551615', 'gpu_external_alloc': '0', 'gpu_external_free': '0', 'gpu_external_empty_cache': '0', 'cudnn_conv_algo_search': 'EXHAUSTIVE', 'cudnn_conv1d_pad_to_nc1d': '0', 'arena_extend_strategy': 'kNextPowerOfTwo', 'do_copy_in_default_stream': '1', 'enable_cuda_graph': '0', 'cudnn_conv_use_max_workspace': '1', 'tunable_op_enable': '0'}}
-find model: /home/cesarchamal/.insightface/models/buffalo_l/genderage.onnx genderage ['None', 3, 96, 96] 0.0 1.0
-Applied providers: ['CUDAExecutionProvider', 'CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}, 'CUDAExecutionProvider': {'tunable_op_max_tuning_duration_ms': '0', 'enable_skip_layer_norm_strict_mode': '0', 'tunable_op_tuning_enable': '0', 'device_id': '0', 'has_user_compute_stream': '0', 'gpu_mem_limit': '18446744073709551615', 'gpu_external_alloc': '0', 'gpu_external_free': '0', 'gpu_external_empty_cache': '0', 'cudnn_conv_algo_search': 'EXHAUSTIVE', 'cudnn_conv1d_pad_to_nc1d': '0', 'arena_extend_strategy': 'kNextPowerOfTwo', 'do_copy_in_default_stream': '1', 'enable_cuda_graph': '0', 'cudnn_conv_use_max_workspace': '1', 'tunable_op_enable': '0'}}
-find model: /home/cesarchamal/.insightface/models/buffalo_l/w600k_r50.onnx recognition ['None', 3, 112, 112] 127.5 127.5
-set det-size: (640, 640)
-[DEBUG] pre_start face_enhancer source_path = content/source_image.png
-[DEBUG] pre_start face_enhancer multi_source_paths = ['content/source_image.png']
-  0%|          | 0/511 [00:00<?, ?it/s]  0%|          | 2/511 [00:00<04:11,  2.03it/s] 20%|█▉        | 100/511 [00:01<00:03, 125.32it/s] 40%|████      | 205/511 [00:01<00:01, 266.36it/s] 59%|█████▊    | 300/511 [00:01<00:00, 388.70it/s] 78%|███████▊  | 397/511 [00:01<00:00, 506.91it/s] 95%|█████████▌| 487/511 [00:01<00:00, 589.76it/s]100%|██████████| 511/511 [00:01<00:00, 333.26it/s]
-[ROOP.CORE] Creating temporary resources...
-[INFO] Created temp directory: content/temp/target_video
-[ROOP.CORE] Extracting frames with 30 FPS...
-[INFO] Using CUDA hardware decode
-[ROOP.FACE-SWAPPER] Progressing...
-[FaceSwapper] Starting process_video
-[DEBUG] source_paths = ['content/source_image.png']
-[DEBUG] number of frames = 511
-[DEBUG] Loaded total source faces: 1
-[DEBUG] Reference face set successfully
-[DEBUG] ref_face.image is None: False
-[DEBUG] ref_face.image.shape = (1280, 720, 3)
-[DEBUG] ref_face.landmarks: [[331.9059143066406, 645.0181274414062], [333.0271911621094, 658.7417602539062], [334.1944580078125, 673.119384765625], [335.3739929199219, 687.2061767578125], [336.8232116699219, 700.889404296875]]
-Processing:   0%|          | 0/511 [00:00<?, ?frame/s]Processing:   0%|          | 1/511 [00:05<47:14,  5.56s/frame]Processing:   0%|          | 2/511 [00:05<20:30,  2.42s/frame]Processing:   1%|          | 3/511 [00:05<11:49,  1.40s/frame]Processing:   1%|          | 4/511 [00:06<07:40,  1.10frame/s]Processing:   1%|          | 5/511 [00:06<05:25,  1.55frame/s]Processing:   1%|          | 6/511 [00:06<04:04,  2.06frame/s]Processing:   1%|▏         | 7/511 [00:06<03:13,  2.61frame/s]Processing:   2%|▏         | 8/511 [00:06<02:36,  3.22frame/s]Processing:   2%|▏         | 9/511 [00:06<02:11,  3.80frame/s]Processing:   2%|▏         | 10/511 [00:07<01:58,  4.24frame/s]Processing:   2%|▏         | 11/511 [00:07<01:49,  4.55frame/s]Processing:   2%|▏         | 12/511 [00:07<01:43,  4.84frame/s]Processing:   3%|▎         | 13/511 [00:07<01:37,  5.10frame/s]Processing:   3%|▎         | 14/511 [00:07<01:29,  5.53frame/s]Processing:   3%|▎         | 15/511 [00:07<01:24,  5.87frame/s]Processing:   3%|▎         | 16/511 [00:08<01:20,  6.15frame/s]Processing:   3%|▎         | 17/511 [00:08<01:18,  6.27frame/s]Processing:   4%|▎         | 18/511 [00:08<01:13,  6.67frame/s]Processing:   4%|▎         | 19/511 [00:08<01:14,  6.64frame/s]Processing:   4%|▍         | 20/511 [00:08<01:14,  6.62frame/s]Processing:   4%|▍         | 21/511 [00:08<01:09,  7.03frame/s]Processing:   4%|▍         | 22/511 [00:08<01:06,  7.31frame/s]Processing:   5%|▍         | 23/511 [00:09<01:05,  7.46frame/s]Processing:   5%|▍         | 24/511 [00:09<01:02,  7.78frame/s]Processing:   5%|▍         | 25/511 [00:09<01:01,  7.91frame/s]Processing:   5%|▌         | 26/511 [00:09<01:02,  7.74frame/s]Processing:   5%|▌         | 27/511 [00:09<01:06,  7.28frame/s]Processing:   5%|▌         | 28/511 [00:09<01:11,  6.73frame/s]Processing:   6%|▌         | 29/511 [00:09<01:12,  6.66frame/s]Processing:   6%|▌         | 30/511 [00:10<01:18,  6.10frame/s]Processing:   6%|▌         | 31/511 [00:10<01:31,  5.24frame/s]Processing:   6%|▋         | 32/511 [00:10<01:49,  4.37frame/s]Processing:   6%|▋         | 33/511 [00:10<01:50,  4.33frame/s]Processing:   7%|▋         | 34/511 [00:11<01:47,  4.43frame/s]Processing:   7%|▋         | 35/511 [00:11<01:40,  4.75frame/s]Processing:   7%|▋         | 36/511 [00:11<01:33,  5.08frame/s]Processing:   7%|▋         | 37/511 [00:11<01:29,  5.29frame/s]Processing:   7%|▋         | 38/511 [00:11<01:25,  5.55frame/s]Processing:   8%|▊         | 39/511 [00:11<01:21,  5.77frame/s]Processing:   8%|▊         | 40/511 [00:12<01:12,  6.49frame/s]Processing:   8%|▊         | 41/511 [00:12<01:08,  6.83frame/s]Processing:   8%|▊         | 42/511 [00:12<01:09,  6.72frame/s]Processing:   8%|▊         | 43/511 [00:12<01:14,  6.25frame/s]Processing:   9%|▊         | 44/511 [00:12<01:21,  5.74frame/s]Processing:   9%|▉         | 45/511 [00:12<01:21,  5.70frame/s]Processing:   9%|▉         | 46/511 [00:13<01:19,  5.83frame/s]Processing:   9%|▉         | 47/511 [00:13<01:18,  5.90frame/s]Processing:   9%|▉         | 48/511 [00:13<01:18,  5.91frame/s]Processing:  10%|▉         | 49/511 [00:13<01:19,  5.81frame/s]Processing:  10%|▉         | 50/511 [00:13<01:16,  5.99frame/s]Processing:  10%|▉         | 51/511 [00:13<01:17,  5.92frame/s]Processing:  10%|█         | 52/511 [00:14<01:17,  5.90frame/s]Processing:  10%|█         | 53/511 [00:14<01:14,  6.12frame/s]Processing:  11%|█         | 54/511 [00:14<01:16,  5.94frame/s]Processing:  11%|█         | 55/511 [00:14<01:13,  6.23frame/s]Processing:  11%|█         | 56/511 [00:14<01:14,  6.07frame/s]Processing:  11%|█         | 57/511 [00:14<01:17,  5.84frame/s]Processing:  11%|█▏        | 58/511 [00:15<01:16,  5.90frame/s]Processing:  12%|█▏        | 59/511 [00:15<01:13,  6.18frame/s]Processing:  12%|█▏        | 60/511 [00:15<01:08,  6.59frame/s]Processing:  12%|█▏        | 61/511 [00:15<01:07,  6.63frame/s][DEBUG] Detected 1 faces in frame
-Applied providers: ['CUDAExecutionProvider', 'CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}, 'CUDAExecutionProvider': {'tunable_op_max_tuning_duration_ms': '0', 'enable_skip_layer_norm_strict_mode': '0', 'tunable_op_tuning_enable': '0', 'device_id': '0', 'has_user_compute_stream': '0', 'gpu_mem_limit': '18446744073709551615', 'gpu_external_alloc': '0', 'gpu_external_free': '0', 'gpu_external_empty_cache': '0', 'cudnn_conv_algo_search': 'EXHAUSTIVE', 'cudnn_conv1d_pad_to_nc1d': '0', 'arena_extend_strategy': 'kNextPowerOfTwo', 'do_copy_in_default_stream': '1', 'enable_cuda_graph': '0', 'cudnn_conv_use_max_workspace': '1', 'tunable_op_enable': '0'}}
-inswapper-shape: [1, 3, 128, 128]
-[DEBUG] Saved basic swapped face image: debug_output/video_0000_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0001_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0002_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0003_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0004_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0005_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0006_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0007_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0008_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0009_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0010_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0011_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0012_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0013_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0014_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0015_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0016_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0017_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0018_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0019_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0020_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0021_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0022_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0023_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0024_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0025_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0026_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0027_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0028_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0029_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0030_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0031_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0032_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0033_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0034_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0035_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0036_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0037_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0038_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0039_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0040_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0041_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0042_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0043_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0044_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0045_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0046_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0047_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0048_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0049_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0050_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0051_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0052_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0053_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0054_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0055_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0056_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0057_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0058_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0059_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0060_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-Processing:  12%|█▏        | 62/511 [00:15<01:06,  6.76frame/s]Processing:  12%|█▏        | 63/511 [00:15<01:05,  6.88frame/s]Processing:  13%|█▎        | 64/511 [00:15<01:06,  6.77frame/s]Processing:  13%|█▎        | 65/511 [00:16<01:06,  6.66frame/s]Processing:  13%|█▎        | 66/511 [00:16<01:07,  6.62frame/s]Processing:  13%|█▎        | 67/511 [00:16<01:04,  6.83frame/s]Processing:  13%|█▎        | 68/511 [00:16<01:06,  6.68frame/s]Processing:  14%|█▎        | 69/511 [00:16<01:06,  6.62frame/s]Processing:  14%|█▎        | 70/511 [00:16<01:06,  6.65frame/s]Processing:  14%|█▍        | 71/511 [00:16<01:02,  7.02frame/s]Processing:  14%|█▍        | 72/511 [00:17<01:01,  7.11frame/s]Processing:  14%|█▍        | 73/511 [00:17<01:03,  6.88frame/s]Processing:  14%|█▍        | 74/511 [00:17<01:01,  7.07frame/s]Processing:  15%|█▍        | 75/511 [00:17<01:01,  7.04frame/s]Processing:  15%|█▍        | 76/511 [00:17<01:01,  7.08frame/s]Processing:  15%|█▌        | 77/511 [00:17<00:59,  7.30frame/s]Processing:  15%|█▌        | 78/511 [00:17<01:02,  6.94frame/s]Processing:  15%|█▌        | 79/511 [00:18<01:03,  6.84frame/s]Processing:  16%|█▌        | 80/511 [00:18<01:03,  6.82frame/s]Processing:  16%|█▌        | 81/511 [00:18<01:02,  6.89frame/s]Processing:  16%|█▌        | 82/511 [00:18<01:03,  6.76frame/s]Processing:  16%|█▌        | 83/511 [00:18<01:04,  6.59frame/s]Processing:  16%|█▋        | 84/511 [00:18<01:02,  6.86frame/s]Processing:  17%|█▋        | 85/511 [00:19<01:03,  6.76frame/s]Processing:  17%|█▋        | 86/511 [00:19<01:03,  6.73frame/s]Processing:  17%|█▋        | 87/511 [00:19<01:02,  6.74frame/s]Processing:  17%|█▋        | 88/511 [00:19<01:00,  6.98frame/s]Processing:  17%|█▋        | 89/511 [00:19<00:59,  7.06frame/s]Processing:  18%|█▊        | 90/511 [00:19<01:00,  6.94frame/s]Processing:  18%|█▊        | 91/511 [00:19<00:57,  7.25frame/s]Processing:  18%|█▊        | 92/511 [00:19<00:58,  7.16frame/s]Processing:  18%|█▊        | 93/511 [00:20<01:01,  6.76frame/s]Processing:  18%|█▊        | 94/511 [00:20<01:02,  6.68frame/s]Processing:  19%|█▊        | 95/511 [00:20<01:01,  6.76frame/s]Processing:  19%|█▉        | 96/511 [00:20<01:01,  6.76frame/s]Processing:  19%|█▉        | 97/511 [00:20<01:04,  6.44frame/s]Processing:  19%|█▉        | 98/511 [00:20<01:06,  6.22frame/s]Processing:  19%|█▉        | 99/511 [00:21<01:08,  6.05frame/s]Processing:  20%|█▉        | 100/511 [00:21<01:08,  6.04frame/s]Processing:  20%|█▉        | 101/511 [00:21<01:09,  5.92frame/s]Processing:  20%|█▉        | 102/511 [00:21<01:08,  6.00frame/s]Processing:  20%|██        | 103/511 [00:21<01:06,  6.12frame/s]Processing:  20%|██        | 104/511 [00:21<01:01,  6.63frame/s]Processing:  21%|██        | 105/511 [00:22<01:01,  6.58frame/s]Processing:  21%|██        | 106/511 [00:22<01:01,  6.57frame/s]Processing:  21%|██        | 107/511 [00:22<01:01,  6.52frame/s]Processing:  21%|██        | 108/511 [00:22<00:57,  7.01frame/s]Processing:  21%|██▏       | 109/511 [00:22<00:56,  7.15frame/s]Processing:  22%|██▏       | 110/511 [00:22<00:54,  7.41frame/s]Processing:  22%|██▏       | 111/511 [00:22<00:56,  7.12frame/s]Processing:  22%|██▏       | 112/511 [00:23<00:57,  6.89frame/s]Processing:  22%|██▏       | 113/511 [00:23<00:58,  6.83frame/s]Processing:  22%|██▏       | 114/511 [00:23<00:54,  7.27frame/s]Processing:  23%|██▎       | 115/511 [00:23<00:52,  7.54frame/s]Processing:  23%|██▎       | 116/511 [00:23<00:54,  7.22frame/s]Processing:  23%|██▎       | 117/511 [00:23<00:52,  7.54frame/s]Processing:  23%|██▎       | 118/511 [00:23<00:50,  7.73frame/s]Processing:  23%|██▎       | 119/511 [00:23<00:49,  7.86frame/s]Processing:  23%|██▎       | 120/511 [00:24<00:52,  7.40frame/s]Processing:  24%|██▎       | 121/511 [00:24<00:54,  7.16frame/s]Processing:  24%|██▍       | 122/511 [00:24<00:57,  6.82frame/s]Processing:  24%|██▍       | 123/511 [00:24<01:01,  6.28frame/s]Processing:  24%|██▍       | 124/511 [00:24<01:05,  5.93frame/s]Processing:  24%|██▍       | 125/511 [00:25<01:07,  5.71frame/s]Processing:  25%|██▍       | 126/511 [00:25<01:09,  5.53frame/s]Processing:  25%|██▍       | 127/511 [00:25<01:08,  5.59frame/s]Processing:  25%|██▌       | 128/511 [00:25<01:06,  5.76frame/s][DEBUG] Saved basic swapped face image: debug_output/video_0061_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0062_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0063_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0064_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0065_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0066_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0067_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0068_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0069_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0070_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0071_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0072_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0073_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0074_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0075_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0076_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0077_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0078_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0079_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0080_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0081_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0082_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0083_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0084_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0085_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0086_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0087_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0088_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0089_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0090_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0091_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0092_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0093_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0094_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0095_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0096_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0097_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0098_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0099_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0100_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0101_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0102_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0103_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0104_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0105_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0106_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0107_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0108_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0109_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0110_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0111_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0112_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0113_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0114_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0115_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0116_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0117_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0118_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0119_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0120_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0121_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0122_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0123_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0124_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0125_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0126_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0127_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-Processing:  25%|██▌       | 129/511 [00:25<01:03,  6.05frame/s]Processing:  25%|██▌       | 130/511 [00:25<01:00,  6.30frame/s]Processing:  26%|██▌       | 131/511 [00:25<00:58,  6.53frame/s]Processing:  26%|██▌       | 132/511 [00:26<00:56,  6.71frame/s]Processing:  26%|██▌       | 133/511 [00:26<00:59,  6.41frame/s]Processing:  26%|██▌       | 134/511 [00:26<01:00,  6.28frame/s]Processing:  26%|██▋       | 135/511 [00:26<01:00,  6.17frame/s]Processing:  27%|██▋       | 136/511 [00:26<01:02,  6.04frame/s]Processing:  27%|██▋       | 137/511 [00:26<01:02,  5.94frame/s]Processing:  27%|██▋       | 138/511 [00:27<01:03,  5.86frame/s]Processing:  27%|██▋       | 139/511 [00:27<01:03,  5.82frame/s]Processing:  27%|██▋       | 140/511 [00:27<01:03,  5.89frame/s]Processing:  28%|██▊       | 141/511 [00:27<01:02,  5.92frame/s]Processing:  28%|██▊       | 142/511 [00:27<01:02,  5.87frame/s]Processing:  28%|██▊       | 143/511 [00:27<01:02,  5.90frame/s]Processing:  28%|██▊       | 144/511 [00:28<00:58,  6.23frame/s]Processing:  28%|██▊       | 145/511 [00:28<00:58,  6.22frame/s]Processing:  29%|██▊       | 146/511 [00:28<00:59,  6.12frame/s]Processing:  29%|██▉       | 147/511 [00:28<01:01,  5.90frame/s]Processing:  29%|██▉       | 148/511 [00:28<00:59,  6.10frame/s]Processing:  29%|██▉       | 149/511 [00:28<00:56,  6.37frame/s]Processing:  29%|██▉       | 150/511 [00:29<00:52,  6.88frame/s]Processing:  30%|██▉       | 151/511 [00:29<00:49,  7.21frame/s]Processing:  30%|██▉       | 152/511 [00:29<00:50,  7.12frame/s]Processing:  30%|██▉       | 153/511 [00:29<00:51,  6.95frame/s]Processing:  30%|███       | 154/511 [00:29<00:52,  6.83frame/s]Processing:  30%|███       | 155/511 [00:29<00:52,  6.77frame/s]Processing:  31%|███       | 156/511 [00:29<00:52,  6.81frame/s]Processing:  31%|███       | 157/511 [00:30<00:51,  6.82frame/s]Processing:  31%|███       | 158/511 [00:30<00:52,  6.77frame/s]Processing:  31%|███       | 159/511 [00:30<00:51,  6.80frame/s]Processing:  31%|███▏      | 160/511 [00:30<00:50,  6.97frame/s]Processing:  32%|███▏      | 161/511 [00:30<00:49,  7.07frame/s]Processing:  32%|███▏      | 162/511 [00:30<00:50,  6.96frame/s]Processing:  32%|███▏      | 163/511 [00:30<00:50,  6.89frame/s]Processing:  32%|███▏      | 164/511 [00:31<00:49,  6.98frame/s]Processing:  32%|███▏      | 165/511 [00:31<00:50,  6.87frame/s]Processing:  32%|███▏      | 166/511 [00:31<00:47,  7.21frame/s]Processing:  33%|███▎      | 167/511 [00:31<00:48,  7.10frame/s]Processing:  33%|███▎      | 168/511 [00:31<00:48,  7.05frame/s]Processing:  33%|███▎      | 169/511 [00:31<00:48,  7.09frame/s]Processing:  33%|███▎      | 170/511 [00:31<00:49,  6.85frame/s]Processing:  33%|███▎      | 171/511 [00:32<00:49,  6.84frame/s]Processing:  34%|███▎      | 172/511 [00:32<00:49,  6.86frame/s]Processing:  34%|███▍      | 173/511 [00:32<00:50,  6.71frame/s]Processing:  34%|███▍      | 174/511 [00:32<00:50,  6.66frame/s]Processing:  34%|███▍      | 175/511 [00:32<00:50,  6.66frame/s]Processing:  34%|███▍      | 176/511 [00:32<00:49,  6.76frame/s]Processing:  35%|███▍      | 177/511 [00:32<00:47,  7.00frame/s]Processing:  35%|███▍      | 178/511 [00:33<00:46,  7.09frame/s]Processing:  35%|███▌      | 179/511 [00:33<00:48,  6.90frame/s]Processing:  35%|███▌      | 180/511 [00:33<00:48,  6.81frame/s]Processing:  35%|███▌      | 181/511 [00:33<00:49,  6.67frame/s]Processing:  36%|███▌      | 182/511 [00:33<00:49,  6.67frame/s]Processing:  36%|███▌      | 183/511 [00:33<00:50,  6.49frame/s]Processing:  36%|███▌      | 184/511 [00:34<00:52,  6.27frame/s]Processing:  36%|███▌      | 185/511 [00:34<00:51,  6.31frame/s]Processing:  36%|███▋      | 186/511 [00:34<00:51,  6.36frame/s]Processing:  37%|███▋      | 187/511 [00:34<00:51,  6.26frame/s]Processing:  37%|███▋      | 188/511 [00:34<00:54,  5.91frame/s]Processing:  37%|███▋      | 189/511 [00:34<00:57,  5.59frame/s]Processing:  37%|███▋      | 190/511 [00:35<01:02,  5.15frame/s]Processing:  37%|███▋      | 191/511 [00:35<01:04,  4.99frame/s]Processing:  38%|███▊      | 192/511 [00:35<01:04,  4.94frame/s]Processing:  38%|███▊      | 193/511 [00:35<01:02,  5.09frame/s]Processing:  38%|███▊      | 194/511 [00:35<01:00,  5.24frame/s]Processing:  38%|███▊      | 195/511 [00:36<00:57,  5.46frame/s][DEBUG] Saved basic swapped face image: debug_output/video_0128_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0129_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0130_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0131_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0132_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0133_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0134_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0135_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0136_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0137_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0138_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0139_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0140_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0141_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0142_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0143_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0144_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0145_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0146_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0147_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0148_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0149_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0150_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0151_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0152_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0153_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0154_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0155_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0156_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0157_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0158_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0159_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0160_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0161_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0162_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0163_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0164_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0165_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0166_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0167_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0168_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0169_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0170_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0171_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0172_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0173_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0174_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0175_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0176_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0177_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0178_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0179_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0180_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0181_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0182_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0183_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0184_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0185_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0186_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0187_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0188_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0189_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0190_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0191_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0192_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0193_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0194_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-Processing:  38%|███▊      | 196/511 [00:36<00:57,  5.46frame/s]Processing:  39%|███▊      | 197/511 [00:36<00:57,  5.44frame/s]Processing:  39%|███▊      | 198/511 [00:36<00:53,  5.82frame/s]Processing:  39%|███▉      | 199/511 [00:36<00:52,  5.90frame/s]Processing:  39%|███▉      | 200/511 [00:36<00:50,  6.21frame/s]Processing:  39%|███▉      | 201/511 [00:37<00:48,  6.37frame/s]Processing:  40%|███▉      | 202/511 [00:37<00:47,  6.56frame/s]Processing:  40%|███▉      | 203/511 [00:37<00:46,  6.66frame/s]Processing:  40%|███▉      | 204/511 [00:37<00:45,  6.75frame/s]Processing:  40%|████      | 205/511 [00:37<00:45,  6.68frame/s]Processing:  40%|████      | 206/511 [00:37<00:45,  6.65frame/s]Processing:  41%|████      | 207/511 [00:37<00:44,  6.83frame/s]Processing:  41%|████      | 208/511 [00:38<00:45,  6.61frame/s]Processing:  41%|████      | 209/511 [00:38<00:47,  6.35frame/s]Processing:  41%|████      | 210/511 [00:38<00:48,  6.16frame/s]Processing:  41%|████▏     | 211/511 [00:38<00:50,  5.95frame/s]Processing:  41%|████▏     | 212/511 [00:38<00:50,  5.92frame/s]Processing:  42%|████▏     | 213/511 [00:38<00:50,  5.86frame/s]Processing:  42%|████▏     | 214/511 [00:39<00:48,  6.12frame/s]Processing:  42%|████▏     | 215/511 [00:39<00:46,  6.38frame/s]Processing:  42%|████▏     | 216/511 [00:39<00:44,  6.59frame/s]Processing:  42%|████▏     | 217/511 [00:39<00:43,  6.72frame/s]Processing:  43%|████▎     | 218/511 [00:39<00:45,  6.46frame/s]Processing:  43%|████▎     | 219/511 [00:39<00:45,  6.38frame/s]Processing:  43%|████▎     | 220/511 [00:40<00:45,  6.36frame/s]Processing:  43%|████▎     | 221/511 [00:40<00:57,  5.05frame/s]Processing:  43%|████▎     | 222/511 [00:40<00:57,  5.06frame/s]Processing:  44%|████▎     | 223/511 [00:40<00:55,  5.24frame/s]Processing:  44%|████▍     | 224/511 [00:40<00:53,  5.38frame/s]Processing:  44%|████▍     | 225/511 [00:41<00:51,  5.51frame/s]Processing:  44%|████▍     | 226/511 [00:41<00:51,  5.58frame/s]Processing:  44%|████▍     | 227/511 [00:41<00:49,  5.77frame/s]Processing:  45%|████▍     | 228/511 [00:41<00:48,  5.84frame/s]Processing:  45%|████▍     | 229/511 [00:41<00:48,  5.84frame/s]Processing:  45%|████▌     | 230/511 [00:41<00:47,  5.95frame/s]Processing:  45%|████▌     | 231/511 [00:41<00:45,  6.22frame/s]Processing:  45%|████▌     | 232/511 [00:42<00:45,  6.16frame/s]Processing:  46%|████▌     | 233/511 [00:42<00:45,  6.06frame/s]Processing:  46%|████▌     | 234/511 [00:42<00:46,  5.96frame/s]Processing:  46%|████▌     | 235/511 [00:42<00:45,  6.12frame/s]Processing:  46%|████▌     | 236/511 [00:42<00:42,  6.42frame/s]Processing:  46%|████▋     | 237/511 [00:42<00:42,  6.52frame/s]Processing:  47%|████▋     | 238/511 [00:43<00:41,  6.53frame/s]Processing:  47%|████▋     | 239/511 [00:43<00:41,  6.55frame/s]Processing:  47%|████▋     | 240/511 [00:43<00:39,  6.79frame/s]Processing:  47%|████▋     | 241/511 [00:43<00:38,  6.93frame/s]Processing:  47%|████▋     | 242/511 [00:43<00:39,  6.86frame/s]Processing:  48%|████▊     | 243/511 [00:43<00:38,  7.04frame/s]Processing:  48%|████▊     | 244/511 [00:43<00:37,  7.09frame/s]Processing:  48%|████▊     | 245/511 [00:44<00:37,  7.02frame/s]Processing:  48%|████▊     | 246/511 [00:44<00:38,  6.92frame/s]Processing:  48%|████▊     | 247/511 [00:44<00:38,  6.83frame/s]Processing:  49%|████▊     | 248/511 [00:44<00:38,  6.80frame/s]Processing:  49%|████▊     | 249/511 [00:44<00:38,  6.77frame/s]Processing:  49%|████▉     | 250/511 [00:44<00:38,  6.82frame/s]Processing:  49%|████▉     | 251/511 [00:44<00:38,  6.80frame/s]Processing:  49%|████▉     | 252/511 [00:45<00:38,  6.71frame/s]Processing:  50%|████▉     | 253/511 [00:45<00:39,  6.47frame/s]Processing:  50%|████▉     | 254/511 [00:45<00:39,  6.46frame/s]Processing:  50%|████▉     | 255/511 [00:45<00:39,  6.49frame/s]Processing:  50%|█████     | 256/511 [00:45<00:38,  6.55frame/s]Processing:  50%|█████     | 257/511 [00:45<00:38,  6.59frame/s]Processing:  50%|█████     | 258/511 [00:46<00:36,  6.90frame/s]Processing:  51%|█████     | 259/511 [00:46<00:34,  7.36frame/s]Processing:  51%|█████     | 260/511 [00:46<00:35,  7.12frame/s]Processing:  51%|█████     | 261/511 [00:46<00:35,  7.02frame/s]Processing:  51%|█████▏    | 262/511 [00:46<00:35,  6.94frame/s][DEBUG] Saved basic swapped face image: debug_output/video_0195_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0196_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0197_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0198_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0199_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0200_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0201_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0202_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0203_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0204_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0205_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0206_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0207_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0208_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0209_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0210_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0211_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0212_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0213_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0214_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0215_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0216_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0217_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0218_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0219_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0220_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0221_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0222_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0223_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0224_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0225_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0226_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0227_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0228_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0229_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0230_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0231_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0232_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0233_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0234_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0235_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0236_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0237_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0238_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0239_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0240_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0241_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0242_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0243_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0244_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0245_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0246_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0247_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0248_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0249_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0250_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0251_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0252_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0253_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0254_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0255_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0256_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0257_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0258_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0259_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0260_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0261_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-Processing:  51%|█████▏    | 263/511 [00:46<00:35,  6.92frame/s]Processing:  52%|█████▏    | 264/511 [00:46<00:35,  6.99frame/s]Processing:  52%|█████▏    | 265/511 [00:47<00:35,  6.93frame/s]Processing:  52%|█████▏    | 266/511 [00:47<00:36,  6.70frame/s]Processing:  52%|█████▏    | 267/511 [00:47<00:36,  6.62frame/s]Processing:  52%|█████▏    | 268/511 [00:47<00:35,  6.88frame/s]Processing:  53%|█████▎    | 269/511 [00:47<00:35,  6.91frame/s]Processing:  53%|█████▎    | 270/511 [00:47<00:37,  6.41frame/s]Processing:  53%|█████▎    | 271/511 [00:47<00:39,  6.09frame/s]Processing:  53%|█████▎    | 272/511 [00:48<00:39,  6.01frame/s]Processing:  53%|█████▎    | 273/511 [00:48<00:39,  5.96frame/s]Processing:  54%|█████▎    | 274/511 [00:48<00:40,  5.90frame/s]Processing:  54%|█████▍    | 275/511 [00:48<00:40,  5.76frame/s]Processing:  54%|█████▍    | 276/511 [00:48<00:41,  5.63frame/s]Processing:  54%|█████▍    | 277/511 [00:49<00:40,  5.76frame/s]Processing:  54%|█████▍    | 278/511 [00:49<00:40,  5.81frame/s]Processing:  55%|█████▍    | 279/511 [00:49<00:39,  5.81frame/s]Processing:  55%|█████▍    | 280/511 [00:49<00:37,  6.10frame/s]Processing:  55%|█████▍    | 281/511 [00:49<00:36,  6.29frame/s]Processing:  55%|█████▌    | 282/511 [00:49<00:36,  6.29frame/s]Processing:  55%|█████▌    | 283/511 [00:49<00:36,  6.31frame/s]Processing:  56%|█████▌    | 284/511 [00:50<00:35,  6.35frame/s]Processing:  56%|█████▌    | 285/511 [00:50<00:35,  6.28frame/s]Processing:  56%|█████▌    | 286/511 [00:50<00:34,  6.58frame/s]Processing:  56%|█████▌    | 287/511 [00:50<00:33,  6.68frame/s]Processing:  56%|█████▋    | 288/511 [00:50<00:33,  6.67frame/s]Processing:  57%|█████▋    | 289/511 [00:50<00:33,  6.58frame/s]Processing:  57%|█████▋    | 290/511 [00:51<00:33,  6.55frame/s]Processing:  57%|█████▋    | 291/511 [00:51<00:33,  6.50frame/s]Processing:  57%|█████▋    | 292/511 [00:51<00:34,  6.38frame/s]Processing:  57%|█████▋    | 293/511 [00:51<00:33,  6.48frame/s]Processing:  58%|█████▊    | 294/511 [00:51<00:33,  6.57frame/s]Processing:  58%|█████▊    | 295/511 [00:51<00:32,  6.55frame/s]Processing:  58%|█████▊    | 296/511 [00:51<00:32,  6.52frame/s]Processing:  58%|█████▊    | 297/511 [00:52<00:34,  6.20frame/s]Processing:  58%|█████▊    | 298/511 [00:52<00:35,  5.99frame/s]Processing:  59%|█████▊    | 299/511 [00:52<00:36,  5.82frame/s]Processing:  59%|█████▊    | 300/511 [00:52<00:36,  5.79frame/s]Processing:  59%|█████▉    | 301/511 [00:52<00:35,  5.89frame/s]Processing:  59%|█████▉    | 302/511 [00:52<00:34,  6.13frame/s]Processing:  59%|█████▉    | 303/511 [00:53<00:32,  6.37frame/s]Processing:  59%|█████▉    | 304/511 [00:53<00:31,  6.50frame/s]Processing:  60%|█████▉    | 305/511 [00:53<00:30,  6.65frame/s]Processing:  60%|█████▉    | 306/511 [00:53<00:30,  6.64frame/s]Processing:  60%|██████    | 307/511 [00:53<00:30,  6.59frame/s]Processing:  60%|██████    | 308/511 [00:53<00:30,  6.57frame/s]Processing:  60%|██████    | 309/511 [00:54<00:31,  6.34frame/s]Processing:  61%|██████    | 310/511 [00:54<00:32,  6.11frame/s]Processing:  61%|██████    | 311/511 [00:54<00:33,  5.97frame/s]Processing:  61%|██████    | 312/511 [00:54<00:33,  5.96frame/s]Processing:  61%|██████▏   | 313/511 [00:54<00:35,  5.56frame/s]Processing:  61%|██████▏   | 314/511 [00:55<00:37,  5.27frame/s]Processing:  62%|██████▏   | 315/511 [00:55<00:37,  5.17frame/s]Processing:  62%|██████▏   | 316/511 [00:55<00:39,  4.90frame/s]Processing:  62%|██████▏   | 317/511 [00:55<00:40,  4.83frame/s]Processing:  62%|██████▏   | 318/511 [00:55<00:36,  5.22frame/s]Processing:  62%|██████▏   | 319/511 [00:55<00:36,  5.26frame/s]Processing:  63%|██████▎   | 320/511 [00:56<00:36,  5.27frame/s]Processing:  63%|██████▎   | 321/511 [00:56<00:35,  5.42frame/s]Processing:  63%|██████▎   | 322/511 [00:56<00:32,  5.83frame/s]Processing:  63%|██████▎   | 323/511 [00:56<00:30,  6.10frame/s]Processing:  63%|██████▎   | 324/511 [00:56<00:31,  5.97frame/s]Processing:  64%|██████▎   | 325/511 [00:56<00:30,  6.17frame/s]Processing:  64%|██████▍   | 326/511 [00:57<00:29,  6.27frame/s]Processing:  64%|██████▍   | 327/511 [00:57<00:29,  6.34frame/s]Processing:  64%|██████▍   | 328/511 [00:57<00:28,  6.45frame/s]Processing:  64%|██████▍   | 329/511 [00:57<00:27,  6.52frame/s][DEBUG] Saved basic swapped face image: debug_output/video_0262_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0263_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0264_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0265_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0266_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0267_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0268_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0269_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0270_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0271_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0272_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0273_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0274_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0275_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0276_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0277_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0278_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0279_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0280_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0281_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0282_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0283_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0284_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0285_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0286_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0287_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0288_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0289_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0290_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0291_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0292_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0293_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0294_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0295_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0296_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0297_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0298_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0299_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0300_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0301_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0302_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0303_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0304_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0305_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0306_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0307_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0308_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0309_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0310_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0311_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0312_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0313_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0314_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0315_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0316_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0317_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0318_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0319_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0320_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0321_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0322_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0323_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0324_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0325_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0326_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0327_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0328_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-Processing:  65%|██████▍   | 330/511 [00:57<00:28,  6.46frame/s]Processing:  65%|██████▍   | 331/511 [00:57<00:28,  6.42frame/s]Processing:  65%|██████▍   | 332/511 [00:58<00:27,  6.40frame/s]Processing:  65%|██████▌   | 333/511 [00:58<00:27,  6.47frame/s]Processing:  65%|██████▌   | 334/511 [00:58<00:26,  6.58frame/s]Processing:  66%|██████▌   | 335/511 [00:58<00:27,  6.46frame/s]Processing:  66%|██████▌   | 336/511 [00:58<00:27,  6.29frame/s]Processing:  66%|██████▌   | 337/511 [00:58<00:27,  6.26frame/s]Processing:  66%|██████▌   | 338/511 [00:58<00:27,  6.37frame/s]Processing:  66%|██████▋   | 339/511 [00:59<00:26,  6.49frame/s]Processing:  67%|██████▋   | 340/511 [00:59<00:26,  6.39frame/s]Processing:  67%|██████▋   | 341/511 [00:59<00:28,  5.99frame/s]Processing:  67%|██████▋   | 342/511 [00:59<00:29,  5.83frame/s]Processing:  67%|██████▋   | 343/511 [00:59<00:30,  5.60frame/s]Processing:  67%|██████▋   | 344/511 [01:00<00:30,  5.56frame/s]Processing:  68%|██████▊   | 345/511 [01:00<00:30,  5.39frame/s]Processing:  68%|██████▊   | 346/511 [01:00<00:31,  5.29frame/s]Processing:  68%|██████▊   | 347/511 [01:00<00:31,  5.28frame/s]Processing:  68%|██████▊   | 348/511 [01:00<00:30,  5.32frame/s]Processing:  68%|██████▊   | 349/511 [01:01<00:30,  5.29frame/s]Processing:  68%|██████▊   | 350/511 [01:01<00:29,  5.53frame/s]Processing:  69%|██████▊   | 351/511 [01:01<00:27,  5.88frame/s]Processing:  69%|██████▉   | 352/511 [01:01<00:28,  5.50frame/s]Processing:  69%|██████▉   | 353/511 [01:01<00:28,  5.46frame/s]Processing:  69%|██████▉   | 354/511 [01:01<00:28,  5.52frame/s]Processing:  69%|██████▉   | 355/511 [01:02<00:27,  5.57frame/s]Processing:  70%|██████▉   | 356/511 [01:02<00:27,  5.63frame/s]Processing:  70%|██████▉   | 357/511 [01:02<00:27,  5.56frame/s]Processing:  70%|███████   | 358/511 [01:02<00:28,  5.45frame/s]Processing:  70%|███████   | 359/511 [01:02<00:27,  5.45frame/s]Processing:  70%|███████   | 360/511 [01:02<00:28,  5.38frame/s]Processing:  71%|███████   | 361/511 [01:03<00:27,  5.53frame/s]Processing:  71%|███████   | 362/511 [01:03<00:26,  5.54frame/s]Processing:  71%|███████   | 363/511 [01:03<00:25,  5.83frame/s]Processing:  71%|███████   | 364/511 [01:03<00:24,  6.01frame/s]Processing:  71%|███████▏  | 365/511 [01:03<00:23,  6.09frame/s]Processing:  72%|███████▏  | 366/511 [01:03<00:23,  6.25frame/s]Processing:  72%|███████▏  | 367/511 [01:04<00:22,  6.35frame/s]Processing:  72%|███████▏  | 368/511 [01:04<00:22,  6.38frame/s]Processing:  72%|███████▏  | 369/511 [01:04<00:22,  6.38frame/s]Processing:  72%|███████▏  | 370/511 [01:04<00:22,  6.41frame/s]Processing:  73%|███████▎  | 371/511 [01:04<00:21,  6.53frame/s]Processing:  73%|███████▎  | 372/511 [01:04<00:21,  6.56frame/s]Processing:  73%|███████▎  | 373/511 [01:05<00:21,  6.41frame/s]Processing:  73%|███████▎  | 374/511 [01:05<00:21,  6.24frame/s]Processing:  73%|███████▎  | 375/511 [01:05<00:21,  6.28frame/s]Processing:  74%|███████▎  | 376/511 [01:05<00:21,  6.40frame/s]Processing:  74%|███████▍  | 377/511 [01:05<00:20,  6.56frame/s]Processing:  74%|███████▍  | 378/511 [01:05<00:20,  6.57frame/s]Processing:  74%|███████▍  | 379/511 [01:05<00:20,  6.31frame/s]Processing:  74%|███████▍  | 380/511 [01:06<00:21,  5.98frame/s]Processing:  75%|███████▍  | 381/511 [01:06<00:22,  5.89frame/s]Processing:  75%|███████▍  | 382/511 [01:06<00:22,  5.86frame/s]Processing:  75%|███████▍  | 383/511 [01:06<00:21,  5.93frame/s]Processing:  75%|███████▌  | 384/511 [01:06<00:20,  6.19frame/s]Processing:  75%|███████▌  | 385/511 [01:06<00:20,  6.05frame/s]Processing:  76%|███████▌  | 386/511 [01:07<00:21,  5.85frame/s]Processing:  76%|███████▌  | 387/511 [01:07<00:20,  5.91frame/s]Processing:  76%|███████▌  | 388/511 [01:07<00:20,  6.12frame/s]Processing:  76%|███████▌  | 389/511 [01:07<00:19,  6.33frame/s]Processing:  76%|███████▋  | 390/511 [01:07<00:19,  6.07frame/s]Processing:  77%|███████▋  | 391/511 [01:07<00:20,  5.95frame/s]Processing:  77%|███████▋  | 392/511 [01:08<00:20,  5.84frame/s]Processing:  77%|███████▋  | 393/511 [01:08<00:20,  5.79frame/s]Processing:  77%|███████▋  | 394/511 [01:08<00:20,  5.64frame/s]Processing:  77%|███████▋  | 395/511 [01:08<00:20,  5.59frame/s]Processing:  77%|███████▋  | 396/511 [01:08<00:20,  5.61frame/s][DEBUG] Saved basic swapped face image: debug_output/video_0329_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0330_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0331_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0332_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0333_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0334_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0335_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0336_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0337_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0338_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0339_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0340_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0341_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0342_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0343_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0344_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0345_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0346_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0347_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0348_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0349_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0350_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0351_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0352_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0353_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0354_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0355_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0356_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0357_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0358_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0359_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0360_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0361_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0362_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0363_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0364_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0365_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0366_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0367_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0368_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0369_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0370_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0371_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0372_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0373_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0374_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0375_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0376_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0377_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0378_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0379_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0380_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0381_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0382_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0383_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0384_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0385_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0386_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0387_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0388_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0389_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0390_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0391_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0392_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0393_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0394_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0395_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-Processing:  78%|███████▊  | 397/511 [01:09<00:20,  5.56frame/s]Processing:  78%|███████▊  | 398/511 [01:09<00:21,  5.32frame/s]Processing:  78%|███████▊  | 399/511 [01:09<00:21,  5.11frame/s]Processing:  78%|███████▊  | 400/511 [01:09<00:20,  5.35frame/s]Processing:  78%|███████▊  | 401/511 [01:09<00:21,  5.09frame/s]Processing:  79%|███████▊  | 402/511 [01:10<00:22,  4.88frame/s]Processing:  79%|███████▉  | 403/511 [01:10<00:23,  4.52frame/s]Processing:  79%|███████▉  | 404/511 [01:10<00:23,  4.59frame/s]Processing:  79%|███████▉  | 405/511 [01:10<00:21,  4.90frame/s]Processing:  79%|███████▉  | 406/511 [01:10<00:20,  5.15frame/s]Processing:  80%|███████▉  | 407/511 [01:11<00:19,  5.30frame/s]Processing:  80%|███████▉  | 408/511 [01:11<00:18,  5.54frame/s]Processing:  80%|████████  | 409/511 [01:11<00:18,  5.66frame/s]Processing:  80%|████████  | 410/511 [01:11<00:17,  5.85frame/s]Processing:  80%|████████  | 411/511 [01:11<00:16,  6.01frame/s]Processing:  81%|████████  | 412/511 [01:11<00:16,  6.00frame/s]Processing:  81%|████████  | 413/511 [01:12<00:16,  6.05frame/s]Processing:  81%|████████  | 414/511 [01:12<00:15,  6.10frame/s]Processing:  81%|████████  | 415/511 [01:12<00:15,  6.05frame/s]Processing:  81%|████████▏ | 416/511 [01:12<00:15,  6.16frame/s]Processing:  82%|████████▏ | 417/511 [01:12<00:15,  6.00frame/s]Processing:  82%|████████▏ | 418/511 [01:12<00:15,  5.88frame/s]Processing:  82%|████████▏ | 419/511 [01:13<00:15,  5.96frame/s]Processing:  82%|████████▏ | 420/511 [01:13<00:14,  6.13frame/s]Processing:  82%|████████▏ | 421/511 [01:13<00:14,  6.11frame/s]Processing:  83%|████████▎ | 422/511 [01:13<00:14,  6.30frame/s]Processing:  83%|████████▎ | 423/511 [01:13<00:13,  6.31frame/s]Processing:  83%|████████▎ | 424/511 [01:13<00:13,  6.25frame/s]Processing:  83%|████████▎ | 425/511 [01:14<00:13,  6.23frame/s]Processing:  83%|████████▎ | 426/511 [01:14<00:13,  6.36frame/s]Processing:  84%|████████▎ | 427/511 [01:14<00:13,  6.24frame/s]Processing:  84%|████████▍ | 428/511 [01:14<00:13,  6.18frame/s]Processing:  84%|████████▍ | 429/511 [01:14<00:12,  6.36frame/s]Processing:  84%|████████▍ | 430/511 [01:14<00:12,  6.37frame/s]Processing:  84%|████████▍ | 431/511 [01:15<00:14,  5.67frame/s]Processing:  85%|████████▍ | 432/511 [01:15<00:13,  5.84frame/s]Processing:  85%|████████▍ | 433/511 [01:15<00:13,  5.99frame/s]Processing:  85%|████████▍ | 434/511 [01:15<00:13,  5.83frame/s]Processing:  85%|████████▌ | 435/511 [01:15<00:13,  5.75frame/s]Processing:  85%|████████▌ | 436/511 [01:15<00:12,  5.79frame/s]Processing:  86%|████████▌ | 437/511 [01:16<00:12,  5.78frame/s]Processing:  86%|████████▌ | 438/511 [01:16<00:12,  5.62frame/s]Processing:  86%|████████▌ | 439/511 [01:16<00:13,  5.53frame/s]Processing:  86%|████████▌ | 440/511 [01:16<00:13,  5.42frame/s]Processing:  86%|████████▋ | 441/511 [01:16<00:13,  5.35frame/s]Processing:  86%|████████▋ | 442/511 [01:17<00:13,  5.27frame/s]Processing:  87%|████████▋ | 443/511 [01:17<00:12,  5.32frame/s]Processing:  87%|████████▋ | 444/511 [01:17<00:11,  5.59frame/s]Processing:  87%|████████▋ | 445/511 [01:17<00:11,  5.68frame/s]Processing:  87%|████████▋ | 446/511 [01:17<00:10,  5.93frame/s]Processing:  87%|████████▋ | 447/511 [01:17<00:10,  6.02frame/s]Processing:  88%|████████▊ | 448/511 [01:17<00:10,  6.07frame/s]Processing:  88%|████████▊ | 449/511 [01:18<00:10,  6.10frame/s]Processing:  88%|████████▊ | 450/511 [01:18<00:09,  6.26frame/s]Processing:  88%|████████▊ | 451/511 [01:18<00:09,  6.33frame/s]Processing:  88%|████████▊ | 452/511 [01:18<00:09,  6.42frame/s]Processing:  89%|████████▊ | 453/511 [01:18<00:09,  6.36frame/s]Processing:  89%|████████▉ | 454/511 [01:18<00:09,  6.26frame/s]Processing:  89%|████████▉ | 455/511 [01:19<00:08,  6.31frame/s]Processing:  89%|████████▉ | 456/511 [01:19<00:08,  6.13frame/s]Processing:  89%|████████▉ | 457/511 [01:19<00:08,  6.17frame/s]Processing:  90%|████████▉ | 458/511 [01:19<00:08,  6.11frame/s]Processing:  90%|████████▉ | 459/511 [01:19<00:08,  5.86frame/s]Processing:  90%|█████████ | 460/511 [01:19<00:08,  5.82frame/s]Processing:  90%|█████████ | 461/511 [01:20<00:08,  5.71frame/s]Processing:  90%|█████████ | 462/511 [01:20<00:09,  5.18frame/s]Processing:  91%|█████████ | 463/511 [01:20<00:09,  5.18frame/s][DEBUG] Saved basic swapped face image: debug_output/video_0396_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0397_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0398_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0399_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0400_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0401_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0402_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0403_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0404_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0405_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0406_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0407_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0408_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0409_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0410_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0411_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0412_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0413_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0414_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0415_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0416_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0417_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0418_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0419_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0420_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0421_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0422_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0423_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0424_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0425_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0426_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0427_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0428_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0429_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0430_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0431_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0432_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0433_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0434_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0435_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0436_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0437_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0438_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0439_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0440_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0441_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0442_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0443_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0444_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0445_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0446_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0447_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0448_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0449_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0450_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0451_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0452_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0453_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0454_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0455_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0456_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0457_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0458_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0459_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0460_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0461_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0462_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-Processing:  91%|█████████ | 464/511 [01:20<00:08,  5.48frame/s]Processing:  91%|█████████ | 465/511 [01:20<00:08,  5.72frame/s]Processing:  91%|█████████ | 466/511 [01:21<00:07,  5.91frame/s]Processing:  91%|█████████▏| 467/511 [01:21<00:07,  6.07frame/s]Processing:  92%|█████████▏| 468/511 [01:21<00:06,  6.18frame/s]Processing:  92%|█████████▏| 469/511 [01:21<00:06,  6.04frame/s]Processing:  92%|█████████▏| 470/511 [01:21<00:07,  5.60frame/s]Processing:  92%|█████████▏| 471/511 [01:21<00:07,  5.13frame/s]Processing:  92%|█████████▏| 472/511 [01:22<00:08,  4.87frame/s]Processing:  93%|█████████▎| 473/511 [01:22<00:08,  4.68frame/s]Processing:  93%|█████████▎| 474/511 [01:22<00:08,  4.59frame/s]Processing:  93%|█████████▎| 475/511 [01:22<00:08,  4.46frame/s]Processing:  93%|█████████▎| 476/511 [01:23<00:08,  4.37frame/s]Processing:  93%|█████████▎| 477/511 [01:23<00:07,  4.34frame/s]Processing:  94%|█████████▎| 478/511 [01:23<00:06,  4.80frame/s]Processing:  94%|█████████▎| 479/511 [01:23<00:06,  4.74frame/s]Processing:  94%|█████████▍| 480/511 [01:23<00:06,  4.50frame/s]Processing:  94%|█████████▍| 481/511 [01:24<00:06,  4.56frame/s]Processing:  94%|█████████▍| 482/511 [01:24<00:06,  4.75frame/s]Processing:  95%|█████████▍| 483/511 [01:24<00:05,  4.93frame/s]Processing:  95%|█████████▍| 484/511 [01:24<00:05,  5.25frame/s]Processing:  95%|█████████▍| 485/511 [01:24<00:05,  4.95frame/s]Processing:  95%|█████████▌| 486/511 [01:25<00:05,  4.65frame/s]Processing:  95%|█████████▌| 487/511 [01:25<00:05,  4.18frame/s]Processing:  95%|█████████▌| 488/511 [01:25<00:05,  4.27frame/s]Processing:  96%|█████████▌| 489/511 [01:25<00:04,  4.47frame/s]Processing:  96%|█████████▌| 490/511 [01:26<00:04,  4.94frame/s]Processing:  96%|█████████▌| 491/511 [01:26<00:03,  5.23frame/s]Processing:  96%|█████████▋| 492/511 [01:26<00:03,  5.51frame/s]Processing:  96%|█████████▋| 493/511 [01:26<00:03,  5.76frame/s]Processing:  97%|█████████▋| 494/511 [01:26<00:02,  5.84frame/s]Processing:  97%|█████████▋| 495/511 [01:26<00:02,  5.85frame/s]Processing:  97%|█████████▋| 496/511 [01:27<00:02,  5.78frame/s]Processing:  97%|█████████▋| 497/511 [01:27<00:02,  5.72frame/s]Processing:  97%|█████████▋| 498/511 [01:27<00:02,  5.83frame/s]Processing:  98%|█████████▊| 499/511 [01:27<00:02,  5.96frame/s]Processing:  98%|█████████▊| 500/511 [01:27<00:01,  6.02frame/s]Processing:  98%|█████████▊| 501/511 [01:27<00:01,  6.14frame/s]Processing:  98%|█████████▊| 502/511 [01:28<00:01,  6.20frame/s]Processing:  98%|█████████▊| 503/511 [01:28<00:01,  6.42frame/s]Processing:  99%|█████████▊| 504/511 [01:28<00:01,  6.53frame/s]Processing:  99%|█████████▉| 505/511 [01:28<00:00,  6.58frame/s]Processing:  99%|█████████▉| 506/511 [01:28<00:00,  6.57frame/s]Processing:  99%|█████████▉| 507/511 [01:28<00:00,  6.51frame/s]Processing:  99%|█████████▉| 508/511 [01:28<00:00,  6.44frame/s]Processing: 100%|█████████▉| 509/511 [01:29<00:00,  6.50frame/s]Processing: 100%|█████████▉| 510/511 [01:29<00:00,  6.13frame/s]Processing: 100%|██████████| 511/511 [01:29<00:00,  5.87frame/s]Processing: 100%|██████████| 511/511 [01:29<00:00,  5.71frame/s]
-ffmpeg version 4.4.2-0ubuntu0.22.04.1 Copyright (c) 2000-2021 the FFmpeg developers
-  built with gcc 11 (Ubuntu 11.2.0-19ubuntu1)
-  configuration: --prefix=/usr --extra-version=0ubuntu0.22.04.1 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 --enable-gpl --disable-stripping --enable-gnutls --enable-ladspa --enable-libaom --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libcodec2 --enable-libdav1d --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libgme --enable-libgsm --enable-libjack --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librabbitmq --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libssh --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzimg --enable-libzmq --enable-libzvbi --enable-lv2 --enable-omx --enable-openal --enable-opencl --enable-opengl --enable-sdl2 --enable-pocketsphinx --enable-librsvg --enable-libmfx --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-libx264 --enable-shared
-  libavutil      56. 70.100 / 56. 70.100
-  libavcodec     58.134.100 / 58.134.100
-  libavformat    58. 76.100 / 58. 76.100
-  libavdevice    58. 13.100 / 58. 13.100
-  libavfilter     7.110.100 /  7.110.100
-  libswscale      5.  9.100 /  5.  9.100
-  libswresample   3.  9.100 /  3.  9.100
-  libpostproc    55.  9.100 / 55.  9.100
-Input #0, image2, from 'content/temp/target_video/%08d.png':
-  Duration: 00:00:20.44, start: 0.000000, bitrate: N/A
-  Stream #0:0: Video: png, rgb24(pc), 720x1280, 25 fps, 25 tbr, 25 tbn, 25 tbc
-Stream mapping:
-  Stream #0:0 -> #0:0 (png (native) -> h264 (libx264))
-Press [q] to stop, [?] for help
-[libx264 @ 0x5c03a964f480] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2
-[libx264 @ 0x5c03a964f480] profile High, level 3.1, 4:2:0, 8-bit
-[libx264 @ 0x5c03a964f480] 264 - core 163 r3060 5db6aa6 - H.264/MPEG-4 AVC codec - Copyleft 2003-2021 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=40 lookahead_threads=6 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00
-Output #0, mp4, to 'content/output_video.mp4':
-  Metadata:
-    encoder         : Lavf58.76.100
-  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv420p(tv, progressive), 720x1280, q=2-31, 25 fps, 12800 tbn
-    Metadata:
-      encoder         : Lavc58.134.100 libx264
-    Side data:
-      cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
-frame=    1 fps=0.0 q=0.0 size=       0kB time=00:00:00.00 bitrate=N/A speed=   0x    frame=  109 fps=0.0 q=28.0 size=       0kB time=00:00:00.88 bitrate=   0.4kbits/s speed=1.69x    frame=  229 fps=223 q=28.0 size=       0kB time=00:00:05.68 bitrate=   0.1kbits/s speed=5.54x    frame=  347 fps=227 q=28.0 size=     256kB time=00:00:10.40 bitrate= 201.7kbits/s speed= 6.8x    frame=  459 fps=226 q=28.0 size=     256kB time=00:00:14.88 bitrate= 141.0kbits/s speed=7.33x    frame=  511 fps=219 q=-1.0 Lsize=     648kB time=00:00:20.32 bitrate= 261.1kbits/s speed=8.73x    
-video:641kB audio:0kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 1.064391%
-[libx264 @ 0x5c03a964f480] frame I:3     Avg QP:12.54  size: 31611
-[libx264 @ 0x5c03a964f480] frame P:134   Avg QP:17.13  size:  2993
-[libx264 @ 0x5c03a964f480] frame B:374   Avg QP:21.61  size:   427
-[libx264 @ 0x5c03a964f480] consecutive B-frames:  0.6%  5.1%  1.2% 93.2%
-[libx264 @ 0x5c03a964f480] mb I  I16..4: 52.7% 32.9% 14.3%
-[libx264 @ 0x5c03a964f480] mb P  I16..4:  0.2%  0.6%  0.1%  P16..4:  7.0%  3.5%  1.9%  0.0%  0.0%    skip:86.7%
-[libx264 @ 0x5c03a964f480] mb B  I16..4:  0.0%  0.0%  0.0%  B16..8:  4.0%  0.4%  0.1%  direct: 0.1%  skip:95.3%  L0:44.1% L1:45.8% BI:10.1%
-[libx264 @ 0x5c03a964f480] 8x8 transform intra:42.2% inter:81.1%
-[libx264 @ 0x5c03a964f480] coded y,uvDC,uvAC intra: 33.4% 35.8% 19.2% inter: 1.3% 1.2% 0.1%
-[libx264 @ 0x5c03a964f480] i16 v,h,dc,p: 83% 10%  4%  3%
-[libx264 @ 0x5c03a964f480] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu: 38% 18% 15%  3%  5%  6%  5%  4%  6%
-[libx264 @ 0x5c03a964f480] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 36% 27% 10%  3%  5%  6%  6%  4%  4%
-[libx264 @ 0x5c03a964f480] i8c dc,h,v,p: 67% 14% 14%  4%
-[libx264 @ 0x5c03a964f480] Weighted P-Frames: Y:0.0% UV:0.0%
-[libx264 @ 0x5c03a964f480] ref P L0: 67.6% 11.1% 14.8%  6.6%
-[libx264 @ 0x5c03a964f480] ref B L0: 85.7% 11.6%  2.7%
-[libx264 @ 0x5c03a964f480] ref B L1: 98.4%  1.6%
-[libx264 @ 0x5c03a964f480] kb/s:256.54
-[DEBUG] Saved basic swapped face image: debug_output/video_0463_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0464_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0465_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0466_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0467_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0468_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0469_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0470_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0471_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0472_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0473_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0474_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0475_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0476_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0477_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0478_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0479_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0480_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0481_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0482_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0483_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0484_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0485_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0486_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0487_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0488_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0489_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0490_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0491_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0492_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0493_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0494_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0495_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0496_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0497_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0498_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0499_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0500_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0501_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0502_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0503_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0504_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0505_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0506_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0507_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0508_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0509_swapped_face_basic.png
-[DEBUG] Detected 1 faces in frame
-[DEBUG] Saved basic swapped face image: debug_output/video_0510_swapped_face_basic.png
-[INFO] Compiling video from frames in content/temp/target_video to content/output_video.mp4
-[INFO] Video compilation complete
-[FaceSwapper] Finished processing video frames
-[ROOP.FACE-ENHANCER] Progressing...
-[FaceEnhancer] Starting process_video
-[DEBUG] source_paths = ['content/source_image.png']
-[DEBUG] number of frames = 511
-Processing:   0%|          | 0/511 [00:00<?, ?frame/s]Processing:   0%|          | 1/511 [00:02<17:33,  2.06s/frame]Processing:   0%|          | 2/511 [00:02<09:00,  1.06s/frame]Processing:   1%|          | 3/511 [00:02<06:25,  1.32frame/s]Processing:   1%|          | 4/511 [00:03<05:02,  1.68frame/s]Processing:   1%|          | 5/511 [00:03<04:20,  1.95frame/s]Processing:   1%|          | 6/511 [00:03<04:02,  2.09frame/s]Processing:   1%|▏         | 7/511 [00:04<03:53,  2.16frame/s]Processing:   2%|▏         | 8/511 [00:04<04:03,  2.07frame/s]Processing:   2%|▏         | 9/511 [00:05<04:54,  1.70frame/s]Processing:   2%|▏         | 10/511 [00:06<05:10,  1.61frame/s]Processing:   2%|▏         | 11/511 [00:07<05:14,  1.59frame/s]Processing:   2%|▏         | 12/511 [00:07<05:11,  1.60frame/s]Processing:   3%|▎         | 13/511 [00:08<05:14,  1.58frame/s]Processing:   3%|▎         | 14/511 [00:08<04:40,  1.77frame/s]Processing:   3%|▎         | 15/511 [00:09<04:16,  1.93frame/s]Processing:   3%|▎         | 16/511 [00:09<03:57,  2.09frame/s]Processing:   3%|▎         | 17/511 [00:09<03:41,  2.23frame/s]Processing:   4%|▎         | 18/511 [00:10<03:32,  2.32frame/s]Processing:   4%|▎         | 19/511 [00:10<03:30,  2.34frame/s]Processing:   4%|▍         | 20/511 [00:11<03:28,  2.35frame/s]Processing:   4%|▍         | 21/511 [00:11<03:40,  2.22frame/s]Processing:   4%|▍         | 22/511 [00:12<03:47,  2.15frame/s]Processing:   5%|▍         | 23/511 [00:12<04:07,  1.97frame/s]Processing:   5%|▍         | 24/511 [00:13<04:22,  1.85frame/s]Processing:   5%|▍         | 25/511 [00:13<04:23,  1.85frame/s]Processing:   5%|▌         | 26/511 [00:14<04:23,  1.84frame/s]Processing:   5%|▌         | 27/511 [00:15<04:26,  1.81frame/s]Processing:   5%|▌         | 28/511 [00:15<04:36,  1.74frame/s]Processing:   6%|▌         | 29/511 [00:16<05:02,  1.59frame/s]Processing:   6%|▌         | 30/511 [00:16<04:53,  1.64frame/s]Processing:   6%|▌         | 31/511 [00:17<04:59,  1.60frame/s]Processing:   6%|▋         | 32/511 [00:18<05:35,  1.43frame/s]Processing:   6%|▋         | 33/511 [00:19<05:44,  1.39frame/s]Processing:   7%|▋         | 34/511 [00:20<05:43,  1.39frame/s]Processing:   7%|▋         | 35/511 [00:20<05:20,  1.49frame/s]Processing:   7%|▋         | 36/511 [00:21<05:05,  1.55frame/s]Processing:   7%|▋         | 37/511 [00:21<04:49,  1.63frame/s]Processing:   7%|▋         | 38/511 [00:22<04:40,  1.69frame/s]Processing:   8%|▊         | 39/511 [00:22<04:37,  1.70frame/s]Processing:   8%|▊         | 40/511 [00:23<04:38,  1.69frame/s]Processing:   8%|▊         | 41/511 [00:23<04:36,  1.70frame/s]Processing:   8%|▊         | 42/511 [00:24<04:33,  1.72frame/s]Processing:   8%|▊         | 43/511 [00:25<04:43,  1.65frame/s]Processing:   9%|▊         | 44/511 [00:26<05:07,  1.52frame/s]Processing:   9%|▉         | 45/511 [00:26<05:24,  1.43frame/s]Processing:   9%|▉         | 46/511 [00:27<05:08,  1.51frame/s]Processing:   9%|▉         | 47/511 [00:27<04:54,  1.58frame/s]Processing:   9%|▉         | 48/511 [00:28<04:44,  1.63frame/s]Processing:  10%|▉         | 49/511 [00:29<04:40,  1.64frame/s]Processing:  10%|▉         | 50/511 [00:29<05:02,  1.53frame/s]Processing:  10%|▉         | 51/511 [00:30<04:58,  1.54frame/s]Processing:  10%|█         | 52/511 [00:31<04:47,  1.60frame/s]Processing:  10%|█         | 53/511 [00:31<05:11,  1.47frame/s]Processing:  11%|█         | 54/511 [00:32<05:23,  1.41frame/s]Processing:  11%|█         | 55/511 [00:33<05:28,  1.39frame/s]Processing:  11%|█         | 56/511 [00:34<05:19,  1.42frame/s]Processing:  11%|█         | 57/511 [00:34<05:00,  1.51frame/s]Processing:  11%|█▏        | 58/511 [00:35<04:50,  1.56frame/s]Processing:  12%|█▏        | 59/511 [00:35<04:39,  1.62frame/s]Processing:  12%|█▏        | 60/511 [00:36<04:33,  1.65frame/s]Processing:  12%|█▏        | 61/511 [00:36<04:28,  1.68frame/s]Processing:  12%|█▏        | 62/511 [00:37<04:20,  1.72frame/s]Processing:  12%|█▏        | 63/511 [00:38<04:18,  1.73frame/s]Processing:  13%|█▎        | 64/511 [00:38<04:18,  1.73frame/s]Processing:  13%|█▎        | 65/511 [00:39<04:40,  1.59frame/s]Processing:  13%|█▎        | 66/511 [00:40<04:59,  1.48frame/s]Processing:  13%|█▎        | 67/511 [00:40<05:04,  1.46frame/s]Processing:  13%|█▎        | 68/511 [00:41<04:50,  1.53frame/s]Processing:  14%|█▎        | 69/511 [00:41<04:34,  1.61frame/s]Processing:  14%|█▎        | 70/511 [00:42<04:29,  1.64frame/s]Processing:  14%|█▍        | 71/511 [00:43<04:41,  1.56frame/s]Processing:  14%|█▍        | 72/511 [00:44<05:22,  1.36frame/s]Processing:  14%|█▍        | 73/511 [00:45<05:34,  1.31frame/s]Processing:  14%|█▍        | 74/511 [00:46<06:09,  1.18frame/s]Processing:  15%|█▍        | 75/511 [00:47<06:27,  1.12frame/s]Processing:  15%|█▍        | 76/511 [00:48<06:28,  1.12frame/s]Processing:  15%|█▌        | 77/511 [00:48<06:15,  1.16frame/s]Processing:  15%|█▌        | 78/511 [00:49<06:06,  1.18frame/s]Processing:  15%|█▌        | 79/511 [00:50<05:55,  1.21frame/s]Processing:  16%|█▌        | 80/511 [00:51<05:44,  1.25frame/s]Processing:  16%|█▌        | 81/511 [00:51<05:38,  1.27frame/s]Processing:  16%|█▌        | 82/511 [00:52<05:40,  1.26frame/s]Processing:  16%|█▌        | 83/511 [00:53<06:08,  1.16frame/s]Processing:  16%|█▋        | 84/511 [00:54<06:19,  1.13frame/s]Processing:  17%|█▋        | 85/511 [00:55<06:06,  1.16frame/s]Processing:  17%|█▋        | 86/511 [00:56<05:58,  1.19frame/s]Processing:  17%|█▋        | 87/511 [00:56<05:06,  1.38frame/s]Processing:  17%|█▋        | 88/511 [00:57<04:37,  1.52frame/s]Processing:  17%|█▋        | 89/511 [00:57<04:28,  1.57frame/s]Processing:  18%|█▊        | 90/511 [00:58<04:11,  1.67frame/s]Processing:  18%|█▊        | 91/511 [00:58<03:59,  1.75frame/s]Processing:  18%|█▊        | 92/511 [00:59<04:16,  1.64frame/s]Processing:  18%|█▊        | 93/511 [01:00<04:26,  1.57frame/s]Processing:  18%|█▊        | 94/511 [01:00<04:30,  1.54frame/s]Processing:  19%|█▊        | 95/511 [01:01<04:30,  1.54frame/s]Processing:  19%|█▉        | 96/511 [01:02<04:11,  1.65frame/s]Processing:  19%|█▉        | 97/511 [01:03<05:20,  1.29frame/s]Processing:  19%|█▉        | 98/511 [01:03<04:46,  1.44frame/s]Processing:  19%|█▉        | 99/511 [01:04<04:22,  1.57frame/s]Processing:  20%|█▉        | 100/511 [01:04<04:12,  1.63frame/s]Processing:  20%|█▉        | 101/511 [01:05<03:56,  1.74frame/s]Processing:  20%|█▉        | 102/511 [01:05<03:47,  1.80frame/s]Processing:  20%|██        | 103/511 [01:06<03:45,  1.81frame/s]Processing:  20%|██        | 104/511 [01:07<04:06,  1.65frame/s]Processing:  21%|██        | 105/511 [01:07<04:18,  1.57frame/s]Processing:  21%|██        | 106/511 [01:08<04:41,  1.44frame/s]Processing:  21%|██        | 107/511 [01:09<05:06,  1.32frame/s]Processing:  21%|██        | 108/511 [01:10<04:41,  1.43frame/s]Processing:  21%|██▏       | 109/511 [01:10<04:15,  1.58frame/s]Processing:  22%|██▏       | 110/511 [01:11<04:13,  1.58frame/s]Processing:  22%|██▏       | 111/511 [01:11<04:23,  1.52frame/s]Processing:  22%|██▏       | 112/511 [01:12<04:13,  1.57frame/s]Processing:  22%|██▏       | 113/511 [01:13<04:27,  1.49frame/s]Processing:  22%|██▏       | 114/511 [01:14<04:43,  1.40frame/s]Processing:  23%|██▎       | 115/511 [01:14<04:52,  1.35frame/s]Processing:  23%|██▎       | 116/511 [01:15<04:47,  1.38frame/s]Processing:  23%|██▎       | 117/511 [01:16<04:32,  1.45frame/s]Processing:  23%|██▎       | 118/511 [01:16<04:20,  1.51frame/s]Processing:  23%|██▎       | 119/511 [01:17<04:12,  1.55frame/s]Processing:  23%|██▎       | 120/511 [01:17<04:07,  1.58frame/s]Processing:  24%|██▎       | 121/511 [01:18<04:01,  1.62frame/s]Processing:  24%|██▍       | 122/511 [01:19<03:59,  1.63frame/s]Processing:  24%|██▍       | 123/511 [01:19<03:55,  1.65frame/s]Processing:  24%|██▍       | 124/511 [01:20<03:55,  1.64frame/s]Processing:  24%|██▍       | 125/511 [01:21<04:19,  1.49frame/s]Processing:  25%|██▍       | 126/511 [01:21<04:34,  1.40frame/s]Processing:  25%|██▍       | 127/511 [01:22<04:24,  1.45frame/s]Processing:  25%|██▌       | 128/511 [01:23<04:15,  1.50frame/s]Processing:  25%|██▌       | 129/511 [01:23<04:12,  1.51frame/s]Processing:  25%|██▌       | 130/511 [01:24<04:10,  1.52frame/s]Processing:  26%|██▌       | 131/511 [01:25<04:35,  1.38frame/s]Processing:  26%|██▌       | 132/511 [01:26<04:27,  1.41frame/s]Processing:  26%|██▌       | 133/511 [01:26<04:30,  1.40frame/s]Processing:  26%|██▌       | 134/511 [01:27<04:49,  1.30frame/s]Processing:  26%|██▋       | 135/511 [01:28<05:01,  1.25frame/s]Processing:  27%|██▋       | 136/511 [01:29<05:00,  1.25frame/s]Processing:  27%|██▋       | 137/511 [01:30<04:43,  1.32frame/s]Processing:  27%|██▋       | 138/511 [01:30<04:30,  1.38frame/s]Processing:  27%|██▋       | 139/511 [01:31<04:25,  1.40frame/s]Processing:  27%|██▋       | 140/511 [01:32<04:22,  1.41frame/s]Processing:  28%|██▊       | 141/511 [01:32<04:13,  1.46frame/s]Processing:  28%|██▊       | 142/511 [01:33<04:06,  1.50frame/s]Processing:  28%|██▊       | 143/511 [01:33<04:01,  1.52frame/s]Processing:  28%|██▊       | 144/511 [01:34<04:20,  1.41frame/s]Processing:  28%|██▊       | 145/511 [01:35<04:37,  1.32frame/s]Processing:  29%|██▊       | 146/511 [01:36<04:35,  1.33frame/s]Processing:  29%|██▉       | 147/511 [01:37<04:21,  1.39frame/s]Processing:  29%|██▉       | 148/511 [01:37<04:14,  1.43frame/s]Processing:  29%|██▉       | 149/511 [01:38<04:09,  1.45frame/s]Processing:  29%|██▉       | 150/511 [01:39<04:30,  1.34frame/s]Processing:  30%|██▉       | 151/511 [01:39<04:19,  1.39frame/s]Processing:  30%|██▉       | 152/511 [01:40<04:20,  1.38frame/s]Processing:  30%|██▉       | 153/511 [01:41<04:37,  1.29frame/s]Processing:  30%|███       | 154/511 [01:42<04:47,  1.24frame/s]Processing:  30%|███       | 155/511 [01:43<04:46,  1.24frame/s]Processing:  31%|███       | 156/511 [01:43<04:30,  1.31frame/s]Processing:  31%|███       | 157/511 [01:44<04:18,  1.37frame/s]Processing:  31%|███       | 158/511 [01:45<04:08,  1.42frame/s]Processing:  31%|███       | 159/511 [01:45<03:59,  1.47frame/s]Processing:  31%|███▏      | 160/511 [01:46<03:48,  1.54frame/s]Processing:  32%|███▏      | 161/511 [01:46<03:38,  1.60frame/s]Processing:  32%|███▏      | 162/511 [01:47<04:10,  1.39frame/s]Processing:  32%|███▏      | 163/511 [01:49<05:13,  1.11frame/s]Processing:  32%|███▏      | 164/511 [01:49<04:52,  1.18frame/s]Processing:  32%|███▏      | 165/511 [01:50<04:23,  1.31frame/s]Processing:  32%|███▏      | 166/511 [01:51<04:03,  1.42frame/s]Processing:  33%|███▎      | 167/511 [01:51<03:50,  1.49frame/s]Processing:  33%|███▎      | 168/511 [01:52<03:36,  1.58frame/s]Processing:  33%|███▎      | 169/511 [01:52<03:47,  1.50frame/s]Processing:  33%|███▎      | 170/511 [01:53<03:43,  1.52frame/s]Processing:  33%|███▎      | 171/511 [01:54<03:49,  1.48frame/s]Processing:  34%|███▎      | 172/511 [01:55<04:54,  1.15frame/s]Processing:  34%|███▍      | 173/511 [01:56<05:32,  1.02frame/s]Processing:  34%|███▍      | 174/511 [01:57<05:28,  1.02frame/s]Processing:  34%|███▍      | 175/511 [01:58<05:25,  1.03frame/s]Processing:  34%|███▍      | 176/511 [01:59<05:21,  1.04frame/s]Processing:  35%|███▍      | 177/511 [02:00<05:19,  1.05frame/s]Processing:  35%|███▍      | 178/511 [02:01<05:16,  1.05frame/s]Processing:  35%|███▌      | 179/511 [02:02<04:42,  1.18frame/s]Processing:  35%|███▌      | 180/511 [02:02<04:19,  1.28frame/s]Processing:  35%|███▌      | 181/511 [02:03<04:00,  1.37frame/s]Processing:  36%|███▌      | 182/511 [02:03<03:37,  1.51frame/s]Processing:  36%|███▌      | 183/511 [02:04<03:13,  1.69frame/s]Processing:  36%|███▌      | 184/511 [02:04<02:56,  1.85frame/s]Processing:  36%|███▌      | 185/511 [02:05<02:44,  1.99frame/s]Processing:  36%|███▋      | 186/511 [02:05<02:58,  1.83frame/s]Processing:  37%|███▋      | 187/511 [02:07<04:07,  1.31frame/s]Processing:  37%|███▋      | 188/511 [02:07<03:41,  1.46frame/s]Processing:  37%|███▋      | 189/511 [02:08<03:25,  1.57frame/s]Processing:  37%|███▋      | 190/511 [02:08<03:28,  1.54frame/s]Processing:  37%|███▋      | 191/511 [02:09<04:05,  1.30frame/s]Processing:  38%|███▊      | 192/511 [02:10<04:22,  1.21frame/s]Processing:  38%|███▊      | 193/511 [02:11<04:17,  1.23frame/s]Processing:  38%|███▊      | 194/511 [02:12<04:13,  1.25frame/s]Processing:  38%|███▊      | 195/511 [02:13<04:11,  1.25frame/s]Processing:  38%|███▊      | 196/511 [02:13<04:10,  1.26frame/s]Processing:  39%|███▊      | 197/511 [02:14<04:06,  1.27frame/s]Processing:  39%|███▊      | 198/511 [02:15<04:03,  1.28frame/s]Processing:  39%|███▉      | 199/511 [02:16<04:25,  1.18frame/s]Processing:  39%|███▉      | 200/511 [02:17<04:41,  1.11frame/s]Processing:  39%|███▉      | 201/511 [02:18<04:31,  1.14frame/s]Processing:  40%|███▉      | 202/511 [02:19<04:21,  1.18frame/s]Processing:  40%|███▉      | 203/511 [02:19<04:18,  1.19frame/s]Processing:  40%|███▉      | 204/511 [02:21<04:41,  1.09frame/s]Processing:  40%|████      | 205/511 [02:21<04:27,  1.14frame/s]Processing:  40%|████      | 206/511 [02:22<04:42,  1.08frame/s]Processing:  41%|████      | 207/511 [02:23<04:49,  1.05frame/s]Processing:  41%|████      | 208/511 [02:24<04:45,  1.06frame/s]Processing:  41%|████      | 209/511 [02:25<04:31,  1.11frame/s]Processing:  41%|████      | 210/511 [02:26<04:21,  1.15frame/s]Processing:  41%|████▏     | 211/511 [02:27<04:14,  1.18frame/s]Processing:  41%|████▏     | 212/511 [02:27<03:38,  1.37frame/s]Processing:  42%|████▏     | 213/511 [02:28<03:11,  1.56frame/s]Processing:  42%|████▏     | 214/511 [02:28<02:51,  1.73frame/s]Processing:  42%|████▏     | 215/511 [02:28<02:37,  1.88frame/s]Processing:  42%|████▏     | 216/511 [02:29<02:26,  2.01frame/s]Processing:  42%|████▏     | 217/511 [02:29<02:28,  1.98frame/s]Processing:  43%|████▎     | 218/511 [02:30<02:57,  1.65frame/s]Processing:  43%|████▎     | 219/511 [02:31<03:22,  1.44frame/s]Processing:  43%|████▎     | 220/511 [02:32<03:24,  1.42frame/s]Processing:  43%|████▎     | 221/511 [02:33<03:26,  1.40frame/s]Processing:  43%|████▎     | 222/511 [02:33<03:31,  1.37frame/s]Processing:  44%|████▎     | 223/511 [02:34<03:49,  1.25frame/s]Processing:  44%|████▍     | 224/511 [02:35<03:44,  1.28frame/s]Processing:  44%|████▍     | 225/511 [02:36<04:01,  1.18frame/s]Processing:  44%|████▍     | 226/511 [02:37<04:10,  1.14frame/s]Processing:  44%|████▍     | 227/511 [02:38<04:11,  1.13frame/s]Processing:  45%|████▍     | 228/511 [02:39<04:01,  1.17frame/s]Processing:  45%|████▍     | 229/511 [02:39<03:52,  1.21frame/s]Processing:  45%|████▌     | 230/511 [02:40<03:47,  1.23frame/s]Processing:  45%|████▌     | 231/511 [02:41<03:40,  1.27frame/s]Processing:  45%|████▌     | 232/511 [02:42<03:34,  1.30frame/s]Processing:  46%|████▌     | 233/511 [02:42<03:31,  1.32frame/s]Processing:  46%|████▌     | 234/511 [02:43<03:38,  1.26frame/s][DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-Processing:  46%|████▌     | 235/511 [02:44<03:58,  1.16frame/s]Processing:  46%|████▌     | 236/511 [02:45<03:58,  1.15frame/s]Processing:  46%|████▋     | 237/511 [02:46<03:49,  1.19frame/s]Processing:  47%|████▋     | 238/511 [02:47<03:40,  1.24frame/s]Processing:  47%|████▋     | 239/511 [02:48<03:43,  1.21frame/s]Processing:  47%|████▋     | 240/511 [02:48<03:46,  1.20frame/s]Processing:  47%|████▋     | 241/511 [02:49<03:42,  1.22frame/s]Processing:  47%|████▋     | 242/511 [02:50<03:52,  1.16frame/s]Processing:  48%|████▊     | 243/511 [02:51<03:57,  1.13frame/s]Processing:  48%|████▊     | 244/511 [02:52<03:55,  1.13frame/s]Processing:  48%|████▊     | 245/511 [02:53<03:43,  1.19frame/s]Processing:  48%|████▊     | 246/511 [02:53<03:35,  1.23frame/s]Processing:  48%|████▊     | 247/511 [02:54<03:31,  1.25frame/s]Processing:  49%|████▊     | 248/511 [02:55<03:28,  1.26frame/s]Processing:  49%|████▊     | 249/511 [02:56<03:22,  1.29frame/s]Processing:  49%|████▉     | 250/511 [02:56<03:18,  1.32frame/s]Processing:  49%|████▉     | 251/511 [02:57<03:27,  1.25frame/s]Processing:  49%|████▉     | 252/511 [02:58<03:42,  1.16frame/s]Processing:  50%|████▉     | 253/511 [02:59<03:35,  1.20frame/s]Processing:  50%|████▉     | 254/511 [03:00<03:28,  1.23frame/s]Processing:  50%|████▉     | 255/511 [03:01<03:23,  1.26frame/s]Processing:  50%|█████     | 256/511 [03:02<03:30,  1.21frame/s]Processing:  50%|█████     | 257/511 [03:02<03:27,  1.23frame/s]Processing:  50%|█████     | 258/511 [03:03<03:25,  1.23frame/s]Processing:  51%|█████     | 259/511 [03:04<03:38,  1.15frame/s]Processing:  51%|█████     | 260/511 [03:05<03:44,  1.12frame/s]Processing:  51%|█████     | 261/511 [03:06<03:41,  1.13frame/s]Processing:  51%|█████▏    | 262/511 [03:07<03:29,  1.19frame/s]Processing:  51%|█████▏    | 263/511 [03:07<03:19,  1.24frame/s]Processing:  52%|█████▏    | 264/511 [03:08<03:15,  1.27frame/s]Processing:  52%|█████▏    | 265/511 [03:09<03:13,  1.27frame/s]Processing:  52%|█████▏    | 266/511 [03:10<03:10,  1.28frame/s]Processing:  52%|█████▏    | 267/511 [03:10<03:08,  1.30frame/s]Processing:  52%|█████▏    | 268/511 [03:11<03:25,  1.18frame/s]Processing:  53%|█████▎    | 269/511 [03:12<03:32,  1.14frame/s]Processing:  53%|█████▎    | 270/511 [03:13<03:22,  1.19frame/s]Processing:  53%|█████▎    | 271/511 [03:14<03:14,  1.23frame/s]Processing:  53%|█████▎    | 272/511 [03:15<03:08,  1.27frame/s]Processing:  53%|█████▎    | 273/511 [03:16<03:21,  1.18frame/s]Processing:  54%|█████▎    | 274/511 [03:16<03:10,  1.25frame/s]Processing:  54%|█████▍    | 275/511 [03:17<03:15,  1.21frame/s]Processing:  54%|█████▍    | 276/511 [03:18<03:31,  1.11frame/s]Processing:  54%|█████▍    | 277/511 [03:19<03:36,  1.08frame/s]Processing:  54%|█████▍    | 278/511 [03:20<03:22,  1.15frame/s]Processing:  55%|█████▍    | 279/511 [03:21<03:11,  1.21frame/s]Processing:  55%|█████▍    | 280/511 [03:21<03:04,  1.25frame/s]Processing:  55%|█████▍    | 281/511 [03:22<02:58,  1.29frame/s]Processing:  55%|█████▌    | 282/511 [03:23<02:54,  1.31frame/s]Processing:  55%|█████▌    | 283/511 [03:24<02:49,  1.34frame/s]Processing:  56%|█████▌    | 284/511 [03:24<02:47,  1.36frame/s]Processing:  56%|█████▌    | 285/511 [03:25<03:08,  1.20frame/s]Processing:  56%|█████▌    | 286/511 [03:26<03:19,  1.13frame/s]Processing:  56%|█████▌    | 287/511 [03:27<03:07,  1.19frame/s]Processing:  56%|█████▋    | 288/511 [03:28<03:00,  1.23frame/s]Processing:  57%|█████▋    | 289/511 [03:29<02:52,  1.28frame/s]Processing:  57%|█████▋    | 290/511 [03:30<03:05,  1.19frame/s]Processing:  57%|█████▋    | 291/511 [03:30<02:57,  1.24frame/s]Processing:  57%|█████▋    | 292/511 [03:31<03:02,  1.20frame/s]Processing:  57%|█████▋    | 293/511 [03:32<03:18,  1.10frame/s]Processing:  58%|█████▊    | 294/511 [03:33<03:17,  1.10frame/s]Processing:  58%|█████▊    | 295/511 [03:34<02:45,  1.31frame/s]Processing:  58%|█████▊    | 296/511 [03:34<02:23,  1.49frame/s]Processing:  58%|█████▊    | 297/511 [03:35<02:19,  1.53frame/s]Processing:  58%|█████▊    | 298/511 [03:35<02:13,  1.60frame/s]Processing:  59%|█████▊    | 299/511 [03:36<02:09,  1.63frame/s]Processing:  59%|█████▊    | 300/511 [03:36<02:05,  1.68frame/s]Processing:  59%|█████▉    | 301/511 [03:37<02:01,  1.73frame/s]Processing:  59%|█████▉    | 302/511 [03:38<01:59,  1.75frame/s]Processing:  59%|█████▉    | 303/511 [03:38<01:58,  1.75frame/s]Processing:  59%|█████▉    | 304/511 [03:39<02:08,  1.61frame/s]Processing:  60%|█████▉    | 305/511 [03:40<02:20,  1.46frame/s]Processing:  60%|█████▉    | 306/511 [03:40<02:23,  1.43frame/s]Processing:  60%|██████    | 307/511 [03:41<02:14,  1.52frame/s]Processing:  60%|██████    | 308/511 [03:42<02:08,  1.58frame/s]Processing:  60%|██████    | 309/511 [03:42<02:03,  1.63frame/s]Processing:  61%|██████    | 310/511 [03:43<02:03,  1.62frame/s]Processing:  61%|██████    | 311/511 [03:44<02:14,  1.49frame/s]Processing:  61%|██████    | 312/511 [03:44<02:05,  1.58frame/s]Processing:  61%|██████▏   | 313/511 [03:45<02:05,  1.58frame/s]Processing:  61%|██████▏   | 314/511 [03:46<02:17,  1.44frame/s]Processing:  62%|██████▏   | 315/511 [03:46<02:23,  1.37frame/s]Processing:  62%|██████▏   | 316/511 [03:47<02:23,  1.36frame/s]Processing:  62%|██████▏   | 317/511 [03:48<02:13,  1.46frame/s]Processing:  62%|██████▏   | 318/511 [03:48<02:05,  1.54frame/s]Processing:  62%|██████▏   | 319/511 [03:49<01:59,  1.61frame/s]Processing:  63%|██████▎   | 320/511 [03:49<01:55,  1.66frame/s]Processing:  63%|██████▎   | 321/511 [03:50<01:53,  1.67frame/s]Processing:  63%|██████▎   | 322/511 [03:50<01:50,  1.71frame/s]Processing:  63%|██████▎   | 323/511 [03:51<01:47,  1.74frame/s]Processing:  63%|██████▎   | 324/511 [03:52<01:45,  1.78frame/s]Processing:  64%|██████▎   | 325/511 [03:52<01:43,  1.80frame/s]Processing:  64%|██████▍   | 326/511 [03:53<01:59,  1.55frame/s]Processing:  64%|██████▍   | 327/511 [03:54<02:18,  1.33frame/s]Processing:  64%|██████▍   | 328/511 [03:55<02:12,  1.38frame/s]Processing:  64%|██████▍   | 329/511 [03:55<02:10,  1.39frame/s]Processing:  65%|██████▍   | 330/511 [03:56<02:09,  1.40frame/s]Processing:  65%|██████▍   | 331/511 [03:57<02:15,  1.33frame/s]Processing:  65%|██████▍   | 332/511 [03:58<02:20,  1.27frame/s]Processing:  65%|██████▌   | 333/511 [03:58<02:18,  1.29frame/s]Processing:  65%|██████▌   | 334/511 [04:00<02:31,  1.17frame/s]Processing:  66%|██████▌   | 335/511 [04:01<02:37,  1.11frame/s]Processing:  66%|██████▌   | 336/511 [04:01<02:32,  1.15frame/s]Processing:  66%|██████▌   | 337/511 [04:02<02:21,  1.23frame/s]Processing:  66%|██████▌   | 338/511 [04:03<02:15,  1.28frame/s]Processing:  66%|██████▋   | 339/511 [04:03<02:10,  1.31frame/s]Processing:  67%|██████▋   | 340/511 [04:04<02:06,  1.35frame/s]Processing:  67%|██████▋   | 341/511 [04:05<02:02,  1.38frame/s]Processing:  67%|██████▋   | 342/511 [04:05<02:00,  1.40frame/s]Processing:  67%|██████▋   | 343/511 [04:06<02:01,  1.38frame/s]Processing:  67%|██████▋   | 344/511 [04:07<02:16,  1.22frame/s]Processing:  68%|██████▊   | 345/511 [04:08<02:20,  1.18frame/s]Processing:  68%|██████▊   | 346/511 [04:09<02:09,  1.27frame/s]Processing:  68%|██████▊   | 347/511 [04:10<02:03,  1.33frame/s]Processing:  68%|██████▊   | 348/511 [04:10<02:01,  1.34frame/s]Processing:  68%|██████▊   | 349/511 [04:11<02:11,  1.23frame/s]Processing:  68%|██████▊   | 350/511 [04:12<02:04,  1.30frame/s]Processing:  69%|██████▊   | 351/511 [04:13<02:08,  1.25frame/s]Processing:  69%|██████▉   | 352/511 [04:14<02:17,  1.16frame/s]Processing:  69%|██████▉   | 353/511 [04:15<02:18,  1.14frame/s]Processing:  69%|██████▉   | 354/511 [04:15<02:08,  1.22frame/s]Processing:  69%|██████▉   | 355/511 [04:16<02:01,  1.29frame/s]Processing:  70%|██████▉   | 356/511 [04:17<01:57,  1.32frame/s]Processing:  70%|██████▉   | 357/511 [04:17<01:52,  1.36frame/s]Processing:  70%|███████   | 358/511 [04:18<01:50,  1.38frame/s]Processing:  70%|███████   | 359/511 [04:19<01:47,  1.42frame/s]Processing:  70%|███████   | 360/511 [04:19<01:45,  1.44frame/s]Processing:  71%|███████   | 361/511 [04:20<01:50,  1.35frame/s]Processing:  71%|███████   | 362/511 [04:21<02:01,  1.22frame/s]Processing:  71%|███████   | 363/511 [04:22<01:59,  1.23frame/s]Processing:  71%|███████   | 364/511 [04:23<01:53,  1.29frame/s]Processing:  71%|███████▏  | 365/511 [04:24<01:50,  1.32frame/s]Processing:  72%|███████▏  | 366/511 [04:24<01:49,  1.32frame/s]Processing:  72%|███████▏  | 367/511 [04:25<01:56,  1.24frame/s]Processing:  72%|███████▏  | 368/511 [04:26<01:48,  1.31frame/s]Processing:  72%|███████▏  | 369/511 [04:27<01:55,  1.23frame/s]Processing:  72%|███████▏  | 370/511 [04:28<02:02,  1.15frame/s]Processing:  73%|███████▎  | 371/511 [04:29<02:01,  1.15frame/s]Processing:  73%|███████▎  | 372/511 [04:29<01:54,  1.22frame/s]Processing:  73%|███████▎  | 373/511 [04:30<01:48,  1.28frame/s]Processing:  73%|███████▎  | 374/511 [04:31<01:43,  1.33frame/s]Processing:  73%|███████▎  | 375/511 [04:31<01:39,  1.36frame/s]Processing:  74%|███████▎  | 376/511 [04:32<01:37,  1.39frame/s]Processing:  74%|███████▍  | 377/511 [04:33<01:35,  1.41frame/s]Processing:  74%|███████▍  | 378/511 [04:33<01:32,  1.44frame/s]Processing:  74%|███████▍  | 379/511 [04:34<01:41,  1.30frame/s]Processing:  74%|███████▍  | 380/511 [04:35<01:51,  1.18frame/s]Processing:  75%|███████▍  | 381/511 [04:36<01:43,  1.25frame/s]Processing:  75%|███████▍  | 382/511 [04:37<01:39,  1.30frame/s]Processing:  75%|███████▍  | 383/511 [04:38<01:35,  1.34frame/s]Processing:  75%|███████▌  | 384/511 [04:38<01:36,  1.31frame/s]Processing:  75%|███████▌  | 385/511 [04:39<01:38,  1.27frame/s]Processing:  76%|███████▌  | 386/511 [04:40<01:35,  1.30frame/s]Processing:  76%|███████▌  | 387/511 [04:41<01:43,  1.20frame/s]Processing:  76%|███████▌  | 388/511 [04:42<01:47,  1.15frame/s]Processing:  76%|███████▌  | 389/511 [04:43<01:47,  1.14frame/s]Processing:  76%|███████▋  | 390/511 [04:43<01:39,  1.22frame/s]Processing:  77%|███████▋  | 391/511 [04:44<01:34,  1.27frame/s]Processing:  77%|███████▋  | 392/511 [04:45<01:29,  1.33frame/s]Processing:  77%|███████▋  | 393/511 [04:46<01:28,  1.34frame/s]Processing:  77%|███████▋  | 394/511 [04:46<01:25,  1.37frame/s]Processing:  77%|███████▋  | 395/511 [04:47<01:23,  1.39frame/s]Processing:  77%|███████▋  | 396/511 [04:48<01:23,  1.37frame/s]Processing:  78%|███████▊  | 397/511 [04:49<01:33,  1.21frame/s]Processing:  78%|███████▊  | 398/511 [04:50<01:36,  1.17frame/s]Processing:  78%|███████▊  | 399/511 [04:50<01:29,  1.25frame/s]Processing:  78%|███████▊  | 400/511 [04:51<01:23,  1.32frame/s]Processing:  78%|███████▊  | 401/511 [04:52<01:21,  1.35frame/s]Processing:  79%|███████▊  | 402/511 [04:53<01:28,  1.24frame/s]Processing:  79%|███████▉  | 403/511 [04:53<01:23,  1.30frame/s]Processing:  79%|███████▉  | 404/511 [04:54<01:22,  1.29frame/s]Processing:  79%|███████▉  | 405/511 [04:55<01:29,  1.18frame/s]Processing:  79%|███████▉  | 406/511 [04:56<01:32,  1.13frame/s]Processing:  80%|███████▉  | 407/511 [04:57<01:27,  1.19frame/s]Processing:  80%|███████▉  | 408/511 [04:57<01:21,  1.26frame/s]Processing:  80%|████████  | 409/511 [04:58<01:17,  1.31frame/s]Processing:  80%|████████  | 410/511 [04:59<01:14,  1.35frame/s]Processing:  80%|████████  | 411/511 [05:00<01:12,  1.37frame/s]Processing:  81%|████████  | 412/511 [05:00<01:11,  1.39frame/s]Processing:  81%|████████  | 413/511 [05:01<01:09,  1.41frame/s]Processing:  81%|████████  | 414/511 [05:02<01:11,  1.35frame/s]Processing:  81%|████████  | 415/511 [05:03<01:19,  1.21frame/s]Processing:  81%|████████▏ | 416/511 [05:04<01:18,  1.21frame/s]Processing:  82%|████████▏ | 417/511 [05:04<01:13,  1.28frame/s]Processing:  82%|████████▏ | 418/511 [05:05<01:10,  1.32frame/s]Processing:  82%|████████▏ | 419/511 [05:06<01:08,  1.34frame/s]Processing:  82%|████████▏ | 420/511 [05:07<01:13,  1.24frame/s]Processing:  82%|████████▏ | 421/511 [05:07<01:09,  1.30frame/s]Processing:  83%|████████▎ | 422/511 [05:08<01:11,  1.24frame/s]Processing:  83%|████████▎ | 423/511 [05:09<01:15,  1.17frame/s]Processing:  83%|████████▎ | 424/511 [05:10<01:15,  1.15frame/s]Processing:  83%|████████▎ | 425/511 [05:11<01:10,  1.22frame/s]Processing:  83%|████████▎ | 426/511 [05:12<01:06,  1.28frame/s]Processing:  84%|████████▎ | 427/511 [05:12<01:03,  1.33frame/s]Processing:  84%|████████▍ | 428/511 [05:13<01:00,  1.37frame/s]Processing:  84%|████████▍ | 429/511 [05:14<00:59,  1.39frame/s]Processing:  84%|████████▍ | 430/511 [05:14<00:57,  1.41frame/s]Processing:  84%|████████▍ | 431/511 [05:15<00:56,  1.43frame/s]Processing:  85%|████████▍ | 432/511 [05:16<00:58,  1.34frame/s]Processing:  85%|████████▍ | 433/511 [05:17<01:04,  1.21frame/s]Processing:  85%|████████▍ | 434/511 [05:18<01:01,  1.24frame/s]Processing:  85%|████████▌ | 435/511 [05:18<00:58,  1.31frame/s]Processing:  85%|████████▌ | 436/511 [05:19<00:55,  1.35frame/s]Processing:  86%|████████▌ | 437/511 [05:20<00:55,  1.35frame/s]Processing:  86%|████████▌ | 438/511 [05:21<00:58,  1.26frame/s]Processing:  86%|████████▌ | 439/511 [05:21<00:55,  1.30frame/s]Processing:  86%|████████▌ | 440/511 [05:22<00:58,  1.20frame/s]Processing:  86%|████████▋ | 441/511 [05:23<01:01,  1.13frame/s]Processing:  86%|████████▋ | 442/511 [05:24<01:01,  1.13frame/s]Processing:  87%|████████▋ | 443/511 [05:25<00:57,  1.19frame/s]Processing:  87%|████████▋ | 444/511 [05:25<00:48,  1.37frame/s]Processing:  87%|████████▋ | 445/511 [05:26<00:41,  1.59frame/s]Processing:  87%|████████▋ | 446/511 [05:27<00:45,  1.41frame/s]Processing:  87%|████████▋ | 447/511 [05:28<00:48,  1.32frame/s]Processing:  88%|████████▊ | 448/511 [05:28<00:49,  1.27frame/s]Processing:  88%|████████▊ | 449/511 [05:29<00:51,  1.20frame/s]Processing:  88%|████████▊ | 450/511 [05:31<00:58,  1.05frame/s]Processing:  88%|████████▊ | 451/511 [05:32<00:57,  1.05frame/s]Processing:  88%|████████▊ | 452/511 [05:32<00:54,  1.08frame/s]Processing:  89%|████████▊ | 453/511 [05:33<00:53,  1.09frame/s]Processing:  89%|████████▉ | 454/511 [05:34<00:56,  1.01frame/s]Processing:  89%|████████▉ | 455/511 [05:35<00:53,  1.04frame/s]Processing:  89%|████████▉ | 456/511 [05:37<00:57,  1.04s/frame]Processing:  89%|████████▉ | 457/511 [05:38<00:58,  1.09s/frame]Processing:  90%|████████▉ | 458/511 [05:39<00:54,  1.03s/frame]Processing:  90%|████████▉ | 459/511 [05:39<00:50,  1.03frame/s]Processing:  90%|█████████ | 460/511 [05:40<00:47,  1.08frame/s]Processing:  90%|█████████ | 461/511 [05:41<00:45,  1.11frame/s]Processing:  90%|█████████ | 462/511 [05:42<00:43,  1.13frame/s]Processing:  91%|█████████ | 463/511 [05:43<00:41,  1.16frame/s]Processing:  91%|█████████ | 464/511 [05:44<00:44,  1.04frame/s]Processing:  91%|█████████ | 465/511 [05:45<00:46,  1.00s/frame]Processing:  91%|█████████ | 466/511 [05:46<00:42,  1.06frame/s]Processing:  91%|█████████▏| 467/511 [05:47<00:40,  1.09frame/s]Processing:  92%|█████████▏| 468/511 [05:48<00:40,  1.06frame/s][DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-Processing:  92%|█████████▏| 469/511 [05:49<00:39,  1.06frame/s]Processing:  92%|█████████▏| 470/511 [05:50<00:39,  1.04frame/s]Processing:  92%|█████████▏| 471/511 [05:51<00:41,  1.04s/frame]Processing:  92%|█████████▏| 472/511 [05:52<00:40,  1.05s/frame]Processing:  93%|█████████▎| 473/511 [05:53<00:37,  1.02frame/s]Processing:  93%|█████████▎| 474/511 [05:54<00:34,  1.06frame/s]Processing:  93%|█████████▎| 475/511 [05:54<00:32,  1.10frame/s]Processing:  93%|█████████▎| 476/511 [05:55<00:31,  1.13frame/s]Processing:  93%|█████████▎| 477/511 [05:56<00:29,  1.14frame/s]Processing:  94%|█████████▎| 478/511 [05:57<00:29,  1.13frame/s]Processing:  94%|█████████▎| 479/511 [05:58<00:31,  1.02frame/s]Processing:  94%|█████████▍| 480/511 [05:59<00:29,  1.04frame/s]Processing:  94%|█████████▍| 481/511 [06:00<00:27,  1.11frame/s]Processing:  94%|█████████▍| 482/511 [06:01<00:25,  1.13frame/s]Processing:  95%|█████████▍| 483/511 [06:02<00:26,  1.05frame/s]Processing:  95%|█████████▍| 484/511 [06:03<00:24,  1.09frame/s]Processing:  95%|█████████▍| 485/511 [06:03<00:21,  1.23frame/s]Processing:  95%|█████████▌| 486/511 [06:04<00:18,  1.34frame/s]Processing:  95%|█████████▌| 487/511 [06:04<00:16,  1.43frame/s]Processing:  95%|█████████▌| 488/511 [06:05<00:16,  1.37frame/s]Processing:  96%|█████████▌| 489/511 [06:06<00:16,  1.31frame/s]Processing:  96%|█████████▌| 490/511 [06:07<00:14,  1.49frame/s]Processing:  96%|█████████▌| 491/511 [06:07<00:12,  1.65frame/s]Processing:  96%|█████████▋| 492/511 [06:07<00:10,  1.83frame/s]Processing:  96%|█████████▋| 493/511 [06:08<00:09,  1.98frame/s]Processing:  97%|█████████▋| 494/511 [06:08<00:08,  2.02frame/s]Processing:  97%|█████████▋| 495/511 [06:09<00:07,  2.04frame/s]Processing:  97%|█████████▋| 496/511 [06:09<00:07,  2.03frame/s]Processing:  97%|█████████▋| 497/511 [06:10<00:07,  1.98frame/s]Processing:  97%|█████████▋| 498/511 [06:10<00:06,  2.00frame/s]Processing:  98%|█████████▊| 499/511 [06:11<00:06,  1.88frame/s]Processing:  98%|█████████▊| 500/511 [06:12<00:06,  1.63frame/s]Processing:  98%|█████████▊| 501/511 [06:14<00:09,  1.00frame/s]Processing:  98%|█████████▊| 502/511 [06:14<00:07,  1.18frame/s]Processing:  98%|█████████▊| 503/511 [06:15<00:05,  1.36frame/s]Processing:  99%|█████████▊| 504/511 [06:15<00:04,  1.46frame/s]Processing:  99%|█████████▉| 505/511 [06:16<00:04,  1.49frame/s]Processing:  99%|█████████▉| 506/511 [06:17<00:04,  1.12frame/s]Processing:  99%|█████████▉| 507/511 [06:18<00:03,  1.08frame/s]Processing:  99%|█████████▉| 508/511 [06:19<00:02,  1.12frame/s]Processing: 100%|█████████▉| 509/511 [06:20<00:01,  1.22frame/s]Processing: 100%|█████████▉| 510/511 [06:20<00:00,  1.32frame/s]Processing: 100%|██████████| 511/511 [06:21<00:00,  1.42frame/s]Processing: 100%|██████████| 511/511 [06:21<00:00,  1.34frame/s]
-ffmpeg version 4.4.2-0ubuntu0.22.04.1 Copyright (c) 2000-2021 the FFmpeg developers
-  built with gcc 11 (Ubuntu 11.2.0-19ubuntu1)
-  configuration: --prefix=/usr --extra-version=0ubuntu0.22.04.1 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 --enable-gpl --disable-stripping --enable-gnutls --enable-ladspa --enable-libaom --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libcodec2 --enable-libdav1d --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libgme --enable-libgsm --enable-libjack --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librabbitmq --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libssh --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzimg --enable-libzmq --enable-libzvbi --enable-lv2 --enable-omx --enable-openal --enable-opencl --enable-opengl --enable-sdl2 --enable-pocketsphinx --enable-librsvg --enable-libmfx --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-libx264 --enable-shared
-  libavutil      56. 70.100 / 56. 70.100
-  libavcodec     58.134.100 / 58.134.100
-  libavformat    58. 76.100 / 58. 76.100
-  libavdevice    58. 13.100 / 58. 13.100
-  libavfilter     7.110.100 /  7.110.100
-  libswscale      5.  9.100 /  5.  9.100
-  libswresample   3.  9.100 /  3.  9.100
-  libpostproc    55.  9.100 / 55.  9.100
-Input #0, image2, from 'content/temp/target_video/%08d.png':
-  Duration: 00:00:20.44, start: 0.000000, bitrate: N/A
-  Stream #0:0: Video: png, rgb24(pc), 720x1280, 25 fps, 25 tbr, 25 tbn, 25 tbc
-Stream mapping:
-  Stream #0:0 -> #0:0 (png (native) -> h264 (libx264))
-Press [q] to stop, [?] for help
-[libx264 @ 0x5c89a0728480] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2
-[libx264 @ 0x5c89a0728480] profile High, level 3.1, 4:2:0, 8-bit
-[libx264 @ 0x5c89a0728480] 264 - core 163 r3060 5db6aa6 - H.264/MPEG-4 AVC codec - Copyleft 2003-2021 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=40 lookahead_threads=6 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00
-Output #0, mp4, to 'content/output_video.mp4':
-  Metadata:
-    encoder         : Lavf58.76.100
-  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv420p(tv, progressive), 720x1280, q=2-31, 25 fps, 12800 tbn
-    Metadata:
-      encoder         : Lavc58.134.100 libx264
-    Side data:
-      cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
-frame=    1 fps=0.0 q=0.0 size=       0kB time=00:00:00.00 bitrate=N/A speed=   0x    frame=  101 fps=0.0 q=28.0 size=       0kB time=00:00:00.56 bitrate=   0.7kbits/s speed=1.06x    frame=  215 fps=209 q=28.0 size=       0kB time=00:00:05.12 bitrate=   0.1kbits/s speed=4.97x    frame=  336 fps=219 q=28.0 size=     256kB time=00:00:09.96 bitrate= 210.6kbits/s speed= 6.5x    frame=  445 fps=219 q=28.0 size=     256kB time=00:00:14.32 bitrate= 146.5kbits/s speed=7.04x    frame=  511 fps=210 q=-1.0 Lsize=     719kB time=00:00:20.32 bitrate= 289.8kbits/s speed=8.36x    
-video:712kB audio:0kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 0.958013%
-[libx264 @ 0x5c89a0728480] frame I:3     Avg QP:12.51  size: 32504
-[libx264 @ 0x5c89a0728480] frame P:132   Avg QP:17.03  size:  3363
-[libx264 @ 0x5c89a0728480] frame B:376   Avg QP:22.17  size:   497
-[libx264 @ 0x5c89a0728480] consecutive B-frames:  0.6%  3.5%  1.2% 94.7%
-[libx264 @ 0x5c89a0728480] mb I  I16..4: 52.8% 32.8% 14.4%
-[libx264 @ 0x5c89a0728480] mb P  I16..4:  0.2%  0.5%  0.1%  P16..4:  7.0%  3.5%  2.0%  0.0%  0.0%    skip:86.6%
-[libx264 @ 0x5c89a0728480] mb B  I16..4:  0.0%  0.0%  0.0%  B16..8:  4.3%  0.5%  0.1%  direct: 0.1%  skip:94.9%  L0:45.2% L1:45.6% BI: 9.2%
-[libx264 @ 0x5c89a0728480] 8x8 transform intra:40.8% inter:74.3%
-[libx264 @ 0x5c89a0728480] coded y,uvDC,uvAC intra: 33.4% 36.2% 20.2% inter: 1.4% 1.3% 0.1%
-[libx264 @ 0x5c89a0728480] i16 v,h,dc,p: 83% 10%  4%  4%
-[libx264 @ 0x5c89a0728480] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu: 36% 20% 16%  3%  4%  6%  5%  4%  6%
-[libx264 @ 0x5c89a0728480] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 34% 26%  9%  4%  5%  6%  6%  5%  4%
-[libx264 @ 0x5c89a0728480] i8c dc,h,v,p: 67% 14% 14%  4%
-[libx264 @ 0x5c89a0728480] Weighted P-Frames: Y:0.0% UV:0.0%
-[libx264 @ 0x5c89a0728480] ref P L0: 67.5% 11.3% 14.8%  6.5%
-[libx264 @ 0x5c89a0728480] ref B L0: 84.5% 12.7%  2.8%
-[libx264 @ 0x5c89a0728480] ref B L1: 98.2%  1.8%
-[libx264 @ 0x5c89a0728480] kb/s:285.06
-[image2 @ 0x5d29550a02c0] Could find no file with path 'content/temp/target_video/%04d.png' and index in the range 0-4
-content/temp/target_video/%04d.png: No such file or directory
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[DEBUG] Enhancing 1 faces in frame
-[INFO] Compiling video from frames in content/temp/target_video to content/output_video.mp4
-[INFO] Video compilation complete
-[FaceEnhancer] Finished enhancing video frames
-[ROOP.CORE] Creating video with 30 FPS...
-[❌] ffmpeg failed with return code 1
-[DEBUG] skip_audio: False, keep_fps: False
-[ROOP.CORE] Restoring audio might cause issues as fps are not kept...
-[DEBUG] add_audio_to_video() called
-[DEBUG] Output video path: content/output_video.mp4
-[DEBUG] Target video (audio source) path: content/target_video.mp4
-🔍 Audio stream check: content/target_video.mp4
-[✅] Audio codec detected: aac
-[INFO] Adding original audio from target video...
-[DEBUG] Temporary output path: content/output_video_with_audio.mp4
-🔍 Audio stream check: content/output_video_with_audio.mp4
-[✅] Audio codec detected: aac
-[✅] Final swapped video generated with audio.
-[DEBUG] Duration target: 17.13s, output: 17.16s (Δ 0.03s)
-[ROOP.CORE] Cleaning temporary resources...
-[ROOP.CORE] Processing to video succeed!
-[1;32m[✅ SUCCESS][0m Finished in 498 seconds (00:08:18)

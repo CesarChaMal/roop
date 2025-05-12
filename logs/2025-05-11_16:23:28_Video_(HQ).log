@@ -1,69 +1,0 @@
-2025-05-11 16:23:28.991749: E tensorflow/compiler/xla/stream_executor/cuda/cuda_dnn.cc:9342] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
-2025-05-11 16:23:28.991779: E tensorflow/compiler/xla/stream_executor/cuda/cuda_fft.cc:609] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
-2025-05-11 16:23:28.991799: E tensorflow/compiler/xla/stream_executor/cuda/cuda_blas.cc:1518] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
-/f/IdeaProjects/roop/.venv/lib/python3.10/site-packages/torchvision/transforms/functional_tensor.py:5: UserWarning: The torchvision.transforms.functional_tensor module is deprecated in 0.15 and will be **removed in 0.17**. Please don't rely on it. You probably just need to use APIs in torchvision.transforms.functional or in torchvision.transforms.v2.functional.
-  warnings.warn(
-[DEBUG] sys.argv = ['run.py', '--target', 'content/target_video.mp4', '--source', 'content/source_image.png', '--output', 'content/output_video.mp4', '--execution-provider', 'cuda', '--frame-processor', 'face_swapper', 'face_enhancer', '--execution-threads', '8']
-[DEBUG] roop.globals.source_path = content/source_image.png
-[DEBUG] roop.globals.multi_source_paths = ['content/source_image.png']
-[DEBUG] frame_processors = ['face_swapper', 'face_enhancer']
-[DEBUG] start source_path = content/source_image.png
-[DEBUG] multi_source_paths = ['content/source_image.png']
-[DEBUG] target_path = content/target_video.mp4
-[DEBUG] output_path = content/output_video.mp4
-[DEBUG] pre_start face_swapper source_path = content/source_image.png
-[DEBUG] pre_start face_swapper multi_source_paths = ['content/source_image.png']
-Applied providers: ['CUDAExecutionProvider', 'CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}, 'CUDAExecutionProvider': {'tunable_op_max_tuning_duration_ms': '0', 'enable_skip_layer_norm_strict_mode': '0', 'tunable_op_tuning_enable': '0', 'device_id': '0', 'has_user_compute_stream': '0', 'gpu_mem_limit': '18446744073709551615', 'gpu_external_alloc': '0', 'gpu_external_free': '0', 'gpu_external_empty_cache': '0', 'cudnn_conv_algo_search': 'EXHAUSTIVE', 'cudnn_conv1d_pad_to_nc1d': '0', 'arena_extend_strategy': 'kNextPowerOfTwo', 'do_copy_in_default_stream': '1', 'enable_cuda_graph': '0', 'cudnn_conv_use_max_workspace': '1', 'tunable_op_enable': '0'}}
-find model: /home/cesarchamal/.insightface/models/buffalo_l/1k3d68.onnx landmark_3d_68 ['None', 3, 192, 192] 0.0 1.0
-Applied providers: ['CUDAExecutionProvider', 'CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}, 'CUDAExecutionProvider': {'tunable_op_max_tuning_duration_ms': '0', 'enable_skip_layer_norm_strict_mode': '0', 'tunable_op_tuning_enable': '0', 'device_id': '0', 'has_user_compute_stream': '0', 'gpu_mem_limit': '18446744073709551615', 'gpu_external_alloc': '0', 'gpu_external_free': '0', 'gpu_external_empty_cache': '0', 'cudnn_conv_algo_search': 'EXHAUSTIVE', 'cudnn_conv1d_pad_to_nc1d': '0', 'arena_extend_strategy': 'kNextPowerOfTwo', 'do_copy_in_default_stream': '1', 'enable_cuda_graph': '0', 'cudnn_conv_use_max_workspace': '1', 'tunable_op_enable': '0'}}
-find model: /home/cesarchamal/.insightface/models/buffalo_l/2d106det.onnx landmark_2d_106 ['None', 3, 192, 192] 0.0 1.0
-Applied providers: ['CUDAExecutionProvider', 'CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}, 'CUDAExecutionProvider': {'tunable_op_max_tuning_duration_ms': '0', 'enable_skip_layer_norm_strict_mode': '0', 'tunable_op_tuning_enable': '0', 'device_id': '0', 'has_user_compute_stream': '0', 'gpu_mem_limit': '18446744073709551615', 'gpu_external_alloc': '0', 'gpu_external_free': '0', 'gpu_external_empty_cache': '0', 'cudnn_conv_algo_search': 'EXHAUSTIVE', 'cudnn_conv1d_pad_to_nc1d': '0', 'arena_extend_strategy': 'kNextPowerOfTwo', 'do_copy_in_default_stream': '1', 'enable_cuda_graph': '0', 'cudnn_conv_use_max_workspace': '1', 'tunable_op_enable': '0'}}
-find model: /home/cesarchamal/.insightface/models/buffalo_l/det_10g.onnx detection [1, 3, '?', '?'] 127.5 128.0
-Applied providers: ['CUDAExecutionProvider', 'CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}, 'CUDAExecutionProvider': {'tunable_op_max_tuning_duration_ms': '0', 'enable_skip_layer_norm_strict_mode': '0', 'tunable_op_tuning_enable': '0', 'device_id': '0', 'has_user_compute_stream': '0', 'gpu_mem_limit': '18446744073709551615', 'gpu_external_alloc': '0', 'gpu_external_free': '0', 'gpu_external_empty_cache': '0', 'cudnn_conv_algo_search': 'EXHAUSTIVE', 'cudnn_conv1d_pad_to_nc1d': '0', 'arena_extend_strategy': 'kNextPowerOfTwo', 'do_copy_in_default_stream': '1', 'enable_cuda_graph': '0', 'cudnn_conv_use_max_workspace': '1', 'tunable_op_enable': '0'}}
-find model: /home/cesarchamal/.insightface/models/buffalo_l/genderage.onnx genderage ['None', 3, 96, 96] 0.0 1.0
-Applied providers: ['CUDAExecutionProvider', 'CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}, 'CUDAExecutionProvider': {'tunable_op_max_tuning_duration_ms': '0', 'enable_skip_layer_norm_strict_mode': '0', 'tunable_op_tuning_enable': '0', 'device_id': '0', 'has_user_compute_stream': '0', 'gpu_mem_limit': '18446744073709551615', 'gpu_external_alloc': '0', 'gpu_external_free': '0', 'gpu_external_empty_cache': '0', 'cudnn_conv_algo_search': 'EXHAUSTIVE', 'cudnn_conv1d_pad_to_nc1d': '0', 'arena_extend_strategy': 'kNextPowerOfTwo', 'do_copy_in_default_stream': '1', 'enable_cuda_graph': '0', 'cudnn_conv_use_max_workspace': '1', 'tunable_op_enable': '0'}}
-find model: /home/cesarchamal/.insightface/models/buffalo_l/w600k_r50.onnx recognition ['None', 3, 112, 112] 127.5 127.5
-set det-size: (640, 640)
-[DEBUG] pre_start face_enhancer source_path = content/source_image.png
-[DEBUG] pre_start face_enhancer multi_source_paths = ['content/source_image.png']
-  0%|          | 0/511 [00:00<?, ?it/s]  0%|          | 2/511 [00:01<04:41,  1.81it/s] 20%|██        | 104/511 [00:01<00:03, 118.25it/s] 41%|████▏     | 211/511 [00:01<00:01, 251.89it/s] 62%|██████▏   | 318/511 [00:01<00:00, 388.12it/s] 80%|████████  | 410/511 [00:01<00:00, 484.86it/s] 98%|█████████▊| 500/511 [00:01<00:00, 564.68it/s]100%|██████████| 511/511 [00:01<00:00, 309.73it/s]
-[ROOP.CORE] Creating temporary resources...
-[INFO] Created temp directory: content/temp/target_video
-[ROOP.CORE] Extracting frames with 30 FPS...
-[INFO] Using CUDA hardware decode
-[ROOP.FACE-SWAPPER] Progressing...
-[FaceSwapper] Starting process_video
-[DEBUG] source_paths = ['content/source_image.png']
-[DEBUG] number of frames = 511
-[DEBUG] Loaded total source faces: 1
-[DEBUG] Reference face bbox: [328.21375 616.82385 415.50388 734.88   ]
-[DEBUG] Reference face set successfully
-[DEBUG] ref_face.image is None: False
-[DEBUG] ref_face.image.shape = (711, 304, 3)
-[DEBUG] ref_face.landmarks: [[331.9085388183594, 645.0231323242188], [333.042236328125, 658.72607421875], [334.2178955078125, 673.0840454101562], [335.3919982910156, 687.161865234375], [336.84014892578125, 700.8532104492188]]
-Processing:   0%|          | 0/511 [00:00<?, ?frame/s]Processing:   0%|          | 0/511 [00:07<?, ?frame/s]
-[DEBUG] Detected 1 faces in frame
-[DEBUG] source_face.image.shape = (711, 304, 3)
-Applied providers: ['CUDAExecutionProvider', 'CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}, 'CUDAExecutionProvider': {'tunable_op_max_tuning_duration_ms': '0', 'enable_skip_layer_norm_strict_mode': '0', 'tunable_op_tuning_enable': '0', 'device_id': '0', 'has_user_compute_stream': '0', 'gpu_mem_limit': '18446744073709551615', 'gpu_external_alloc': '0', 'gpu_external_free': '0', 'gpu_external_empty_cache': '0', 'cudnn_conv_algo_search': 'EXHAUSTIVE', 'cudnn_conv1d_pad_to_nc1d': '0', 'arena_extend_strategy': 'kNextPowerOfTwo', 'do_copy_in_default_stream': '1', 'enable_cuda_graph': '0', 'cudnn_conv_use_max_workspace': '1', 'tunable_op_enable': '0'}}
-inswapper-shape: [1, 3, 128, 128]
-[WARN] Could not save debug swapped face image: OpenCV(4.8.0) :-1: error: (-5:Bad argument) in function 'imwrite'
-> Overload resolution failed:
->  - img is not a numerical tuple
->  - Expected Ptr<cv::UMat> for argument 'img'
-
-Traceback (most recent call last):
-  File "/f/IdeaProjects/roop/run.py", line 6, in <module>
-    core.run()
-  File "/f/IdeaProjects/roop/roop/core.py", line 286, in run
-    start()
-  File "/f/IdeaProjects/roop/roop/core.py", line 229, in start
-    frame_processor.process_video(sources, roop.globals.target_path, temp_frame_paths)
-  File "/f/IdeaProjects/roop/roop/processors/frame/face_swapper.py", line 422, in process_video
-    core_process_video(
-  File "/f/IdeaProjects/roop/roop/processors/frame/core.py", line 98, in core_process_video
-    cv2.imwrite(path, result)
-cv2.error: OpenCV(4.8.0) :-1: error: (-5:Bad argument) in function 'imwrite'
-> Overload resolution failed:
->  - img is not a numerical tuple
->  - Expected Ptr<cv::UMat> for argument 'img'
-
