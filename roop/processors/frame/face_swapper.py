@@ -317,126 +317,58 @@ def process_image(source_paths: List[str], target_path: str, output_path: str) -
 
 def process_video(source_paths: List[str], target_path: str, temp_frame_paths: List[str]) -> None:
     print("[FaceSwapper] Starting process_video")
-    print(f"[DEBUG] source_paths = {source_paths}")
-    print(f"[DEBUG] number of frames = {len(temp_frame_paths)}")
 
-    # Step 1: Lock reference target face from one frame
-    ref_frame_idx = roop.globals.reference_frame_number
-    reference_frame = cv2.imread(temp_frame_paths[min(ref_frame_idx, len(temp_frame_paths) - 1)])
-    reference_target_face = None
-    all_faces = get_many_faces(reference_frame)
-    if len(all_faces) > roop.globals.reference_face_position:
-        reference_target_face = all_faces[roop.globals.reference_face_position]
-        print("[DEBUG] Locked reference target face for matching.")
-    else:
+    # Step 1: Collect unique faces across all frames
+    all_detected_faces = []
+    for frame_path in temp_frame_paths:
+        frame = cv2.imread(frame_path)
+        faces_in_frame = get_many_faces(frame)
+        for face in faces_in_frame:
+            if not any(np.linalg.norm(face.embedding - known_face.embedding) < roop.globals.similar_face_distance for known_face in all_detected_faces):
+                all_detected_faces.append(face)
+
+    print(f"[DEBUG] Total unique faces detected: {len(all_detected_faces)}")
+
+    # Check if reference_face_position is valid
+    if roop.globals.reference_face_position >= len(all_detected_faces):
         print("[ERROR] Reference face position out of range.")
         return
 
-    # Load all source faces
+    # Step 2: Lock the selected reference face
+    reference_target_face = all_detected_faces[roop.globals.reference_face_position]
+    print("[DEBUG] Locked reference face for swapping.")
+
+    # Load source faces
     source_faces = []
     for path in source_paths:
         image = cv2.imread(path)
-        if image is None:
-            continue
-        faces = get_many_faces(image)  # not get_one_face
+        faces = get_many_faces(image)
         if faces:
             source_faces.extend(faces)
-            print(f"[DEBUG] Loaded source face from {path}, landmarks: {faces[0].landmarks}")
-
-    print(f"[DEBUG] Loaded total source faces: {len(source_faces)}")
 
     if not source_faces:
         update_status("No valid source faces detected.", NAME)
         return
 
-    # Ensure face reference exists
-    if not get_face_reference():
-        # Load reference from the source image directly
-        source_image = cv2.imread(source_paths[0])
-        if source_image is not None:
-            reference_face = get_one_face(source_image)
-            if reference_face is not None:
-                reference_face.image = source_image
-                print("[DEBUG] Reference face bbox:", reference_face['bbox'])
-                set_face_reference(reference_face)
-                print("[DEBUG] Reference face set successfully from source image")
-            else:
-                print("[ERROR] No face found in source image to use as reference")
-        else:
-            print("[ERROR] Failed to load source image for reference")
-
-            set_face_reference(reference_face)
-            print("[DEBUG] Reference face set successfully")
-
-    ref_face = get_face_reference()
-    print(f"[DEBUG] ref_face.image is None: {ref_face.image is None}")
-    if ref_face.image is not None:
-        print(f"[DEBUG] ref_face.image.shape = {ref_face.image.shape}")
-    print(f"[DEBUG] ref_face.landmarks: {ref_face.landmarks[:5] if ref_face.landmarks else 'None'}")
-
-    def resolve_source_face(i: int, source_faces: List[Face], ref_face: Face) -> Face:
-        # Always use source_faces list (never fall back to ref_face)
-        face = source_faces[i] if i < len(source_faces) else source_faces[-1]
-
-        # Reload image if somehow missing
-        if face.image is None:
-            source_img_path = (
-                roop.globals.multi_source_paths[i]
-                if roop.globals.multi_source and i < len(roop.globals.multi_source_paths)
-                else roop.globals.source_path
-            )
-            print(f"[DEBUG] Reloading face image from: {source_img_path}")
-            face.image = cv2.imread(source_img_path)
-
-        cv2.imwrite(f"debug_output/resolved_source_face_{i}.png", face.image)
-        return face
-
+    # Step 3: Define swap function referencing the locked face
     def swap_func(_: str, __: str, frame: Frame, index: int) -> Frame:
-        if roop.globals.many_faces:
-            target_faces = get_many_faces(frame)
-            print(f"[DEBUG] Detected {len(target_faces)} faces in frame {index}")
+        target_face = find_similar_face(frame, reference_target_face)
+        if not target_face:
+            print(f"[WARN] No matching face found in frame {index}, skipping.")
+            return frame
 
-            for i, target_face in enumerate(target_faces):
-                source_face = resolve_source_face(i, source_faces, ref_face)
-                if source_face.image is None:
-                    print(f"[ERROR] Source face {i} has no image, skipping...")
-                    continue
-
-                if roop.globals.preserve_expressions:
-                    frame = swap_face_with_expression(
-                        source_face, target_face,
-                        original_frame=source_face.image,
-                        temp_frame=frame,
-                        index=index * 100 + i,
-                        prefix="video"
-                    )
-                else:
-                    frame = swap_face(source_face, target_face, frame,
-                                      index=index * 100 + i, prefix="video")
+        source_face = source_faces[0]  # Default to first source face
+        if roop.globals.preserve_expressions:
+            frame = swap_face_with_expression(
+                source_face, target_face, original_frame=source_face.image, temp_frame=frame, index=index, prefix="video"
+            )
         else:
-            target_face = find_similar_face(frame, reference_target_face)
-            if not target_face:
-                print(f"[WARN] No matching face found in frame {index}, skipping.")
-                return frame
-
-            source_face = resolve_source_face(0, source_faces, ref_face)
-            if source_face.image is None:
-                print(f"[ERROR] Source face image is missing, trying reload...")
-                source_face.image = cv2.imread(roop.globals.source_path)
-
-            if roop.globals.preserve_expressions:
-                frame = swap_face_with_expression(
-                    source_face, target_face,
-                    original_frame=source_face.image,
-                    temp_frame=frame,
-                    index=index, prefix="video"
-                )
-            else:
-                frame = swap_face(source_face, target_face, frame, index=index, prefix="video")
+            frame = swap_face(source_face, target_face, frame, index=index, prefix="video")
         return frame
 
+    # Final pass: Perform face swapping across all frames
     core_process_video(
-        source_paths[0],  # not used in swap_func
+        source_paths[0],
         target_path,
         temp_frame_paths,
         swap_func,
